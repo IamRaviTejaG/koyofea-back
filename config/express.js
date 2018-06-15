@@ -1,6 +1,6 @@
 const dotenv = require("dotenv").config()
 const express = require("express")
-import routes from "../routes"
+import { router } from "../routes"
 //const auth = require("../controllers/auth").default;
 const bodyParser = require("body-parser")
 //const expressValidator = require("express-validator");
@@ -10,7 +10,7 @@ const bodyParser = require("body-parser")
 
 let app = express();
 app.use(bodyParser.json())
-
+app.use("/", router)
 //app.use(expressValidator());
 
 //app.use(auth.initialize());
@@ -31,5 +31,6 @@ app.use(bodyParser.json())
 //         return next();
 //     })(req, res, next);
 // });
-routes(app)
+//routes(app)
+
 export default app;
