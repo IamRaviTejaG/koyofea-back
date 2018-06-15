@@ -5,8 +5,8 @@ import { resolve } from "url";
 
 let query = (sql) => {
     return new Promise ((resolve, reject) => {
-        Promise.using(pool.getConnection(), function(connection) {
-            return connection.query(sql).then(function(rows) {
+        Promise.using(pool.getConnection(), (connection) => {
+            return connection.query(sql).then( (rows) => {
               resolve(rows)
             }).catch(function(error) {
               reject(error)
