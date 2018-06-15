@@ -1,7 +1,6 @@
 
 var Promise = require("bluebird");
 import * as pool from "../config/db"
-import { resolve } from "url";
 
 let query = (sql) => {
     return new Promise ((resolve, reject) => {
