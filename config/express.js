@@ -1,6 +1,10 @@
 const dotenv = require("dotenv").config()
 const express = require("express")
-import { router } from "../routes"
+const morgan = require('morgan')
+import { basic } from "../routes"
+import { student } from "../routes/student"
+import { recruiter } from "../routes/recruiter"
+import { college } from "../routes/college"
 //const auth = require("../controllers/auth").default;
 const bodyParser = require("body-parser")
 //const expressValidator = require("express-validator");
@@ -9,8 +13,12 @@ const bodyParser = require("body-parser")
 
 
 let app = express();
+app.use(morgan('dev'))
 app.use(bodyParser.json())
-app.use("/", router)
+app.use("/", basic)
+app.use("/student", student)
+app.use("/college", college)
+app.use("/recruiter", recruiter)
 //app.use(expressValidator());
 
 //app.use(auth.initialize());
