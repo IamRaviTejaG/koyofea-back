@@ -1,6 +1,7 @@
 const dotenv = require("dotenv").config()
 const express = require("express")
 const morgan = require('morgan')
+import { auth } from "./auth"
 import { basic } from "../routes"
 import { student } from "../routes/student"
 import { recruiter } from "../routes/recruiter"
@@ -10,15 +11,32 @@ const bodyParser = require("body-parser")
 //const expressValidator = require("express-validator");
 
 
-
-
 let app = express();
 app.use(morgan('dev'))
+
+app.use(auth.initialize())
+app.all("/" + "*",(req, res, next) => {
+  console.log("tset")
+  return auth.authenticate((err, user, info) => {
+    if(err) {return next(err)}
+    if(!user) {
+      if (info.name === "TokenExpiredError") {
+        return res.status(401).json({ message: "Your token has expired. Please generate a new one" });
+      } else {
+        return res.status(401).json({ message: info.message });
+      }
+    }
+    app.set("user", user);
+    return next();
+  })(req, res, next)
+})
+
 app.use(bodyParser.json())
 app.use("/", basic)
 app.use("/student", student)
 app.use("/college", college)
 app.use("/recruiter", recruiter)
+
 //app.use(expressValidator());
 
 //app.use(auth.initialize());

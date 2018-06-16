@@ -29,10 +29,10 @@ let connection = mysql.createPool({
   database : dbname
 })
 
-let pool = Bluebird.promisifyAll(connection);
+export let db = Bluebird.promisifyAll(connection);
 
 export function getConnection() {
-  return pool.getConnection().disposer(function(connection) {
-    pool.releaseConnection(connection);
+  return db.getConnection().disposer(function(connection) {
+    db.releaseConnection(connection);
   });
 }
