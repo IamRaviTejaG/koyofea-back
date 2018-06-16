@@ -1,7 +1,7 @@
 export const college = require("express").Router()
 import { query } from "./index"
 export default () => {
-  college.get("/", (req, res) => { 
+  college.get("/", (req, res) => {
     query('show tables').then((result) => {
     }).catch((err) => {
       throw err

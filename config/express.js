@@ -11,22 +11,22 @@ const bodyParser = require("body-parser")
 //const expressValidator = require("express-validator");
 
 
-let app = express();
+let app = express()
 app.use(morgan('dev'))
-console.log(auth.genToken({email:"ankit"}))
+console.log(auth.genToken({email: "ankit"}))
 app.use(auth.initialize())
-app.all("/" + "*",(req, res, next) => {
+app.all("/" + "*", (req, res, next) => {
   return auth.authenticate((err, user, info) => {
     if(err) {return next(err)}
     if(!user) {
       if (info.name === "TokenExpiredError") {
-        return res.status(401).json({ message: "Your token has expired. Please generate a new one" });
+        return res.status(401).json({ message: "Your token has expired. Please generate a new one" })
       } else {
-        return res.status(401).json({ message: info.message });
+        return res.status(401).json({ message: info.message })
       }
     }
-    app.set("user", user);
-    return next();
+    app.set("user", user)
+    return next()
   })(req, res, next)
 })
 
@@ -59,4 +59,4 @@ app.use("/recruiter", recruiter)
 // });
 //routes(app)
 
-export default app;
+export default app
