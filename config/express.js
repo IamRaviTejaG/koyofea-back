@@ -13,10 +13,9 @@ const bodyParser = require("body-parser")
 
 let app = express();
 app.use(morgan('dev'))
-
+console.log(auth.genToken({email:"ankit"}))
 app.use(auth.initialize())
 app.all("/" + "*",(req, res, next) => {
-  console.log("tset")
   return auth.authenticate((err, user, info) => {
     if(err) {return next(err)}
     if(!user) {
@@ -30,6 +29,7 @@ app.all("/" + "*",(req, res, next) => {
     return next();
   })(req, res, next)
 })
+
 
 app.use(bodyParser.json())
 app.use("/", basic)

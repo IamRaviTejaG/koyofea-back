@@ -8,13 +8,13 @@ const dotenv = require("dotenv").config()
 function getStrategy(){
   let options = {
     secretOrKey: process.env.JWT_SECRET,
-    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    jwtFromRequest: ExtractJwt.fromHeader("x-api-key"),
     passReqToCallback: true
   }
-  return new Strategy(options, (req, payload, doen) => {
-    db.query("select * from users where email=" + payload.email, (row, err) =>{
+  return new Strategy(options, (req, payload, done) => {
+    db.query("show * from users where email=" + payload.email, (row, err) =>{
       if(err) {
-        return done(err, flase)
+        return done(err, false)
       }
       if(row[0]){
         return done(null, row[0])
@@ -40,7 +40,7 @@ export let auth = {
     }, process.env.JWT_SECRET);
 
     return {
-        token: "JWT " + token,
+        token: token,
         expires: moment.unix(expires).format(),
         user: user
     };
