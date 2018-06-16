@@ -1,6 +1,6 @@
 export const basic = require("express").Router()
 let Promise = require("bluebird")
-import { getConnection } as pool from "../config/db"
+import { getConnection }  from "../config/db"
 import { query } from "../config/db"
 
 import recruiter from "./recruiter"
