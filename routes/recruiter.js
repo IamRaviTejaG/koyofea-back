@@ -6,7 +6,9 @@ import { recruiter_drive_round_model } from "../models/recruiter/recruiter_drive
 import { recruiter_hr_model } from "../models/recruiter/recruiter_hr"
 
 export default () => {
-  // Root index: For recruiter (company) information
+  // RECRUITER INDEX
+  // GET: Gets all the companies' (recruiters') info.
+  // POST: Adds a company (recruiter) data.
   recruiter.route('/', jsonparser)
     .get((req, res) => {
       let a = recruiter_model.get_all()
@@ -17,6 +19,10 @@ export default () => {
       res.status(200)
     })
 
+  // RECRUITER with ID
+  // GET: Gets a company's (recruiter's) info.
+  // POST: Adds a company's (recruiter's) data.
+  // DELETE: Deletes a company's (recruiter's) data.
   recruiter.route('/:id')
     .get((req, res) => {
       let a = recruiter_model.get_by_id(req.params.id)
@@ -27,13 +33,17 @@ export default () => {
       res.status(200)
     })
 
-  // Drive: For recruitment drives' information
+  // DRIVE
+  // POST: Adds a company (recruiter) drive info.
   recruiter.route('/drive', jsonparser)
     .post((req, res) => {
       let a = recruiter_drive_model.add(Object.values(req.body))
       res.status(200)
     })
 
+  // RECRUITER DRIVE with ID
+  // GET: Gets a specific company's drive info.
+  // DELETE: Deletes a company's drive info.
   recruiter.route('/drive/:id')
     .get((req, res) => {
       let a = recruiter_drive_model.get_by_id(req.params.id)
@@ -44,7 +54,10 @@ export default () => {
       res.status(200)
     })
 
-  // Drive_Round: For recruiterment drive rounds' information
+  // DRIVE & ROUND with IDs
+  // GET: Gets a specific company's drive's round info.
+  // POST: Adds a specific company's drive's round info.
+  // DELETE: Deletes a specific company's drive's round info.
   recruiter.route('/drive/:driveid/round/:roundid', jsonparser)
     .get((req, res) => {
       let a = recruiter_drive_round_model.get_by_id(
@@ -69,7 +82,9 @@ export default () => {
       res.status(200)
     })
 
-  // hr: For recruiter (personal) information
+  // HR
+  // GET: Gets all the companies' HRs personal info.
+  // POST: Posts a specific company's HR personal info.
   recruiter.route('/hr', jsonparser)
     .get((req, res) => {
       let a = recruiter_hr_model.get_all()
@@ -80,6 +95,9 @@ export default () => {
       res.status(200)
     })
 
+  // HR with ID
+  // GET: Gets a specific HR's personal info.
+  // DELETE: Deletes a specific HR's personal info.
   recruiter.route('/hr/:id')
     .get((req, res) => {
       let a = recruiter_hr_model.get_by_id(req.params.id)

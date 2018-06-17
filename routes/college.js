@@ -4,7 +4,9 @@ import { college_model } from "../models/college/college"
 import { college_coordinator_model } from "../models/college/college_coordinator"
 
 export default () => {
-  // Root index: For college (company) information
+  // COLLEGE INDEX
+  // GET: Gets all the colleges' info.
+  // POST: Adds a college's info.
   college.route('/', jsonparser)
     .get((req, res) => {
       let a = college_model.get_all()
@@ -15,6 +17,9 @@ export default () => {
       res.status(200)
     })
 
+  // COLLEGE with ID
+  // GET: Gets a college's info given the college ID.
+  // DELETE: Deletes a college's info given the college ID.
   college.route('/:id')
     .get((req, res) => {
       let a = college_model.get_by_id(req.params.id)
@@ -25,6 +30,10 @@ export default () => {
       res.status(200)
     })
 
+  // COORDINATOR with ID
+  // GET: Gets a college coordinator's info given the coordinator ID.
+  // POST: Adds a college coordinator's info given the coordinator ID.
+  // DELETE: Deletes a college coordinator's info given the coordinator ID.
   college.route('/coordinator/:coordinatorid', jsonparser)
     .get((req, res) => {
       let a = college_coordinator_model.get_by_id(req.params.coordinatorid)
