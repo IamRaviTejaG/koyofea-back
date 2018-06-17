@@ -10,8 +10,14 @@ export default () => {
   // POST: Adds student's personal info.
   student.route('/', jsonparser)
     .post((req, res) => {
-      let a = student_model.add(Object.values(req.body))
-      res.status(200)
+      student_model.add(Object.values(req.body)).then((data) => {
+        res.status(200).json(data)
+      }).catch((err) => {
+        res.status(400).json({
+          message: "Bad Request",
+          error: err
+        })
+      })
     })
 
   // STUDENT with ID
@@ -19,11 +25,17 @@ export default () => {
   // DELETE: Deletes a specific student's info given the student id.
   student.route('/:id')
     .get((req, res) => {
-      let a = student_model.get_by_id(req.params.id)
-      res.status(200)
+      student_model.get_by_id(req.params.id).then((data) => {
+        res.status(200).json(data)
+      }).catch((err) => {
+        res.status(400).json({
+          message: "Bad Request",
+          error: err
+        })
+      })
     })
     // .delete((req, res) => {
-    //   let a = student_model.del(req.params.id)
+    //   student_model.del(req.params.id)
     //   res.status(200)
     // })
 
@@ -33,18 +45,30 @@ export default () => {
   // PUT: Updates the student's education info given the student id.
   student.route('/:studentid/education', jsonparser)
     .get((req, res) => {
-      let a = student_education_model.get_by_id(req.params.studentid)
-      res.status(200)
+      student_education_model.get_by_id(req.params.studentid).then((data) => {
+        res.status(200).json(data)
+      }).catch((err) => {
+        res.status(400).json({
+          message: "Bad Request",
+          error: err
+        })
+      })
     })
     .post((req, res) => {
-      let a = student_education_model.add(
+      student_education_model.add(
         req.params.studentid,
         Object.values(req.body)
-      )
-      res.status(200)
+      ).then((data) => {
+        res.status(200).json(data)
+      }).catch((err) => {
+        res.status(400).json({
+          message: "Bad Request",
+          error: err
+        })
+      })
     })
     // .put((req, res) => {
-    //   let a = student_education_model.update(
+    //   student_education_model.update(
     //     req.params.studentid,
     //     Object.values(req.body)
     //   )
@@ -57,18 +81,30 @@ export default () => {
   // PUT: Updates the student's experience info given the student id.
   student.route('/:studentid/experience', jsonparser)
     .get((req, res) => {
-      let a = student_experience_model.get_by_id(req.params.studentid)
-      res.status(200)
+      student_experience_model.get_by_id(req.params.studentid).then((data) => {
+        res.status(200).json(data)
+      }).catch((err) => {
+        res.status(400).json({
+          message: "Bad Request",
+          error: err
+        })
+      })
     })
     .post((req, res) => {
-      let a = student_experience_model.add(
+      student_experience_model.add(
         req.params.studentid,
         Object.values(req.body)
-      )
-      res.status(200)
+      ).then((data) => {
+        res.status(200).json(data)
+      }).catch((err) => {
+        res.status(400).json({
+          message: "Bad Request",
+          error: err
+        })
+      })
     })
     // .put((req, res) => {
-    //   let a = student_experience_model.update(
+    //   student_experience_model.update(
     //     req.params.studentid,
     //     Object.values(req.body)
     //   )
@@ -81,18 +117,30 @@ export default () => {
     // PUT: Updates the student's project info given the student id.
     student.route('/:studentid/projects', jsonparser)
       .get((req, res) => {
-        let a = student_project_model.get_by_id(req.params.studentid)
-        res.status(200)
+        student_project_model.get_by_id(req.params.studentid).then((data) => {
+          res.status(200).json(data)
+        }).catch((err) => {
+          res.status(400).json({
+            message: "Bad Request",
+            error: err
+          })
+        })
       })
       .post((req, res) => {
-        let a = student_project_model.add(
+        student_project_model.add(
           req.params.studentid,
           Object.values(req.body)
-        )
-        res.status(200)
+        ).then((data) => {
+          res.status(200).json(data)
+        }).catch((err) => {
+          res.status(400).json({
+            message: "Bad Request",
+            error: err
+          })
+        })
       })
       // .put((req, res) => {
-      //   let a = student_project_model.update(
+      //   student_project_model.update(
       //     req.params.studentid,
       //     Object.values(req.body)
       //   )

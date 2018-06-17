@@ -62,6 +62,7 @@ export let auth = {
       }).catch((err) => {
         res.status(401).json({message: "Login failed", error: err})
       })
+
   },
   sign_up: (req, res) => {
     let first_name = req.body.first_name

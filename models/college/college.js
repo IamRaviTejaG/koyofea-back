@@ -1,24 +1,16 @@
-import { query } from "../../config/db"
+import { return_data } from "../../config/db"
 
 export let college_model = {
   get_all: () => {
     let sql = 'SELECT * FROM `college`'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   get_by_id: (id) => {
     let sql = 'SELECT * FROM `college` WHERE id="' + id + '"'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   add: (values) => {
@@ -26,22 +18,14 @@ export let college_model = {
     let sql = 'INSERT INTO `college`\
     (name, college_url, placement_url, created_date, address_1, address_2,\
     landmark, city, state, country, pin) VALUES (' + values_str + ')'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   del: (id) => {
     let sql = 'DELETE FROM `college` WHERE id="' + id + '"'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   update: (id, values) => {

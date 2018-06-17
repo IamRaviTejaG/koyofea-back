@@ -1,4 +1,4 @@
-import { query } from "../../config/db"
+import { return_data } from "../../config/db"
 
 export let recruiter_drive_model = {
   // get_all unavailable because getting all drives isn't allowed, given the
@@ -20,12 +20,8 @@ export let recruiter_drive_model = {
     job_location, start_date, end_date, multiple_applications, 12th_percentage,\
     10th_percentage, graduation_year, cgpa, other_eligiblity, no_rounds \
     FROM `recruiter_drive` WHERE id="' + id + '"'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   add: (values) => {
@@ -36,22 +32,14 @@ export let recruiter_drive_model = {
     start_date, end_date, multiple_applications, 12th_percentage,\
     10th_percentage, graduation_year, cgpa, other_eligiblity, no_rounds \
     (' + values_str + ')'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   del: (id) => {
     let sql = 'DELETE FROM `recruiter_drive` WHERE id="' + id + '"'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   update: (id, values) => {
