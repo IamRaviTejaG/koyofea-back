@@ -7,14 +7,15 @@ import { student } from "../routes/student"
 import { recruiter } from "../routes/recruiter"
 import { college } from "../routes/college"
 //const auth = require("../controllers/auth").default;
-const bodyParser = require("body-parser")
+const bodyparser = require("body-parser")
 //const expressValidator = require("express-validator");
 
 
 let app = express()
 app.use(morgan('dev'))
-console.log(auth.genToken({email: "ankit"}))
 app.use(auth.initialize())
+app.use(bodyparser.json()); //for parsing application/json()
+app.use(bodyparser.urlencoded({extended:true}))
 // app.all("/" + "*", (req, res, next) => {
 //   return auth.authenticate((err, user, info) => {
 //     if(err) {return next(err)}
@@ -31,7 +32,6 @@ app.use(auth.initialize())
 // })
 
 
-app.use(bodyParser.json())
 app.use("/", basic)
 app.use("/student", student)
 app.use("/college", college)

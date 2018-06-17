@@ -2,6 +2,7 @@ export const basic = require("express").Router()
 let Promise = require("bluebird")
 import { getConnection }  from "../config/db"
 import { query } from "../config/db"
+import { auth } from "../config/auth"
 
 import recruiter from "./recruiter"
 import student from "./student"
@@ -13,10 +14,12 @@ college()
 basic.get("/", (req, res) => {
   query('show tables').then((result) => {
   }).catch((err) => {
-    throw err
+    console.log(err)
   });
   res.status(200).json({message: "welcome to api testing"})
 })
+
+basic.post("/login", auth.login)
 
 // // If no route is matched by now, it must be a 404
 // basic.use((req, res, next) => {

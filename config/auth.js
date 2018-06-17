@@ -1,7 +1,7 @@
 import * as jwt from "jwt-simple"
 const passport = require("passport")
 const moment = require("moment")
-import { db } from "./db"
+import { db , query} from "./db"
 import { Strategy, ExtractJwt } from "passport-jwt"
 const dotenv = require("dotenv").config()
 
@@ -11,6 +11,7 @@ function getStrategy(){
     jwtFromRequest: ExtractJwt.fromHeader("x-api-key"),
     passReqToCallback: true
   }
+
   return new Strategy(options, (req, payload, done) => {
     db.query("show * from users where email=" + payload.email, (row, err) =>{
       if(err) {
@@ -45,11 +46,28 @@ export let auth = {
         user: user
     };
   },
-  // login: (req, res) => {
-  //   try {
-
-  //   } catch {
-
-  //   }
-  // },
+  login: (req, res) => {
+      let email = req.body.email
+      let password = req.body.password
+      console.log(email, password)
+      query(`select * from users where email="${email}"`).then((rows) => {
+        console.log(rows)
+        if(!rows[0]) {
+          throw "User not found"
+        }
+        if (!(rows[0].password == password)){
+          throw "wrong password"
+        }
+        res.staus(200).json(rows[0])
+      }).catch((err) => {
+        res.status(401).json({message: "Login failed", error: err})
+      })
+  },
+  sign_up: (req, res) => {
+    let first_name = req.body.first_name
+    let last_name = req.body.last_name
+    let email = req.body.email
+    let password = req.body.password
+    let user_type = req.body.user_type
+  }
 }
