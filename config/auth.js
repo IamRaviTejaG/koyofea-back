@@ -47,21 +47,21 @@ export let auth = {
     };
   },
   login: (req, res) => {
-      let email = req.body.email
-      let password = req.body.password
-      console.log(email, password)
-      query(`select * from users where email="${email}"`).then((rows) => {
-        console.log(rows)
-        if(!rows[0]) {
-          throw "User not found"
-        }
-        if (!(rows[0].password == password)){
-          throw "wrong password"
-        }
-        res.staus(200).json(rows[0])
-      }).catch((err) => {
-        res.status(401).json({message: "Login failed", error: err})
-      })
+    let email = req.body.email
+    let password = req.body.password
+    console.log(email, password)
+    query(`select * from users where email="${email}"`).then((rows) => {
+      console.log(rows)
+      if(!rows[0]) {
+        throw "User not found"
+      }
+      if (!(rows[0].password == password)) {
+        throw "wrong password"
+      }
+      res.staus(200).json(rows[0])
+    }).catch((err) => {
+      res.status(401).json({message: "Login failed", error: err})
+    })
   },
   sign_up: (req, res) => {
     let first_name = req.body.first_name

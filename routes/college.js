@@ -9,12 +9,24 @@ export default () => {
   // POST: Adds a college's info.
   college.route('/', jsonparser)
     .get((req, res) => {
-      let a = college_model.get_all()
-      res.status(200)
+      college_model.get_all().then((data) => {
+        res.status(200).json(data)
+      }).catch((err) => {
+        res.status(400).json({
+          message: "Bad Request",
+          error: err
+        })
+      })
     })
     .post((req, res) => {
-      let a = college_model.add(Object.values(req.body))
-      res.status(200)
+      college_model.add(Object.values(req.body)).then((data) => {
+        res.status(200).json(data)
+      }).catch((err) => {
+        res.status(400).json({
+          message: "Bad Request",
+          error: err
+        })
+      })
     })
 
   // COLLEGE with ID
@@ -22,12 +34,24 @@ export default () => {
   // DELETE: Deletes a college's info given the college ID.
   college.route('/:id')
     .get((req, res) => {
-      let a = college_model.get_by_id(req.params.id)
-      res.status(200)
+      college_model.get_by_id(req.params.id).then((data) => {
+        res.status(200).json(data)
+      }).catch((err) => {
+        res.status(400).json({
+          message: "Bad Request",
+          error: err
+        })
+      })
     })
     .delete((req, res) => {
-      let a = college_model.del(req.params.id)
-      res.status(200)
+      college_model.del(req.params.id).then((data) => {
+        res.status(200).json(data)
+      }).catch((err) => {
+        res.status(400).json({
+          message: "Bad Request",
+          error: err
+        })
+      })
     })
 
   // COORDINATOR with ID
@@ -36,18 +60,36 @@ export default () => {
   // DELETE: Deletes a college coordinator's info given the coordinator ID.
   college.route('/coordinator/:coordinatorid', jsonparser)
     .get((req, res) => {
-      let a = college_coordinator_model.get_by_id(req.params.coordinatorid)
-      res.status(200)
+      college_coordinator_model.get_by_id(req.params.coordinatorid).then((data) => {
+        res.status(200).json(data)
+      }).catch((err) => {
+        res.status(400).json({
+          message: "Bad Request",
+          error: err
+        })
+      })
     })
     .post((req, res) => {
-      let a = college_coordinator_model.add(
+      college_coordinator_model.add(
         req.params.coordinatorid,
         Object.values(req.body)
-      )
-      res.status(200)
+      ).then((data) => {
+        res.status(200).json(data)
+      }).catch((err) => {
+        res.status(400).json({
+          message: "Bad Request",
+          error: err
+        })
+      })
     })
     .delete((req, res) => {
-      let a = college_coordinator_model.del(req.params.coordinatorid)
-      res.status(200)
+      college_coordinator_model.del(req.params.coordinatorid).then((data) => {
+        res.status(200).json(data)
+      }).catch((err) => {
+        res.status(400).json({
+          message: "Bad Request",
+          error: err
+        })
+      })
     })
 }

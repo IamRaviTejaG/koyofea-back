@@ -1,4 +1,4 @@
-import { query } from "../../config/db"
+import { return_data } from "../../config/db"
 
 export let student_model = {
   // get_all: () => {
@@ -13,12 +13,8 @@ export let student_model = {
 
   get_by_id: (id) => {
     let sql = 'SELECT * FROM `student` WHERE id="' + id + '"'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   add: (values) => {
@@ -26,12 +22,8 @@ export let student_model = {
     let sql = 'INSERT INTO `student`\
     (first_name, last_name, email, dob, mobile, linkedin, linkedin_id,\
     created_date) VALUES (' + values_str + ')'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   // del: (id) => {
