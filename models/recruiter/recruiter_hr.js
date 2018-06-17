@@ -45,7 +45,8 @@ export let recruiter_hr_model = {
     })
   },
 
-  update: function(callback) {
+  update: (id, values) => {
+    let values_str = values.map(value => `"${value}"`).join(', ')
     let sql = ""
   }
 }

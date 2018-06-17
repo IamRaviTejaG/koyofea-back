@@ -1,8 +1,8 @@
 import { query } from "../../config/db"
 
-export let recruiter_model = {
+export let college_model = {
   get_all: () => {
-    let sql = 'SELECT * FROM `recruiter`'
+    let sql = 'SELECT * FROM `college`'
     query(sql).then((result) => {
       console.log(result)
       return result
@@ -12,7 +12,7 @@ export let recruiter_model = {
   },
 
   get_by_id: (id) => {
-    let sql = 'SELECT * FROM `recruiter` WHERE id="' + id + '"'
+    let sql = 'SELECT * FROM `college` WHERE id="' + id + '"'
     query(sql).then((result) => {
       console.log(result)
       return result
@@ -23,9 +23,9 @@ export let recruiter_model = {
 
   add: (values) => {
     let values_str = values.map(value => `"${value}"`).join(', ')
-    let sql = 'INSERT INTO `recruiter`\
-    (name, website_url, description, phone, address_1, address_2, city, state,\
-    country, pin) VALUES (' + values_str + ')'
+    let sql = 'INSERT INTO `college`\
+    (name, college_url, placement_url, created_date, address_1, address_2,\
+    landmark, city, state, country, pin) VALUES (' + values_str + ')'
     query(sql).then((result) => {
       console.log(result)
       return result
@@ -35,7 +35,7 @@ export let recruiter_model = {
   },
 
   del: (id) => {
-    let sql = 'DELETE FROM `recruiter` WHERE id="' + id + '"'
+    let sql = 'DELETE FROM `college` WHERE id="' + id + '"'
     query(sql).then((result) => {
       console.log(result)
       return result
