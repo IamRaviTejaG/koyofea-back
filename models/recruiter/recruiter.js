@@ -1,5 +1,15 @@
 import { query } from "../../config/db"
 
+let process = (sql) => {
+  return new Promise((resolve, reject) => {
+    query(sql).then((result) => {
+      resolve(result)
+    }).catch((err) => {
+      reject(err)
+    })
+  })
+}
+
 export let recruiter_model = {
   get_all: () => {
     let sql = 'SELECT * FROM `recruiter`'
@@ -13,12 +23,7 @@ export let recruiter_model = {
 
   get_by_id: (id) => {
     let sql = 'SELECT * FROM `recruiter` WHERE id="' + id + '"'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    return process(sql)
   },
 
   add: (values) => {

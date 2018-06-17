@@ -58,7 +58,7 @@ export let auth = {
         if (!(rows[0].password == password)){
           throw "wrong password"
         }
-        res.staus(200).json(rows[0])
+        res.status(200).json(auth.genToken(rows[0]))
       }).catch((err) => {
         res.status(401).json({message: "Login failed", error: err})
       })
@@ -69,5 +69,19 @@ export let auth = {
     let email = req.body.email
     let password = req.body.password
     let user_type = req.body.user_type
+    query(`select * from users where email="${email}"`).then((rows) => {
+      if(rows[0]) {
+        throw "Email already in use"
+      } else {
+        query(`insert into users (first_name, last_name, email, password, user_type_id) value ("${first_name}","${last_name}","${email}","${password}",${user_type})`).then((row) => {
+          res.status(200).json(auth.genToken(rows[0]))
+        }).catch((err) => {
+          res.status(400).json({message: "Sign-up failed", error: err})
+        })
+      }
+    }).catch((err) => {
+      res.status(400).json({message: "Sign-up failed", error: err})
+    })
+    
   }
 }

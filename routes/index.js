@@ -20,7 +20,7 @@ basic.get("/", (req, res) => {
 })
 
 basic.post("/login", auth.login)
-
+basic.post("/signup", auth.sign_up)
 // // If no route is matched by now, it must be a 404
 // basic.use((req, res, next) => {
 //   res.status(404).json({ "error": "Endpoint not found" });

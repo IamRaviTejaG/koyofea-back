@@ -25,8 +25,11 @@ export default () => {
   // DELETE: Deletes a company's (recruiter's) data.
   recruiter.route('/:id')
     .get((req, res) => {
-      let a = recruiter_model.get_by_id(req.params.id)
-      res.status(200)
+      recruiter_model.get_by_id(req.params.id).then((data) => {
+        res.status(200).json(data)
+      }).catch((err) => {
+        res.status(300).json({message: "Something went wrond", error:err})
+      })
     })
     .delete((req, res) => {
       let a = recruiter_model.del(req.params.id)
