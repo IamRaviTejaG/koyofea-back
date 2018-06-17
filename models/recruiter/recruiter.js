@@ -1,20 +1,10 @@
-import { return_data } from "../../config/db"
-
-let process = (sql) => {
-  return new Promise((resolve, reject) => {
-    query(sql).then((result) => {
-      resolve(result)
-    }).catch((err) => {
-      reject(err)
-    })
-  })
-}
+import { process_query } from "../../config/db"
 
 export let recruiter_model = {
   get_all: () => {
     let sql = 'SELECT * FROM `recruiter`'
     console.log(sql)
-    return return_data(sql)
+    return process_query(sql)
     // query(sql).then((result) => {
     //   console.log(result)
     //   return result
@@ -27,7 +17,7 @@ export let recruiter_model = {
     let sql = 'SELECT * FROM `recruiter` WHERE id="' + id + '"'
 
     console.log(sql)
-    return return_data(sql)
+    return process_query(sql)
     // return query(sql).then((result) => {
     //   console.log(result)
     //   b = result
@@ -43,13 +33,13 @@ export let recruiter_model = {
     (name, website_url, description, phone, address_1, address_2, city, state,\
     country, pin) VALUES (' + values_str + ')'
     console.log(sql)
-    return return_data(sql)
+    return process_query(sql)
   },
 
   del: (id) => {
     let sql = 'DELETE FROM `recruiter` WHERE id="' + id + '"'
     console.log(sql)
-    return return_data(sql)
+    return process_query(sql)
     // query(sql).then((result) => {
     //   console.log(result)
     //   return result

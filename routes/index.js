@@ -1,9 +1,8 @@
 export const basic = require("express").Router()
-let Promise = require("bluebird")
+const Promise = require("bluebird")
 import { getConnection }  from "../config/db"
 import { query } from "../config/db"
 import { auth } from "../config/auth"
-
 import recruiter from "./recruiter"
 import student from "./student"
 import college from "./college"
@@ -15,7 +14,7 @@ basic.get("/", (req, res) => {
   query('show tables').then((result) => {
   }).catch((err) => {
     console.log(err)
-  });
+  })
   res.status(200).json({message: "welcome to api testing"})
 })
 

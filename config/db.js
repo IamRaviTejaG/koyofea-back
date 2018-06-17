@@ -35,8 +35,8 @@ export let db = Bluebird.promisifyAll(connection)
 
 export function getConnection() {
   return db.getConnection().disposer(function(connection) {
-    db.releaseConnection(connection);
-  });
+    db.releaseConnection(connection)
+  })
 }
 
 export let query = (sql) => {
@@ -58,7 +58,7 @@ export let query = (sql) => {
   })
 }
 
-export let return_data = (sql) => {
+export let process_query = (sql) => {
   return new Promise((resolve, reject) => {
     query(sql).then((result) => {
       console.log(result)
