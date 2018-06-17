@@ -48,8 +48,10 @@ export let query = (sql) => {
           for (var i=0; i<rows.length; i++)
             data[i] = JSON.parse(JSON.stringify(rows[i]))
         }
+        console.log(data)
         resolve(data)
       }).catch((error) => {
+        console.log(error)
         reject(error)
       })
     })

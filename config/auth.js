@@ -1,9 +1,9 @@
-import * as jwt from "jwt-simple"
-const passport = require("passport")
-const moment = require("moment")
-import { db , query} from "./db"
-import { Strategy, ExtractJwt } from "passport-jwt"
 const dotenv = require("dotenv").config()
+const moment = require("moment")
+const passport = require("passport")
+import * as jwt from "jwt-simple"
+import { db, query} from "./db"
+import { Strategy, ExtractJwt } from "passport-jwt"
 
 function getStrategy(){
   let options = {
@@ -27,25 +27,26 @@ function getStrategy(){
 }
 
 export let auth = {
-
   initialize : () => {
     passport.use("jwt", getStrategy())
     return passport.initialize()
   },
+
   authenticate : (callback) => passport.authenticate("jwt", {sesson : false, failWithError: true}, callback),
+
   genToken: (user) => {
     let expires = moment().utc().add({ days: 7 }).unix();
     let token = jwt.encode({
         exp: expires,
         email: user.email
-    }, process.env.JWT_SECRET);
-
+    }, process.env.JWT_SECRET)
     return {
         token: token,
         expires: moment.unix(expires).format(),
         user: user
-    };
+    }
   },
+
   login: (req, res) => {
       let email = req.body.email
       let password = req.body.password
@@ -64,25 +65,27 @@ export let auth = {
       })
 
   },
+
   sign_up: (req, res) => {
-    let first_name = req.body.first_name
-    let last_name = req.body.last_name
     let email = req.body.email
-    let password = req.body.password
-    let user_type = req.body.user_type
-    query(`select * from users where email="${email}"`).then((rows) => {
-      if(rows[0]) {
-        throw "Email already in use"
+    let values = Object.values(req.body)
+    let values_str = values.map(value => `"${value}"`).join(', ')
+    let sql = 'SELECT * FROM `users` WHERE email="' + req.body.email + '"'
+
+    query(sql).then((rows) => {
+      if (rows[0]) {
+        throw "EMail already used!"
       } else {
-        query(`insert into users (first_name, last_name, email, password, user_type_id) value ("${first_name}","${last_name}","${email}","${password}",${user_type})`).then((row) => {
-          res.status(200).json(auth.genToken(rows[0]))
+        let sql = 'INSERT INTO `users` (first_name, last_name, email,\
+        password, user_type_id) VALUES (' + values_str + ')'
+        query(sql).then((row) => {
+          res.status(200).json(auth.genToken(req.body))
         }).catch((err) => {
-          res.status(400).json({message: "Sign-up failed", error: err})
+          res.status(400).json({message: "Sign-up failed 2", error: err})
         })
       }
     }).catch((err) => {
-      res.status(400).json({message: "Sign-up failed", error: err})
+        res.status(400).json({message: "Sign-up failed", error: err})
     })
-    
   }
 }

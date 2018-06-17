@@ -28,14 +28,10 @@ export default () => {
       recruiter_model.get_by_id(req.params.id).then((data) => {
         res.status(200).json(data)
       }).catch((err) => {
-<<<<<<< HEAD
-        res.status(300).json({message: "Something went wrond", error:err})
-=======
         res.status(400).json({
           message: "Bad Request",
           error: err
         })
->>>>>>> 4ca33feb848aef5f9e20e313c0689b16193d3a71
       })
     })
     .delete((req, res) => {
