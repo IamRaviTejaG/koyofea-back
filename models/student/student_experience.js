@@ -1,4 +1,4 @@
-import { query } from "../../config/db"
+import { return_data } from "../../config/db"
 
 export let student_experience_model = {
   // get_all: () => {
@@ -13,24 +13,16 @@ export let student_experience_model = {
 
   get_by_id: (student_id) => {
     let sql = 'SELECT * FROM `student_experience` WHERE id="' + student_id + '"'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   add: (values) => {
     let values_str = values.map(value => `"${value}"`).join(', ')
     let sql = 'INSERT INTO `student_experience` (start_date, end_date,\
     position, description) VALUES (' + values_str + ')'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   // del: (id) => {

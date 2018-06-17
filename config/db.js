@@ -1,7 +1,8 @@
+const Bluebird = require("bluebird")
+const colors = require('colors')
 const dotenv = require("dotenv").config()
 import * as mysql from "promise-mysql"
-var colors = require('colors');
-const Bluebird = require("bluebird")
+
 let dbname
 
 switch (process.env.NODE_ENV) {
@@ -51,6 +52,17 @@ export let query = (sql) => {
       }).catch((error) => {
         reject(error)
       })
+    })
+  })
+}
+
+export let return_data = (sql) => {
+  return new Promise((resolve, reject) => {
+    query(sql).then((result) => {
+      console.log(result)
+      resolve(result)
+    }).catch((err) => {
+      reject(err)
     })
   })
 }

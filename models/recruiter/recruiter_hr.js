@@ -1,25 +1,17 @@
-import { query } from "../../config/db"
+import { return_data } from "../../config/db"
 
 export let recruiter_hr_model = {
   get_all: () => {
     let sql = "SELECT * FROM `recruiter_hr`"
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   get_by_id: (id) => {
     let sql = 'SELECT first_name, last_name, work_mail, linkedin, linkedin_id\
     FROM `recruiter_hr` WHERE id="' + id + '"'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   add: (values) => {
@@ -27,22 +19,14 @@ export let recruiter_hr_model = {
     let sql = 'INSERT INTO `recruiter_hr`\
     (first_name, last_name, work_mail, linkedin, linkedin_id) VALUES\
     (' + values_str + ')'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   del: (id) => {
     let sql = 'DELETE FROM `recruiter_hr` WHERE id="' + id + '"'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   update: (id, values) => {

@@ -1,4 +1,4 @@
-import { query } from "../../config/db"
+import { return_data } from "../../config/db"
 
 export let recruiter_drive_round_model = {
   // get_all unavailable because getting all drives isn't allowed, given the
@@ -19,12 +19,8 @@ export let recruiter_drive_round_model = {
     no_applied, round_intake, no_passed, date, duration\
     FROM `recruiter_drive_round` WHERE recruiter_round_type_id=\
     "' + round_id + '" AND recruiter_drive_id="' + drive_id + '"'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   add: (drive_id, round_id, values) => {
@@ -34,24 +30,16 @@ export let recruiter_drive_round_model = {
     no_passed, date, duration) VALUES  (' + values_str + ') WHERE\
     recruiter_round_type_id="' + round_id + '" AND recruiter_drive_id=\
     "' + drive_id + '"'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   del: (drive_id, round_id) => {
     let sql = 'DELETE FROM `recruiter_drive_round` WHERE\
     recruiter_round_type_id="' + round_id + '" AND recruiter_drive_id\
     ="' + drive_id + '"'
-    query(sql).then((result) => {
-      console.log(result)
-      return result
-    }).catch((err) => {
-      throw err
-    })
+    console.log(sql)
+    return return_data(sql)
   },
 
   update: (id, values) => {
