@@ -34,7 +34,7 @@ let connection = mysql.createPool({
 export let db = Bluebird.promisifyAll(connection)
 
 export function getConnection() {
-  return db.getConnection().disposer(function(connection) {
+  return db.getConnection().disposer((connection) => {
     db.releaseConnection(connection)
   })
 }
@@ -48,7 +48,7 @@ export let query = (sql) => {
           for (var i=0; i<rows.length; i++)
             data[i] = JSON.parse(JSON.stringify(rows[i]))
         }
-        console.log(data)
+        // console.log(data)
         resolve(data)
       }).catch((error) => {
         console.log(error)
