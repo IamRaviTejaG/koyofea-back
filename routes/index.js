@@ -1,5 +1,6 @@
 export const basic = require("express").Router()
 const Promise = require("bluebird")
+const { check, validationResult } = require("express-validator/check")
 import { getConnection }  from "../config/db"
 import { query } from "../config/db"
 import { auth } from "../config/auth"
@@ -19,7 +20,7 @@ basic.get("/", (req, res) => {
 })
 
 basic.post("/login", auth.login)
-basic.post("/signup", auth.sign_up)
+basic.post("/signup", [check('email').isEmail()], auth.sign_up)
 // // If no route is matched by now, it must be a 404
 // basic.use((req, res, next) => {
 //   res.status(404).json({ "error": "Endpoint not found" });
