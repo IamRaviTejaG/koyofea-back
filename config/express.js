@@ -2,6 +2,7 @@ const bodyparser = require("body-parser")
 const dotenv = require("dotenv").config()
 const express = require("express")
 const morgan = require('morgan')
+const cors = require('cors')
 import { auth } from "./auth"
 import { basic } from "../routes"
 import { student } from "../routes/student"
@@ -12,6 +13,7 @@ import { college } from "../routes/college"
 
 
 let app = express()
+app.use(cors())
 app.use(morgan('dev'))
 app.use(auth.initialize())
 app.use(bodyparser.json()) //for parsing application/json()

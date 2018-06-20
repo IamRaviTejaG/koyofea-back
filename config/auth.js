@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt')
 const dotenv = require("dotenv").config()
 const moment = require("moment")
 const passport = require("passport")
-const { check, validationResult } = require('express-validator/check')
+const { validationResult } = require('express-validator/check')
 import * as jwt from "jwt-simple"
 import { db, query} from "./db"
 import { Strategy, ExtractJwt } from "passport-jwt"
@@ -52,21 +52,16 @@ export let auth = {
   login: (req, res) => {
     let email = req.body.email
     let user_password = req.body.password
-    query(`select * from users where email="${email}"`).then((rows) => {
+    query(`select * from users where email="${email}"`).then(rows => {
       if (!rows[0]) {
         throw "User not found"
-      } else {
-        bcrypt.compare(user_password, rows[0].password).then((result) => {
-          if (result) {
-            res.status(200).json({message: "Password verified!",
-            token: auth.genToken(rows[0]).token})
-          } else {
-            throw "Incorrect credentials!"
-          }
-        }).catch((err) => {
-          res.status(401).json({message: "Incorrect credentials!"})
-        })
       }
+      return bcrypt.compare(user_password, rows[0].password)
+    }).then(result => {
+        if (!result) {
+          throw "Incorrect crednetials!"
+        } 
+        res.status(200).json({message: "Password verified!",token: auth.genToken(rows[0]).token, user: row[0]})
     }).catch((err) => {
       res.status(401).json({message: "Login failed!", error: err})
     })
@@ -75,50 +70,42 @@ export let auth = {
   sign_up: (req, res) => {
     let email = req.body.email
     let unhashed_password = req.body.password
-    let values = Object.values(req.body)
-    const errors = validationResult(req).mapped()
-    if (Object.keys(errors).length === 0) {
-      let sql = 'SELECT * FROM `users` WHERE email="' + req.body.email + '"'
-      query(sql).then((rows) => {
-        if (rows[0]) {
-          throw "Email already used!"
-        } else {
-          bcrypt.hash(unhashed_password, parseInt(process.env.SALT_ROUNDS)).then(
-            (hash) => {
-            console.log(hash.yellow)
-            values[3] = hash
-            let values_str = values.map(value => `"${value}"`).join(', ')
-            let sql = 'INSERT INTO `users` (first_name, last_name, email,\
-            password, user_type) VALUES (' + values_str + ')'
-            query(sql).then((row) => {
-              res.status(200).json(auth.genToken(req.body))
-            }).catch((err) => {
-              res.status(400).json({message: "Sign-up failed", error: err})
-            })
-          }).catch((err) => {
-            throw "Error storing hash into Object.values(req.body)"
-          })
-          // let values_str = values.map(value => `"${value}"`).join(', ')
-          // let sql = 'INSERT INTO `users` (first_name, last_name, email,\
-          // password, user_type) VALUES (' + values_str + ')'
-          // query(sql).then((row) => {
-          //   res.status(200).json(auth.genToken(req.body))
-          // }).catch((err) => {
-          //   res.status(400).json({message: "Sign-up failed", error: err})
-          // })
-        }
-      }).catch((err) => {
-          res.status(400).json({message: "Sign-up failed", error: err})
-      })
-    } else {
-      res.status(400).json({
-        message: "Error!",
-        error: "Invalid email!"
-      })
+    let first_name = req.body.first_name
+    let last_name = req.body.last_name
+    let user_type = req.body.user_type
+    const errors = !validationResult(req).isEmpty()
+    if (errors) {
+      return res.status(400).json({ message: "Error!", error: "Invalid email!" })
     }
-    // } else {
-    //   const errors = validationResult(req)
-    //   res.status(400).json({message: "Invalid Entry", error: errors.array()})
-    // }
+    let sql = `SELECT * FROM users WHERE email="${email}"`
+    query(sql).then((rows) => {
+      if (rows[0]) {
+        throw "Email already used!"
+      } 
+      return bcrypt.hash(unhashed_password, parseInt(process.env.SALT_ROUNDS))
+    }).then((hash) => {
+      let sql = `INSERT INTO users (first_name, last_name, email,\
+      password, user_type_id) VALUES ("${first_name}", "${last_name}", "${email}","${hash}",${user_type})`
+      return query(sql)
+    }).then(row => {
+      res.status(200).json(auth.genToken(req.body))
+    }).catch(err => {
+      res.status(400).json({message: "Sign-up failed", error: err})
+    })       
+  },
+  verify_email: (req, res) => {
+    let verify_token = req.query.email_token
+    let sql = `SELECT * FROM users WHERE email_token="${verify_token}"`
+    query(sql).then(row => {
+      if(!row[0]){
+        throw "Wrong Verification Url"
+      }
+      let sql = `UPDATE users SET email_verified = true WHERE email_token="${verify_token}"`
+      return query(sql)
+    }).then((result) => {
+      res.status(200).json({message: "Email verification Successful", error: null})
+    }).catch(err => {
+      res.status(400).json({message: "Email verification failed", error: err})
+    })
   }
 }
