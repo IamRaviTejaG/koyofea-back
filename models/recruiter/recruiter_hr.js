@@ -15,15 +15,8 @@ export let recruiter_hr_model = {
   },
 
   add: (values) => {
-    let object = {
-      first_name : values.first_name,
-      last_name : values.last_name,
-      work_mail : values.work_mail,
-      linkedin : values.linkedin,
-      linkedin_id : values. linkedin_id
-    }
     let sql = `INSERT INTO recruiter_hr SET ?`
-    return process_query(sql, object)
+    return process_query(sql, values)
   },
 
   // cannot delete recruiter_hr

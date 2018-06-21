@@ -4,6 +4,16 @@ import { recruiter_model } from "../models/recruiter/recruiter"
 import { recruiter_drive_model } from "../models/recruiter/recruiter_drive"
 import { recruiter_drive_round_model } from "../models/recruiter/recruiter_drive_round"
 import { recruiter_hr_model } from "../models/recruiter/recruiter_hr"
+import { check, validationResult } from "express-validator/check";
+import { validate } from "../config/validator"
+
+let errorHandling = (req, res) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: "Error!", error: errors.mapped() })
+  }
+  return 
+}
 
 export default () => {
   // HR
@@ -20,7 +30,10 @@ export default () => {
         })
       })
     })
-    .post((req, res) => {
+    .post( validate.recruiter_hr_add ,(req, res) => {
+      if(req.validationErros) {
+        return errorHandling(req,res)
+      }     
       recruiter_hr_model.add(req.body).then((data) => {
         res.status(200).json({message: "Successfully added", err: {}})
       }).catch((err) => {
@@ -45,16 +58,19 @@ export default () => {
         })
       })
     })
-    .post((req, res) => {
-      recruiter_hr_model.update(req.params.id, req.body).then((data) => {
-        res.status(200).json({message: "Updated Successfully", err: {}})
-      }).catch((err) => {
-        res.status(400).json({
-          message: "Bad Request",
-          error: err
-        })
+    .post( validate.recruiter_hr_update ,(req, res) => {
+      if(req.validationErros) {
+        return errorHandling(req,res)
+      }     
+    recruiter_hr_model.update(req.params.id, req.body).then((data) => {
+      res.status(200).json({message: "Updated Successfully", err: {}})
+    }).catch((err) => {
+      res.status(400).json({
+        message: "Bad Request",
+        error: err
       })
     })
+  })
 
 
   // RECRUITER INDEX
@@ -68,7 +84,10 @@ export default () => {
         res.status(400).json({message: "Bad Request", error: err})
       })
     })
-    .post((req, res) => {
+    .post( validate.recruiter_add ,(req, res) => {
+      if(req.validationErros) {
+        return errorHandling(req,res)
+      }     
       recruiter_model.add(req.body).then(data => {
         res.status(200).json(data)
       }).catch(err => {
@@ -91,7 +110,10 @@ export default () => {
         })
       })
     })
-    .post((req, res) => {
+    .post(validate.recruiter_update, (req, res) => {
+      if(req.validationErros) {
+        return errorHandling(req,res)
+      }     
       recruiter_model.update(req.params.id, req.body).then((data) => {
         res.status(200).json(data)
       }).catch((err) => {
