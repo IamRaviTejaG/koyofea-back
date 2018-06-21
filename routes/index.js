@@ -20,7 +20,13 @@ basic.get("/", (req, res) => {
 })
 
 basic.post("/login", auth.login)
-basic.post("/signup", [check('email').isEmail()], auth.sign_up)
+basic.post("/signup", [
+  check('first_name').exists(),
+  check('last_name').exists(),
+  check('email').isEmail(),
+  check('password').exists(),
+  check('user_type').toInt()
+], auth.sign_up)
 basic.get("/email-verify", auth.verify_email)
 // // If no route is matched by now, it must be a 404
 // basic.use((req, res, next) => {

@@ -2,54 +2,29 @@ import { process_query } from "../../config/db"
 
 export let recruiter_model = {
   get_all: () => {
-    let sql = 'SELECT * FROM `recruiter`'
-    console.log(sql)
-    return process_query(sql)
-    // query(sql).then((result) => {
-    //   console.log(result)
-    //   return result
-    // }).catch((err) => {
-    //   throw err
-    // })
+    let sql = `SELECT * FROM recruiter`
+    return process_query(sql, [])
   },
 
   get_by_id: (id) => {
-    let sql = 'SELECT * FROM `recruiter` WHERE id="' + id + '"'
-
-    console.log(sql)
-    return process_query(sql)
-    // return query(sql).then((result) => {
-    //   console.log(result)
-    //   b = result
-    // }).catch((err) => {
-    //   throw err
-    // })
-    // return b
+    let sql = `SELECT * FROM recruiter WHERE id= ?`
+    return process_query(sql, id)
   },
 
   add: (values) => {
-    let values_str = values.map(value => `"${value}"`).join(', ')
-    let sql = 'INSERT INTO `recruiter`\
-    (name, website_url, description, phone, address_1, address_2, city, state,\
-    country, pin) VALUES (' + values_str + ')'
-    console.log(sql)
-    return process_query(sql)
+    let sql = `INSERT INTO recruiter SET ?`
+    return process_query(sql, values)
   },
 
-  del: (id) => {
-    let sql = 'DELETE FROM `recruiter` WHERE id="' + id + '"'
-    console.log(sql)
-    return process_query(sql)
-    // query(sql).then((result) => {
-    //   console.log(result)
-    //   return result
-    // }).catch((err) => {
-    //   throw err
-    // })
-  },
+  // Not Deleting the data
+  // del: (id) => {
+  //   let sql = 'DELETE FROM `recruiter` WHERE id="' + id + '"'
+  //   console.log(sql)
+  //   return process_query(sql)
+  // },
 
   update: (id, values) => {
-    let values_str = values.map(value => `"${value}"`).join(', ')
-    let sql = ""
+      let sql = `UPDATE recruiter SET ? WHERE id  = ?`
+      return process_query(sql, [values, id])
   }
 }

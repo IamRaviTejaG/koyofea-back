@@ -6,24 +6,81 @@ import { recruiter_drive_round_model } from "../models/recruiter/recruiter_drive
 import { recruiter_hr_model } from "../models/recruiter/recruiter_hr"
 
 export default () => {
+  // HR
+  // GET: Gets all the companies' HRs personal info.
+  // POST: Posts a specific company's HR personal info.
+  recruiter.route('/hr', jsonparser)
+    .get((req, res) => {
+      recruiter_hr_model.get_all().then((data) => {
+        res.status(200).json(data)
+      }).catch((err) => {
+        res.status(400).json({
+          message: "Bad Request",
+          error: err
+        })
+      })
+    })
+    .post((req, res) => {
+      recruiter_hr_model.add(req.body).then((data) => {
+        res.status(200).json({message: "Successfully added", err: {}})
+      }).catch((err) => {
+        res.status(400).json({
+          message: "Bad Request",
+          error: err
+        })
+      })
+    })
+
+  // HR with ID
+  // GET: Gets a specific HR's personal info.
+  // DELETE: Deletes a specific HR's personal info.
+  recruiter.route('/hr/:id')
+    .get((req, res) => {
+      recruiter_hr_model.get_by_id(req.params.id).then((data) => {
+        res.status(200).json(data)
+      }).catch((err) => {
+        res.status(400).json({
+          message: "Bad Request",
+          error: err
+        })
+      })
+    })
+    .post((req, res) => {
+      recruiter_hr_model.update(req.params.id, req.body).then((data) => {
+        res.status(200).json({message: "Updated Successfully", err: {}})
+      }).catch((err) => {
+        res.status(400).json({
+          message: "Bad Request",
+          error: err
+        })
+      })
+    })
+
+
   // RECRUITER INDEX
   // GET: Gets all the companies' (recruiters') info.
   // POST: Adds a company (recruiter) data.
-  recruiter.route('/', jsonparser)
+  recruiter.route('/base/', jsonparser)
     .get((req, res) => {
-      recruiter_model.get_all()
-      res.status(200)
+      recruiter_model.get_all().then(data => {
+        res.status(200).json(data)
+      }).catch(err => {
+        res.status(400).json({message: "Bad Request", error: err})
+      })
     })
     .post((req, res) => {
-      recruiter_model.add(Object.values(req.body))
-      res.status(200)
+      recruiter_model.add(req.body).then(data => {
+        res.status(200).json(data)
+      }).catch(err => {
+        res.status(400).json({message: "Bad Request", error: err})
+     })
     })
+    
 
   // RECRUITER with ID
   // GET: Gets a company's (recruiter's) info.
   // POST: Adds a company's (recruiter's) data.
-  // DELETE: Deletes a company's (recruiter's) data.
-  recruiter.route('/:id')
+  recruiter.route('/base/:id')
     .get((req, res) => {
       recruiter_model.get_by_id(req.params.id).then((data) => {
         res.status(200).json(data)
@@ -34,8 +91,8 @@ export default () => {
         })
       })
     })
-    .delete((req, res) => {
-      recruiter_model.del(req.params.id).then((data) => {
+    .post((req, res) => {
+      recruiter_model.update(req.params.id, req.body).then((data) => {
         res.status(200).json(data)
       }).catch((err) => {
         res.status(400).json({
@@ -121,56 +178,6 @@ export default () => {
         req.params.driveid,
         req.params.roundid
       ).then((data) => {
-        res.status(200).json(data)
-      }).catch((err) => {
-        res.status(400).json({
-          message: "Bad Request",
-          error: err
-        })
-      })
-    })
-
-  // HR
-  // GET: Gets all the companies' HRs personal info.
-  // POST: Posts a specific company's HR personal info.
-  recruiter.route('/hr', jsonparser)
-    .get((req, res) => {
-      recruiter_hr_model.get_all().then((data) => {
-        res.status(200).json(data)
-      }).catch((err) => {
-        res.status(400).json({
-          message: "Bad Request",
-          error: err
-        })
-      })
-    })
-    .post((req, res) => {
-      recruiter_hr_model.add(Object.values(req.body)).then((data) => {
-        res.status(200).json(data)
-      }).catch((err) => {
-        res.status(400).json({
-          message: "Bad Request",
-          error: err
-        })
-      })
-    })
-
-  // HR with ID
-  // GET: Gets a specific HR's personal info.
-  // DELETE: Deletes a specific HR's personal info.
-  recruiter.route('/hr/:id')
-    .get((req, res) => {
-      recruiter_hr_model.get_by_id(req.params.id).then((data) => {
-        res.status(200).json(data)
-      }).catch((err) => {
-        res.status(400).json({
-          message: "Bad Request",
-          error: err
-        })
-      })
-    })
-    .delete((req, res) => {
-      recruiter_hr_model.del(req.params.id).then((data) => {
         res.status(200).json(data)
       }).catch((err) => {
         res.status(400).json({

@@ -1,10 +1,11 @@
 const bcrypt = require('bcrypt')
 const dotenv = require("dotenv").config()
 const moment = require("moment")
+const Promise = require("bluebird")
 const passport = require("passport")
 const { validationResult } = require('express-validator/check')
 import * as jwt from "jwt-simple"
-import { db, query} from "./db"
+import { db, query } from "./db"
 import { Strategy, ExtractJwt } from "passport-jwt"
 
 function getStrategy(){
@@ -34,9 +35,9 @@ export let auth = {
     return passport.initialize()
   },
 
-  authenticate : (callback) => passport.authenticate("jwt", {sesson : false, failWithError: true}, callback),
+  authenticate : callback => passport.authenticate("jwt", {sesson : false, failWithError: true}, callback),
 
-  genToken: (user) => {
+  genToken: user => {
     let expires = moment().utc().add({ days: 7 }).unix();
     let token = jwt.encode({
       exp: expires,
@@ -52,16 +53,22 @@ export let auth = {
   login: (req, res) => {
     let email = req.body.email
     let user_password = req.body.password
-    query(`select * from users where email="${email}"`).then(rows => {
+    let sql = `SELECT * FROM users WHERE email= ?`
+    let a = query(sql, [email])
+    let b = a.then(rows => {
       if (!rows[0]) {
-        throw "User not found"
+        throw "Email not register"
+      }
+      if(rows[0].email_verified == 0){
+        throw "Email not verified"
       }
       return bcrypt.compare(user_password, rows[0].password)
-    }).then(result => {
-        if (!result) {
-          throw "Incorrect crednetials!"
-        } 
-        res.status(200).json({message: "Password verified!",token: auth.genToken(rows[0]).token, user: row[0]})
+    })
+    Promise.join(a,b).then(([rows,result]) => {
+      if (!result) {
+        throw "Incorrect credentials!"
+      } 
+      res.status(200).json({message: "Login successful",token: auth.genToken(rows[0]).token, user: rows[0]})
     }).catch((err) => {
       res.status(401).json({message: "Login failed!", error: err})
     })
@@ -70,29 +77,33 @@ export let auth = {
   sign_up: (req, res) => {
     let email = req.body.email
     let unhashed_password = req.body.password
-    let first_name = req.body.first_name
-    let last_name = req.body.last_name
-    let user_type = req.body.user_type
-    const errors = !validationResult(req).isEmpty()
-    if (errors) {
-      return res.status(400).json({ message: "Error!", error: "Invalid email!" })
+    let object = {
+      first_name: req.body.first_name,
+      last_name: req.body.last_name,
+      email: email,
+      user_type_id: req.body.user_type
     }
-    let sql = `SELECT * FROM users WHERE email="${email}"`
-    query(sql).then((rows) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ message: "Error!", error: errors.mapped() })
+    }
+    let sql = `SELECT * FROM users WHERE email= ?`
+    query(sql, [email]).then((rows) => {
       if (rows[0]) {
         throw "Email already used!"
       } 
       return bcrypt.hash(unhashed_password, parseInt(process.env.SALT_ROUNDS))
     }).then((hash) => {
-      let sql = `INSERT INTO users (first_name, last_name, email,\
-      password, user_type_id) VALUES ("${first_name}", "${last_name}", "${email}","${hash}",${user_type})`
-      return query(sql)
+      let sql = `INSERT INTO users SET ?`
+      object.password = hash;
+      return query(sql, object)
     }).then(row => {
       res.status(200).json(auth.genToken(req.body))
     }).catch(err => {
       res.status(400).json({message: "Sign-up failed", error: err})
     })       
   },
+
   verify_email: (req, res) => {
     let verify_token = req.query.email_token
     let sql = `SELECT * FROM users WHERE email_token="${verify_token}"`
@@ -108,4 +119,5 @@ export let auth = {
       res.status(400).json({message: "Email verification failed", error: err})
     })
   }
+  
 }

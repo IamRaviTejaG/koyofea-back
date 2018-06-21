@@ -1,6 +1,7 @@
 const Bluebird = require("bluebird")
 const colors = require('colors')
 const dotenv = require("dotenv").config()
+const SqlString = require("sqlstring")
 import * as mysql from "promise-mysql"
 
 let dbname
@@ -39,10 +40,12 @@ export function getConnection() {
   })
 }
 
-export let query = (sql) => {
+export let query = (sql, value) => {
+  let sqlquery = SqlString.format(sql, value)
+  console.log(sqlquery)
   return new Bluebird ((resolve, reject) => {
     Bluebird.using(getConnection(), (connection) => {
-      return connection.query(sql).then((rows) => {
+      return connection.query(sqlquery).then((rows) => {
         let data = {}
         if (rows.length) {
           for (var i=0; i<rows.length; i++)
@@ -57,9 +60,10 @@ export let query = (sql) => {
   })
 }
 
-export let process_query = (sql) => {
+
+export let process_query = (sql, value) => {
   return new Promise((resolve, reject) => {
-    query(sql).then((result) => {
+    query(sql, value).then((result) => {
       console.log(result)
       resolve(result)
     }).catch((err) => {
