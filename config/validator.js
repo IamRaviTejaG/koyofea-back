@@ -5,7 +5,7 @@ export const validate = {
   recruiter_hr_add:  [
     check('first_name').exists(),
     check('last_name').exists(),
-    check('work_mail').exists().isEmail(),
+    check('work_email').exists().isEmail(),
     check('email_verified').isEmpty(),
     check('linkedin').isBoolean(),
   ],
@@ -25,7 +25,8 @@ export const validate = {
     check('state').exists(),
     check('country').exists(),
     check('pin').exists().isInt(),
-    check('recruiter_hr_id').isEmpty()
+    // check('recruiter_hr_id').isEmpty(),
+    check('size').exists().isString()
   ],
   recruiter_update: [
     check('name').isEmpty(),

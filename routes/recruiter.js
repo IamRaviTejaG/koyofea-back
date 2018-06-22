@@ -6,6 +6,7 @@ import { recruiter_drive_round_model } from "../models/recruiter/recruiter_drive
 import { recruiter_hr_model } from "../models/recruiter/recruiter_hr"
 import { check, validationResult } from "express-validator/check";
 import { validate } from "../config/validator"
+import { recruiter_hr_controller } from "../controllers/recruiter/recruiter_hr";
 
 let errorHandling = (req, res) => {
   const errors = validationResult(req)
@@ -21,26 +22,20 @@ export default () => {
   // POST: Posts a specific company's HR personal info.
   recruiter.route('/hr', jsonparser)
     .get((req, res) => {
-      recruiter_hr_model.get_all().then((data) => {
+      recruiter_hr_controller.get_all(req).then((data) => {
         res.status(200).json(data)
       }).catch((err) => {
-        res.status(400).json({
-          message: "Bad Request",
-          error: err
-        })
+        res.status(400).json({ message: "Bad Request", error: err })
       })
     })
     .post( validate.recruiter_hr_add ,(req, res) => {
       if(req.validationErros) {
         return errorHandling(req,res)
       }     
-      recruiter_hr_model.add(req.body).then((data) => {
+      recruiter_hr_controller.add(req).then((data) => {
         res.status(200).json({message: "Successfully added", err: {}})
       }).catch((err) => {
-        res.status(400).json({
-          message: "Bad Request",
-          error: err
-        })
+        res.status(400).json({ message: "Bad Request", error: err })
       })
     })
 
@@ -49,27 +44,21 @@ export default () => {
   // DELETE: Deletes a specific HR's personal info.
   recruiter.route('/hr/:id')
     .get((req, res) => {
-      recruiter_hr_model.get_by_id(req.params.id).then((data) => {
+      recruiter_hr_controller.get_by_id(req).then((data) => {
         res.status(200).json(data)
       }).catch((err) => {
-        res.status(400).json({
-          message: "Bad Request",
-          error: err
-        })
+        res.status(400).json({ message: "Bad Request", error: err })
       })
     })
     .post( validate.recruiter_hr_update ,(req, res) => {
       if(req.validationErros) {
         return errorHandling(req,res)
       }     
-    recruiter_hr_model.update(req.params.id, req.body).then((data) => {
-      res.status(200).json({message: "Updated Successfully", err: {}})
-    }).catch((err) => {
-      res.status(400).json({
-        message: "Bad Request",
-        error: err
+      recruiter_hr_controller.update(req).then((data) => {
+        res.status(200).json({message: "Updated Successfully", err: {}})
+      }).catch((err) => {
+        res.status(400).json({ message: "Bad Request", error: err })
       })
-    })
   })
 
 
@@ -89,7 +78,7 @@ export default () => {
         return errorHandling(req,res)
       }     
       recruiter_model.add(req.body).then(data => {
-        res.status(200).json(data)
+        res.status(200).json(req.body)
       }).catch(err => {
         res.status(400).json({message: "Bad Request", error: err})
      })
@@ -104,10 +93,7 @@ export default () => {
       recruiter_model.get_by_id(req.params.id).then((data) => {
         res.status(200).json(data)
       }).catch((err) => {
-        res.status(400).json({
-          message: "Bad Request",
-          error: err
-        })
+        res.status(400).json({ message: "Bad Request", error: err })
       })
     })
     .post(validate.recruiter_update, (req, res) => {
@@ -115,12 +101,9 @@ export default () => {
         return errorHandling(req,res)
       }     
       recruiter_model.update(req.params.id, req.body).then((data) => {
-        res.status(200).json(data)
+        res.status(200).json({message: "Updated Successfully", err: {}})
       }).catch((err) => {
-        res.status(400).json({
-          message: "Bad Request",
-          error: err
-        })
+        res.status(400).json({ message: "Bad Request", error: err })
       })
     })
 
@@ -131,10 +114,7 @@ export default () => {
       recruiter_drive_model.add(Object.values(req.body)).then((data) => {
         res.status(200).json(data)
       }).catch((err) => {
-        res.status(400).json({
-          message: "Bad Request",
-          error: err
-        })
+        res.status(400).json({ message: "Bad Request", error: err })
       })
     })
 
@@ -146,20 +126,14 @@ export default () => {
       recruiter_drive_model.get_by_id(req.params.id).then((data) => {
         res.status(200).json(data)
       }).catch((err) => {
-        res.status(400).json({
-          message: "Bad Request",
-          error: err
-        })
+        res.status(400).json({ message: "Bad Request", error: err })
       })
     })
     .delete((req, res) => {
       recruiter_drive_model.del(req.params.id).then((data) => {
         res.status(200).json(data)
       }).catch((err) => {
-        res.status(400).json({
-          message: "Bad Request",
-          error: err
-        })
+        res.status(400).json({ message: "Bad Request", error: err })
       })
     })
 
@@ -175,10 +149,7 @@ export default () => {
       ).then((data) => {
         res.status(200).json(data)
       }).catch((err) => {
-        res.status(400).json({
-          message: "Bad Request",
-          error: err
-        })
+        res.status(400).json({ message: "Bad Request", error: err })
       })
     })
     .post((req, res) => {
@@ -189,10 +160,7 @@ export default () => {
       ).then((data) => {
         res.status(200).json(data)
       }).catch((err) => {
-        res.status(400).json({
-          message: "Bad Request",
-          error: err
-        })
+        res.status(400).json({ message: "Bad Request", error: err })
       })
     })
     .delete((req, res) => {
@@ -202,10 +170,7 @@ export default () => {
       ).then((data) => {
         res.status(200).json(data)
       }).catch((err) => {
-        res.status(400).json({
-          message: "Bad Request",
-          error: err
-        })
+        res.status(400).json({ message: "Bad Request", error: err })
       })
     })
 }

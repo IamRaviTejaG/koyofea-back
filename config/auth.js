@@ -50,6 +50,8 @@ export let auth = {
     }
   },
 
+  decode_token: token => jwt.decode(token, process.env.JWT_SECRET),
+
   login: (req, res) => {
     let email = req.body.email
     let user_password = req.body.password

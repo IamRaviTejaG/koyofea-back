@@ -54,7 +54,7 @@ export let query = (sql, value) => {
         resolve(data)
       }).catch((error) => {
         console.log(error)
-        reject(error)
+        reject(error.code)
       })
     })
   })
@@ -64,7 +64,6 @@ export let query = (sql, value) => {
 export let process_query = (sql, value) => {
   return new Promise((resolve, reject) => {
     query(sql, value).then((result) => {
-      console.log(result)
       resolve(result)
     }).catch((err) => {
       reject(err)
