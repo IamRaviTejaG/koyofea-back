@@ -1,12 +1,11 @@
 export const basic = require("express").Router()
-const Promise = require("bluebird")
-const { check, validationResult } = require("express-validator/check")
-import { getConnection }  from "../config/db"
+const { check } = require("express-validator/check")
 import { query } from "../config/db"
 import { auth } from "../config/auth"
 import recruiter from "./recruiter"
 import student from "./student"
 import college from "./college"
+import { dashboard } from "../controllers";
 recruiter()
 student()
 college()
@@ -28,6 +27,22 @@ basic.post("/signup", [
   check('user_type').toInt()
 ], auth.sign_up)
 basic.get("/email-verify", auth.verify_email)
+basic.get("/dashboard", (req, res) => {
+  dashboard.basic_data(req).then(data => {
+    res.status(200).send(data)
+  }).catch(err=> {
+    res.status(400).send({message: "Bad request", error:err})
+  })
+  
+})
+basic.get("/user", (req, res) => {
+  let token_email = auth.decode_token(req.get('x-api-key')).user.email
+  query(`SELECT * FROM users WHERE users.email=?`,token_email).then(data => {
+    res.status(200).send(data)
+  }).catch(err => {
+    res.status(500).send({message: "Bad requets", error:err})
+  })
+})
 // // If no route is matched by now, it must be a 404
 // basic.use((req, res, next) => {
 //   res.status(404).json({ "error": "Endpoint not found" });

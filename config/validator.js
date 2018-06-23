@@ -5,13 +5,13 @@ export const validate = {
   recruiter_hr_add:  [
     check('first_name').exists(),
     check('last_name').exists(),
-    check('work_email').exists().isEmail(),
+    check('email').exists().isEmail(),
     check('email_verified').isEmpty(),
     check('linkedin').isBoolean(),
   ],
   // TODO || masti
   recruiter_hr_update: [
-    check('work_mail').isEmpty().withMessage("Email cannot be updated")
+    check('email').isEmpty().withMessage("Email cannot be updated")
   ],
   recruiter_add: [
     check('name').exists(),
@@ -25,7 +25,7 @@ export const validate = {
     check('state').exists(),
     check('country').exists(),
     check('pin').exists().isInt(),
-    // check('recruiter_hr_id').isEmpty(),
+    check('recruiter_hr_id').isEmpty(),
     check('size').exists().isString()
   ],
   recruiter_update: [

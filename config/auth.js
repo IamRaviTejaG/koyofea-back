@@ -41,7 +41,7 @@ export let auth = {
     let expires = moment().utc().add({ days: 7 }).unix();
     let token = jwt.encode({
       exp: expires,
-      email: user.email
+      user:user
     }, process.env.JWT_SECRET)
     return {
       token: token,
