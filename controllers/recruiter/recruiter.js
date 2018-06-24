@@ -1,33 +1,44 @@
 import { recruiter_model } from "../../models/recruiter/recruiter"
 import { auth } from "../../config/auth";
 import { query } from "../../config/db";
+import { validationResult } from "express-validator/check"
+
+let errorHandling = (req, res) => {
+  const errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ message: "Error!", error: errors.mapped() })
+  }
+  return 
+}
 
 export let recruiter_controller = {
-  get_all: () => {
-    return recruiter_model.get_all()
-  },
-
-  get_by_id: (req) => {
-    // Get email from token
-    let token_email = auth.decode_token(req.get('x-api-key')).email
-    return new Promise((resolve, reject) => {
-      // Get data by id
-      recruiter_model.get_by_id(req.params.id).then(users => {
-        // If request id and users id doesn't match throw
-        if(users[0] ? !(users[0].work_email == token_email) : true) {
-          throw "Not permited to perform this action"
-        }
-        resolve(users)
-      }).catch((err) => {
-        reject(err)
-      })
+  get_all: (req, res) => {
+    recruiter_model.get_all().then(data => {
+      res.status(200).json(data)
+    }).catch(err => {
+      res.status(400).json({message: "Bad Request", error: err})
     })
   },
 
-  add: (req) => {
-    return new Promise((resolve, reject) => {
+  get_by_id: (req, res) => {
+    if(req.validationErros) {
+      return errorHandling(req,res)
+    } 
+    // Get data by id
+    recruiter_model.get_by_id(req.params.id).then(users => {
+      // If request id and users id doesn't match throw
+      // console.log(users)
+      // if(users[0] ? !(users[0].recruiter_hr_id == ) : true) {
+      //   throw "Not permited to perform this action"
+      // }
+        res.status(200).json(users)
+      }).catch(err => {
+        res.status(400).json({message: "Bad Request", error: err})
+      })
+  },
+
+  add: (req, res) => {
       // Get email from token
-      let token_email = auth.decode_token(req.get('x-api-key')).user.email
       let sql = `SELECT hr.id, hr.email, u.email_verified
              FROM users u 
              INNER 
@@ -35,7 +46,7 @@ export let recruiter_controller = {
              ON hr.email=u.email 
              WHERE hr.email=?` 
       // Check if email is verified and request is for a recruiter before entering data
-      query(sql, token_email).then(users => {
+      query(sql, req.token_data.user.email).then(users => {
         if(!users[0]){          
           throw "You are not registered"
         }
@@ -48,16 +59,22 @@ export let recruiter_controller = {
         return recruiter_model.add(req.body) 
       }).then(result => {
         // Update data filled status
-        return query(`UPDATE users SET data2=true WHERE email=?`, token_email)
+        return query(`UPDATE users SET data2=true WHERE email=?`, req.token_data.user.email)
       }).then(result => {
-        resolve(result)
+        res.status(200).json(req.body)
       }).catch(err => {
-        reject(err)
+        res.status(400).json({message: "Bad Request", error: err})
       })
-    })
   },
 
-  update: (id, values) => {
-    return recruiter_model.update(id, values)
+  update: (req, res) => {
+    if(req.validationErros) {
+      return errorHandling(req,res)
+    }  
+    recruiter_model.updateupdate(req.params.id, req.body).then((data) => {
+      res.status(200).json({message: "Updated Successfully", err: {}})
+    }).catch((err) => {
+      res.status(400).json({ message: "Bad Request", error: err })
+    })
   }
 }

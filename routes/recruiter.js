@@ -10,137 +10,50 @@ import { recruiter_hr_controller } from "../controllers/recruiter/recruiter_hr"
 import { recruiter_controller } from "../controllers/recruiter/recruiter"
 import { recruiter_hr_extra_controller } from "../controllers/recruiter/recruiter_hr_extra";
 
-let errorHandling = (req, res) => {
-  const errors = validationResult(req)
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ message: "Error!", error: errors.mapped() })
-  }
-  return 
-}
+
 
 export default () => {
   // HR
   // GET: Gets all the companies' HRs personal info.
   // POST: Posts a specific company's HR personal info.
   recruiter.route('/hr', jsonparser)
-    .get((req, res) => {
-      recruiter_hr_controller.get_all(req).then((data) => {
-        res.status(200).json(data)
-      }).catch((err) => {
-        res.status(400).json({ message: "Bad Request", error: err })
-      })
-    })
-    .post( validate.recruiter_hr_add ,(req, res) => {
-      if(req.validationErros) {
-        return errorHandling(req,res)
-      }     
-      recruiter_hr_controller.add(req).then((data) => {
-        res.status(200).json(req.body)
-      }).catch((err) => {
-        res.status(400).json({ message: "Bad Request", error: err })
-      })
-    })
+    .get(recruiter_hr_controller.get_all)
+    .post( validate.recruiter_hr_add , recruiter_hr_controller.add)
 
   // HR with ID
   // GET: Gets a specific HR's personal info.
   // DELETE: Deletes a specific HR's personal info.
   recruiter.route('/hr/:id')
-    .get((req, res) => {
-      recruiter_hr_controller.get_by_id(req).then((data) => {
-        res.status(200).json(data)
-      }).catch((err) => {
-        res.status(400).json({ message: "Bad Request", error: err })
-      })
-    })
-    .post( validate.recruiter_hr_update ,(req, res) => {
-      if(req.validationErros) {
-        return errorHandling(req,res)
-      }     
-      recruiter_hr_controller.update(req).then((data) => {
-        res.status(200).json({message: "Updated Successfully", err: {}})
-      }).catch((err) => {
-        res.status(400).json({ message: "Bad Request", error: err })
-      })
-  })
+    .get(recruiter_hr_controller.get_by_id)
+    .post( validate.recruiter_hr_update ,recruiter_hr_controller.update)
 
 
 
   // HR EXTRA
   // GET: Gets a specific HR's extra info.
   recruiter.route('/hr/:id/extra')
-    .get((req, res) => {
-      recruiter_hr_extra_controller.get_by_id(req).then((data) => {
-        res.status(200).json(data)
-      }).catch((err) => {
-        res.status(400).json({ message: "Bad Request", error: err })
-      })
-    })
-    .post((req, res) => {
-      if(req.validationErros) {
-        return errorHandling(req,res)
-      }     
-      recruiter_hr_extra_controller.add(req).then((data) => {
-        res.status(200).json({message: "Updated Successfully", err: {}})
-      }).catch((err) => {
-        res.status(400).json({ message: "Bad Request", error: err })
-      })
-    })
-    .put((req, res) => {
-      if(req.validationErros) {
-        return errorHandling(req,res)
-      }     
-      recruiter_hr_extra_controller.update(req).then((data) => {
-        res.status(200).json({message: "Updated Successfully", err: {}})
-      }).catch((err) => {
-        res.status(400).json({ message: "Bad Request", error: err })
-      })
-    })
+    .get(recruiter_hr_extra_controller.get_by_id)
+    .post(recruiter_hr_extra_controller.add)
+    .put(recruiter_hr_extra_controller.update)
 
 
   // RECRUITER INDEX
   // GET: Gets all the companies' (recruiters') info.
   // POST: Adds a company (recruiter) data.
   recruiter.route('/base/', jsonparser)
-    .get((req, res) => {
-      recruiter_controller.get_all().then(data => {
-        res.status(200).json(data)
-      }).catch(err => {
-        res.status(400).json({message: "Bad Request", error: err})
-      })
-    })
-    .post( validate.recruiter_add ,(req, res) => {
-      if(req.validationErros) {
-        return errorHandling(req,res)
-      }     
-      recruiter_controller.add(req).then(data => {
-        res.status(200).json(req.body)
-      }).catch(err => {
-        res.status(400).json({message: "Bad Request", error: err})
-     })
-    })
+    .get(recruiter_controller.get_all)
+    .post( validate.recruiter_add , recruiter_controller.add)
     
 
   // RECRUITER with ID
   // GET: Gets a company's (recruiter's) info.
   // POST: Adds a company's (recruiter's) data.
   recruiter.route('/base/:id')
-    .get((req, res) => {
-      recruiter_controller.get_by_id(req).then((data) => {
-        res.status(200).json(data)
-      }).catch((err) => {
-        res.status(400).json({ message: "Bad Request", error: err })
-      })
-    })
-    .post(validate.recruiter_update, (req, res) => {
-      if(req.validationErros) {
-        return errorHandling(req,res)
-      }     
-      recruiter_controller.update(req.params.id, req.body).then((data) => {
-        res.status(200).json({message: "Updated Successfully", err: {}})
-      }).catch((err) => {
-        res.status(400).json({ message: "Bad Request", error: err })
-      })
-    })
+    .get(recruiter_controller.get_by_id)
+    .post(validate.recruiter_update, recruiter_controller.update)
+
+
+
 
   // DRIVE
   // POST: Adds a company (recruiter) drive info.

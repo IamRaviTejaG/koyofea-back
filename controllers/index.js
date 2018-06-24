@@ -3,12 +3,9 @@ import { query } from "../config/db";
 
 export let dashboard = {
   basic_data: (req) =>{
-    let token_data = auth.decode_token(req.get('x-api-key'))
 
-    let token_email = token_data.user.email
-    let user_type = token_data.user.user_type_id
-
-
+    let token_email = req.token_data.user.email
+    let user_type = req.token_data.user.user_type_id
     let sql
     let sql_1 = `SELECT hr.id As hr_id , r.id As recruiter_id, r.name As recruiter_name 
           FROM recruiter r

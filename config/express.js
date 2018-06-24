@@ -32,6 +32,14 @@ app.use(bodyparser.urlencoded({extended: true}))
 //     return next()
 //   })(req, res, next)
 // })
+app.all("/" + "*", (req, res, next) => {
+  if ( req.path == '/login' || req.path == '/' || req.path == '/favicon.ico') {
+    return next();
+  } 
+  let token = auth.decode_token(req.get('x-api-key'))
+  req.token_data = token
+  next()
+})
 
 
 app.use("/", basic)

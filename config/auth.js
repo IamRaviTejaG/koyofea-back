@@ -100,7 +100,7 @@ export let auth = {
       object.password = hash;
       return query(sql, object)
     }).then(row => {
-      res.status(200).json(auth.genToken(req.body))
+      res.status(200).json({message: "sign-up successful", error: {}})
     }).catch(err => {
       res.status(400).json({message: "Sign-up failed", error: err})
     })       
