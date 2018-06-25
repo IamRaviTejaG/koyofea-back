@@ -9,6 +9,7 @@ import { validate } from "../config/validator"
 import { recruiter_hr_controller } from "../controllers/recruiter/recruiter_hr"
 import { recruiter_controller } from "../controllers/recruiter/recruiter"
 import { recruiter_hr_extra_controller } from "../controllers/recruiter/recruiter_hr_extra";
+import { recruiter_drive_controller } from "../controllers/recruiter/recruiter_drive";
 
 
 
@@ -52,38 +53,20 @@ export default () => {
     .get(recruiter_controller.get_by_id)
     .post(validate.recruiter_update, recruiter_controller.update)
 
-
-
-
   // DRIVE
   // POST: Adds a company (recruiter) drive info.
   recruiter.route('/drive', jsonparser)
-    .post((req, res) => {
-      recruiter_drive_model.add(Object.values(req.body)).then((data) => {
-        res.status(200).json(data)
-      }).catch((err) => {
-        res.status(400).json({ message: "Bad Request", error: err })
-      })
-    })
+    .post(recruiter_drive_controller.get_all)
 
   // RECRUITER DRIVE with ID
   // GET: Gets a specific company's drive info.
   // DELETE: Deletes a company's drive info.
   recruiter.route('/drive/:id')
-    .get((req, res) => {
-      recruiter_drive_model.get_by_id(req.params.id).then((data) => {
-        res.status(200).json(data)
-      }).catch((err) => {
-        res.status(400).json({ message: "Bad Request", error: err })
-      })
-    })
-    .delete((req, res) => {
-      recruiter_drive_model.del(req.params.id).then((data) => {
-        res.status(200).json(data)
-      }).catch((err) => {
-        res.status(400).json({ message: "Bad Request", error: err })
-      })
-    })
+    .get(recruiter_drive_controller.get_by_id)
+    .post(recruiter_drive_controller.add)
+    .put(recruiter_drive_controller.update)
+
+
 
   // DRIVE & ROUND with IDs
   // GET: Gets a specific company's drive's round info.

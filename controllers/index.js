@@ -7,6 +7,7 @@ export let dashboard = {
     let token_email = req.token_data.user.email
     let user_type = req.token_data.user.user_type_id
     let sql
+    // TODO: update according to mapping table
     let sql_1 = `SELECT hr.id As hr_id , r.id As recruiter_id, r.name As recruiter_name 
           FROM recruiter r
           INNER 

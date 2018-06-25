@@ -1,49 +1,47 @@
 import { query } from "../../config/db"
+import { dashboard } from "../../controllers";
 
 export let recruiter_drive_model = {
-  // get_all unavailable because getting all drives isn't allowed, given the
-  // privacy concerns.
 
-  // get_all: () => {
-  //   let sql = "SELECT * FROM `recruiter_drive`"
-  //   query(sql).then((result) => {
-  //     console.log(result)
-  //     return result
-  //   }).catch((err) => {
-  //     throw err
-  //   })
-  // },
+  // Get all drives of recruiter
+  get_all: () => {
+    let token_data = req.token_data
+    let email = token_data.user.email
+    //TODO: get recruiter id by using email
+    let sql = `SELECT rd.* 
+              FROM recruiter_drive  rd
+              WHERE rd.recruiter_id = ( SELECT m.recruiter_id
+                                        FROM mapping_recruiter_hr m
+                                        INNER
+                                        JOIN recruiter_hr hr
+                                        ON hr.id = m.recruiter_hr_id
+                                        WHERE hr.email = ?)`
+    return query(sql, id)
+  },
 
   get_by_id: (id) => {
-    let sql = 'SELECT name, duration, wok_study_job, paid, salary_low,\
-    salary_high, joining_date, description, no_openings, no_positions, url,\
-    job_location, start_date, end_date, multiple_applications, 12th_percentage,\
-    10th_percentage, graduation_year, cgpa, other_eligiblity, no_rounds \
-    FROM `recruiter_drive` WHERE id="' + id + '"'
-    console.log(sql)
-    return query(sql)
+    let sql = `SELECT * FROM recruiter_drive WHERE id = ?`
+    return query(sql, id)
+  },
+  // TODO: needs testing
+  add: (req) => {
+    return dashboard.basic_data(req).then(data=>{
+      req.recruiter_hr_id = data[0].hr_id
+      req.recruiter_id = data[0].recruiter_id
+      let sql =`INSERT INTO recruiter_drive SET ?`
+      return query(sql, req.body)
+    })
   },
 
-  add: (values) => {
-    let values_str = values.map(value => `"${value}"`).join(', ')
-    let sql = 'INSERT INTO `recruiter_drive`\
-    (name, duration, wok_study_job, paid, salary_low, salary_high,\
-    joining_date, description, no_openings, no_positions, url, job_location,\
-    start_date, end_date, multiple_applications, 12th_percentage,\
-    10th_percentage, graduation_year, cgpa, other_eligiblity, no_rounds \
-    (' + values_str + ')'
-    console.log(sql)
-    return query(sql)
-  },
+  // TODO: add soft delete
+  // del: (id) => {
+  //   let sql = 'DELETE FROM `recruiter_drive` WHERE id="' + id + '"'
+  //   console.log(sql)
+  //   return query(sql)
+  // },
 
-  del: (id) => {
-    let sql = 'DELETE FROM `recruiter_drive` WHERE id="' + id + '"'
-    console.log(sql)
-    return query(sql)
-  },
-
-  update: (id, values) => {
-    let values_str = values.map(value => `"${value}"`).join(', ')
-    let sql = ""
+  update: (id, object) => {
+    let sql = "UPDATE recruiter_drive SET ? WHERE id = ?"
+    return query(sql, [object, id])
   }
 }
