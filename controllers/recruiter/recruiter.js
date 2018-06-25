@@ -3,13 +3,7 @@ import { auth } from "../../config/auth";
 import { query } from "../../config/db";
 import { validationResult } from "express-validator/check"
 
-let errorHandling = (req, res) => {
-  const errors = validationResult(req)
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ message: "Error!", error: errors.mapped() })
-  }
-  return 
-}
+
 
 export let recruiter_controller = {
   get_all: (req, res) => {
@@ -21,9 +15,7 @@ export let recruiter_controller = {
   },
 
   get_by_id: (req, res) => {
-    if(req.validationErros) {
-      return errorHandling(req,res)
-    } 
+   
     // Get data by id
     recruiter_model.get_by_id(req.params.id).then(users => {
       // If request id and users id doesn't match throw
@@ -68,9 +60,7 @@ export let recruiter_controller = {
   },
 
   update: (req, res) => {
-    if(req.validationErros) {
-      return errorHandling(req,res)
-    }  
+     
     recruiter_model.updateupdate(req.params.id, req.body).then((data) => {
       res.status(200).json({message: "Updated Successfully", err: {}})
     }).catch((err) => {

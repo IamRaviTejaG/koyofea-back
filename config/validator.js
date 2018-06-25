@@ -1,7 +1,14 @@
-import { check } from "express-validator/check";
+import { check, validationResult } from "express-validator/check";
 
 
 export const validate = {
+  error_handling: (req, res, next) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+      return  res.status(400).json({ message: "Error!", error: errors.mapped() })
+    }
+    next()
+  },
   recruiter_hr_add:  [
     check('first_name').exists(),
     check('last_name').exists(),

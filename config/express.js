@@ -8,6 +8,7 @@ import { basic } from "../routes"
 import { student } from "../routes/student"
 import { recruiter } from "../routes/recruiter"
 import { college } from "../routes/college"
+import { validationResult } from "express-validator/check";
 //const auth = require("../controllers/auth").default;
 //const expressValidator = require("express-validator");
 
@@ -33,7 +34,12 @@ app.use(bodyparser.urlencoded({extended: true}))
 //   })(req, res, next)
 // })
 app.all("/" + "*", (req, res, next) => {
-  if ( req.path == '/login' || req.path == '/' || req.path == '/favicon.ico') {
+  if ( 
+    req.path == '/login' 
+    || req.path == '/' 
+    || req.path == '/favicon.ico' 
+    || req.path == '/robots.txt' 
+    || req.path == '/signup') {
     return next();
   } 
   let token = auth.decode_token(req.get('x-api-key'))
@@ -67,6 +73,5 @@ app.use("/recruiter", recruiter)
 //         return next();
 //     })(req, res, next);
 // });
-//routes(app)
 
 export default app

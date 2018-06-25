@@ -3,13 +3,7 @@ import { auth } from "../../config/auth";
 import { query } from "../../config/db";
 import { check, validationResult } from "express-validator/check"
 
-let errorHandling = (req, res) => {
-  const errors = validationResult(req)
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ message: "Error!", error: errors.mapped() })
-  }
-  return 
-}
+
 
 export let recruiter_hr_extra_controller = {
   get_all: (req, res) => {
@@ -18,9 +12,7 @@ export let recruiter_hr_extra_controller = {
   },
 
   add: (req, res) => {   
-    if(req.validationErros) {
-      return errorHandling(req,res)
-    } 
+    
     // Check if email is verified before entering data
     let token_email = req.token_data.user.email
     query(`SELECT email, data1, data2 from users WHERE email=?`, token_email).then(users => {
@@ -56,10 +48,7 @@ export let recruiter_hr_extra_controller = {
   },
   
   update: (req, res) => {
-    if(req.validationErros) {
-      return errorHandling(req,res)
-    } 
-    
+
       // Get data by id
     recruiter_hr_extra_model.update(req.params.id, req.body).then(user => {
       // If request id and users id doesn't match throw

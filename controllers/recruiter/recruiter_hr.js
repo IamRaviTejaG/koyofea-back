@@ -1,30 +1,19 @@
 import { recruiter_hr_model } from "../../models/recruiter/recruiter_hr"
-import { auth } from "../../config/auth";
 import { query } from "../../config/db";
-import { validationResult } from "express-validator/check"
 
-let errorHandling = (req, res) => {
-  const errors = validationResult(req)
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ message: "Error!", error: errors.mapped() })
-  }
-  return 
-}
+
 
 export let recruiter_hr_controller = {
   get_all: (req,res) => {
     // TODO: with admin panel
-    recruiter_hr_controller.get_all(req).then((data) => {
+    recruiter_hr_model.get_all(req).then((data) => {
       res.status(200).json(data)
     }).catch((err) => {
       res.status(400).json({ message: "Bad Request", error: err })
     })
   },
 
-  add: (req, res) => {  
-    if(req.validationErros) {
-      return errorHandling(req,res)
-    }   
+  add: (req, res) => { 
     // Check if email is verified before entering data
     query(`SELECT email from users WHERE email_verified=false AND email=?`, req.body.email).then(users => {
       if(users[0]){
@@ -58,10 +47,7 @@ export let recruiter_hr_controller = {
   
   },
   
-  update: (req, res) => {
-    if(req.validationErros) {
-      return errorHandling(req,res)
-    }  
+  update: (req, res) => {  
     // Get data by id
     recruiter_hr_model.update(req.params.id, req.body).then(user => {
       // If request id and users id doesn't match throw
