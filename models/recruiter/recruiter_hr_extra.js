@@ -8,7 +8,7 @@ export let recruiter_hr_extra_model = {
   },
 
   get_by_id: (id) => {
-    let sql = `SELECT phone, bio, designation, public_profile WHERE id= ?`
+    let sql = `SELECT phone, bio, designation, public_profile FROM recruiter_hr_extra WHERE recruiter_hr_id= ?`
     return query(sql, id)
   },
 

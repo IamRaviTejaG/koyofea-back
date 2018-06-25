@@ -1,4 +1,4 @@
-import { recruiter_hr_extra_model } from "../../models/recruiter/recruiter_hr"
+import { recruiter_hr_extra_model } from "../../models/recruiter/recruiter_hr_extra"
 import { auth } from "../../config/auth";
 import { query } from "../../config/db";
 import { check, validationResult } from "express-validator/check"

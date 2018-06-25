@@ -12,22 +12,19 @@ export let college_model = {
   },
 
   add: (values) => {
-    let values_str = values.map(value => `"${value}"`).join(', ')
-    let sql = 'INSERT INTO `college`\
-    (name, college_url, placement_url, created_date, address_1, address_2,\
-    landmark, city, state, country, pin) VALUES (' + values_str + ')'
-    console.log(sql)
-    return query(sql)
+    let sql = `INSERT INTO college SET ?`
+    return query(sql, values)
   },
 
-  del: (id) => {
-    let sql = 'DELETE FROM `college` WHERE id="' + id + '"'
-    console.log(sql)
-    return query(sql)
-  },
+  // ONLY SOFT DELETE ALLOWED
+  // del: (id) => {
+  //   let sql = 'DELETE FROM `college` WHERE id="' + id + '"'
+  //   console.log(sql)
+  //   return query(sql)
+  // },
 
   update: (id, values) => {
-    let values_str = values.map(value => `"${value}"`).join(', ')
-    let sql = ""
+    let sql = `UPDATE college SET ? WHERE id = ?`
+    return query(sql, [values, id])
   }
 }
