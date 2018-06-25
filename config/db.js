@@ -61,12 +61,12 @@ export let query = (sql, value) => {
 }
 
 
-export let process_query = (sql, value) => {
-  return new Promise((resolve, reject) => {
-    query(sql, value).then((result) => {
-      resolve(result)
-    }).catch((err) => {
-      reject(err)
-    })
-  })
-}
+// export let query = (sql, value) => {
+//   return new Promise((resolve, reject) => {
+//     query(sql, value).then((result) => {
+//       resolve(result)
+//     }).catch((err) => {
+//       reject(err)
+//     })
+//   })
+// }

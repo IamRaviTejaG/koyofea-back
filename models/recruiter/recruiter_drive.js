@@ -1,4 +1,4 @@
-import { process_query } from "../../config/db"
+import { query } from "../../config/db"
 
 export let recruiter_drive_model = {
   // get_all unavailable because getting all drives isn't allowed, given the
@@ -21,7 +21,7 @@ export let recruiter_drive_model = {
     10th_percentage, graduation_year, cgpa, other_eligiblity, no_rounds \
     FROM `recruiter_drive` WHERE id="' + id + '"'
     console.log(sql)
-    return process_query(sql)
+    return query(sql)
   },
 
   add: (values) => {
@@ -33,13 +33,13 @@ export let recruiter_drive_model = {
     10th_percentage, graduation_year, cgpa, other_eligiblity, no_rounds \
     (' + values_str + ')'
     console.log(sql)
-    return process_query(sql)
+    return query(sql)
   },
 
   del: (id) => {
     let sql = 'DELETE FROM `recruiter_drive` WHERE id="' + id + '"'
     console.log(sql)
-    return process_query(sql)
+    return query(sql)
   },
 
   update: (id, values) => {

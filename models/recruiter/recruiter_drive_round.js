@@ -1,4 +1,4 @@
-import { process_query } from "../../config/db"
+import { query } from "../../config/db"
 
 export let recruiter_drive_round_model = {
   // get_all unavailable because getting all drives isn't allowed, given the
@@ -20,7 +20,7 @@ export let recruiter_drive_round_model = {
     FROM `recruiter_drive_round` WHERE recruiter_round_type_id=\
     "' + round_id + '" AND recruiter_drive_id="' + drive_id + '"'
     console.log(sql)
-    return process_query(sql)
+    return query(sql)
   },
 
   add: (drive_id, round_id, values) => {
@@ -31,7 +31,7 @@ export let recruiter_drive_round_model = {
     recruiter_round_type_id="' + round_id + '" AND recruiter_drive_id=\
     "' + drive_id + '"'
     console.log(sql)
-    return process_query(sql)
+    return query(sql)
   },
 
   del: (drive_id, round_id) => {
@@ -39,7 +39,7 @@ export let recruiter_drive_round_model = {
     recruiter_round_type_id="' + round_id + '" AND recruiter_drive_id\
     ="' + drive_id + '"'
     console.log(sql)
-    return process_query(sql)
+    return query(sql)
   },
 
   update: (id, values) => {

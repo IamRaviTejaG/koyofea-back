@@ -1,4 +1,4 @@
-import { process_query } from "../../config/db"
+import { query } from "../../config/db"
 
 export let student_model = {
   // get_all: () => {
@@ -14,7 +14,7 @@ export let student_model = {
   get_by_id: (id) => {
     let sql = 'SELECT * FROM `student` WHERE id="' + id + '"'
     console.log(sql)
-    return process_query(sql)
+    return query(sql)
   },
 
   add: (values) => {
@@ -23,7 +23,7 @@ export let student_model = {
     (first_name, last_name, email, dob, mobile, linkedin, linkedin_id,\
     created_date) VALUES (' + values_str + ')'
     console.log(sql)
-    return process_query(sql)
+    return query(sql)
   },
 
   // del: (id) => {

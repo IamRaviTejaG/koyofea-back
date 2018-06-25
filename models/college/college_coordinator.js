@@ -1,4 +1,4 @@
-import { process_query } from "../../config/db"
+import { query } from "../../config/db"
 
 export let college_coordinator_model = {
   // get_all for college coordinators is an optional route (commented out for privacy),
@@ -18,7 +18,7 @@ export let college_coordinator_model = {
     let sql = 'SELECT * FROM `college_coordinator` WHERE id=\
     "' + coordinator_id + '"'
     console.log(sql)
-    return process_query(sql)
+    return query(sql)
   },
 
   add: (values) => {
@@ -27,14 +27,14 @@ export let college_coordinator_model = {
     (first_name, last_name, work_mail, mobile, created_date) VALUES\
     (' + values_str + ')'
     console.log(sql)
-    return process_query(sql)
+    return query(sql)
   },
 
   del: (coordinator_id) => {
     let sql = 'DELETE FROM `college_coordinator` WHERE id=\
     "' + coordinator_id + '"'
     console.log(sql)
-    return process_query(sql)
+    return query(sql)
   },
 
   update: (id, values) => {

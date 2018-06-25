@@ -1,4 +1,4 @@
-import { process_query } from "../../config/db"
+import { query } from "../../config/db"
 
 export let student_project_model = {
   // get_all: () => {
@@ -14,7 +14,7 @@ export let student_project_model = {
   get_by_id: (student_id) => {
     let sql = 'SELECT * FROM `student_project` WHERE id="' + student_id + '"'
     console.log(sql)
-    return process_query(sql)
+    return query(sql)
   },
 
   add: (values) => {
@@ -22,7 +22,7 @@ export let student_project_model = {
     let sql = 'INSERT INTO `student_project` (name, description, url)\
     VALUES (' + values_str + ')'
     console.log(sql)
-    return process_query(sql)
+    return query(sql)
   },
 
   // del: (id) => {
