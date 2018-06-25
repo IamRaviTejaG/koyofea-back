@@ -2,15 +2,13 @@ import { query } from "../../config/db"
 
 export let college_model = {
   get_all: () => {
-    let sql = 'SELECT * FROM `college`'
-    console.log(sql)
-    return query(sql)
+    let sql = `SELECT * FROM college`
+    return query(sql, [])
   },
 
   get_by_id: (id) => {
-    let sql = 'SELECT * FROM `college` WHERE id="' + id + '"'
-    console.log(sql)
-    return query(sql)
+    let sql = `SELECT * FROM college WHERE id = ?`
+    return query(sql, id)
   },
 
   add: (values) => {

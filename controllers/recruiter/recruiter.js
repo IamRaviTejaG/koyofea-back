@@ -61,8 +61,8 @@ export let recruiter_controller = {
 
   update: (req, res) => {
      
-    recruiter_model.updateupdate(req.params.id, req.body).then((data) => {
-      res.status(200).json({message: "Updated Successfully", err: {}})
+    recruiter_model.update(req.params.id, req.body).then((data) => {
+      res.status(200).json(req.body)
     }).catch((err) => {
       res.status(400).json({ message: "Bad Request", error: err })
     })
