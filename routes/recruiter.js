@@ -28,7 +28,7 @@ export default () => {
   // DELETE: Deletes a specific HR's personal info.
   recruiter.route('/hr/:id')
     .get(recruiter_hr_controller.get_by_id)
-    .post( validate.recruiter_hr_update ,recruiter_hr_controller.update)
+    .put( validate.recruiter_hr_update ,recruiter_hr_controller.update)
 
   // HR EXTRA
   // GET: Gets a specific HR's extra info.

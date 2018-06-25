@@ -9,6 +9,8 @@ import { student } from "../routes/student"
 import { recruiter } from "../routes/recruiter"
 import { college } from "../routes/college"
 import { validationResult } from "express-validator/check";
+import { dashboard } from "../controllers";
+import { ESRCH } from "constants";
 //const auth = require("../controllers/auth").default;
 //const expressValidator = require("express-validator");
 
@@ -44,7 +46,12 @@ app.all("/" + "*", (req, res, next) => {
   } 
   let token = auth.decode_token(req.get('x-api-key'))
   req.token_data = token
-  next()
+  dashboard.basic_data(req).then(data => {
+    req.basic_data = data[0]
+    next()
+  }).catch(err => {
+    return res.status(400).send({message: "Bad request", error: err})
+  })  
 })
 
 

@@ -59,8 +59,7 @@ export let recruiter_controller = {
       })
   },
 
-  update: (req, res) => {
-     
+  update: (req, res) => { 
     recruiter_model.update(req.params.id, req.body).then((data) => {
       res.status(200).json(req.body)
     }).catch((err) => {

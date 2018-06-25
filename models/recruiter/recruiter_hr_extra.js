@@ -25,7 +25,7 @@ export let recruiter_hr_extra_model = {
   // },
 
   update: (id, values) => {
-    let sql = `UPDATE recruiter_hr_extra SET ? WHERE id  = ?`
+    let sql = `UPDATE recruiter_hr_extra SET ? WHERE recruiter_hr_id  = ?`
     return query(sql, [values, id])
   }
 }

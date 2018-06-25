@@ -2,6 +2,7 @@ import { recruiter_hr_extra_model } from "../../models/recruiter/recruiter_hr_ex
 import { auth } from "../../config/auth";
 import { query } from "../../config/db";
 import { check, validationResult } from "express-validator/check"
+import { dashboard } from "..";
 
 
 
@@ -12,9 +13,11 @@ export let recruiter_hr_extra_controller = {
   },
 
   add: (req, res) => {   
-    
+    let basic_data = req.basic_data
+    console.log(basic_data)
     // Check if email is verified before entering data
     let token_email = req.token_data.user.email
+    req.body.recruiter_hr_id = basic_data.hr_id
     query(`SELECT email, data1, data2 from users WHERE email=?`, token_email).then(users => {
       if(!users[0].email){
         // if not verified throw error
@@ -26,7 +29,7 @@ export let recruiter_hr_extra_controller = {
       // Add recruiter_hr
       return recruiter_hr_extra_model.add(req.body)
     }).then(result => {
-      res.status(200).json({message: "Updated Successfully", err: {}})
+      res.status(200).json(req.body)
     }).catch((err) => {
       res.status(400).json({ message: "Bad Request", error: err })
     })
@@ -55,7 +58,7 @@ export let recruiter_hr_extra_controller = {
       // if(!(user[0].email == token_email)) {
       //   throw "Not permited to perform this action"
       // }
-      res.status(200).json({message: "Updated Successfully", err: {}})
+      res.status(200).json(req.body)
     }).catch((err) => {
       res.status(400).json({ message: "Bad Request", error: err })
     })
