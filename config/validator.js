@@ -36,7 +36,6 @@ export const validate = {
     check('size').exists().isString()
   ],
   recruiter_update: [
-    check('name').isEmpty(),
     check('verified').isEmpty().withMessage("User cannot verifiy Email"),
     check('recruiter_hr_id').isEmpty()
   ]
