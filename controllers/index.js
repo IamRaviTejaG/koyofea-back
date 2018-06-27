@@ -11,7 +11,7 @@ export let dashboard = {
     let sql_1 = `SELECT hr.id As hr_id , r.id As recruiter_id, r.name As recruiter_name 
           FROM recruiter r
           INNER 
-          JOIN recruiter_hr hr 
+          JOIN mapping_recruiter_hr m
           ON hr.id=r.recruiter_hr_id
           WHERE hr.email=?`
     let sql_2 
