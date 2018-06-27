@@ -1,17 +1,11 @@
 export const recruiter = require("express").Router()
 const jsonparser = require("body-parser").json()
-import { recruiter_model } from "../models/recruiter/recruiter"
-import { recruiter_drive_model } from "../models/recruiter/recruiter_drive"
-import { recruiter_drive_round_model } from "../models/recruiter/recruiter_drive_round"
-import { recruiter_hr_model } from "../models/recruiter/recruiter_hr"
-import { check, validationResult } from "express-validator/check"
 import { validate } from "../config/validator"
-import { recruiter_hr_controller } from "../controllers/recruiter/recruiter_hr"
-import { recruiter_controller } from "../controllers/recruiter/recruiter"
-import { recruiter_hr_extra_controller } from "../controllers/recruiter/recruiter_hr_extra"
-import { recruiter_drive_controller } from "../controllers/recruiter/recruiter_drive"
-import { recruiter_drive_round_controller } from "../controllers/recruiter/recruiter_drive_round"
-
+import { recruiter_hr_controller } from "../modules/recruiter-management/recruiter_hr"
+import { recruiter_controller } from "../modules/recruiter-management/recruiter"
+import { recruiter_hr_extra_controller } from "../modules/recruiter-management/recruiter_hr_extra"
+import { recruiter_drive_controller } from "../modules/recruiter-management/recruiter_drive"
+import { recruiter_drive_round_controller } from "../modules/recruiter-management/recruiter_drive_round"
 
 
 

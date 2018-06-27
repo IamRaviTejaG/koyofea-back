@@ -4,12 +4,12 @@ const express = require("express")
 const morgan = require('morgan')
 const cors = require('cors')
 import { auth } from "./auth"
-import { basic } from "../routes"
+import { base } from "../routes"
 import { student } from "../routes/student"
 import { recruiter } from "../routes/recruiter"
 import { college } from "../routes/college"
 import { validationResult } from "express-validator/check";
-import { dashboard } from "../controllers";
+import { dashboard } from "../modules/common";
 import { ESRCH } from "constants";
 //const auth = require("../controllers/auth").default;
 //const expressValidator = require("express-validator");
@@ -45,6 +45,8 @@ app.all("/" + "*", (req, res, next) => {
     return next();
   } 
   let token = auth.decode_token(req.get('x-api-key'))
+  console.log("decoded token")
+  console.log(token)
   req.token_data = token
   dashboard.basic_data(req).then(data => {
     req.basic_data = data[0]
@@ -55,7 +57,7 @@ app.all("/" + "*", (req, res, next) => {
 })
 
 
-app.use("/", basic)
+app.use("/", base)
 app.use("/student", student)
 app.use("/college", college)
 app.use("/recruiter", recruiter)

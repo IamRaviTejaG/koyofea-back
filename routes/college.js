@@ -1,7 +1,8 @@
 export const college = require("express").Router()
 const jsonparser = require("body-parser").json()
-import { college_coordinator_controller } from "../controllers/college/college_coordinator"
-import { college_controller } from "../controllers/college/college"
+import { college_coordinator_controller } from "../modules/college-management/college_coordinator"
+import { college_controller } from "../modules/college-management/college"
+
 
 export default () => {
   // COLLEGE INDEX
