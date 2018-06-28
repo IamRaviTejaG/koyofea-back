@@ -1,6 +1,5 @@
 import { recruiter_model } from "./recruiter_model"
 import { query } from "../../../config/db";
-import { dashboard } from "../../common";
 
 
 export let recruiter_controller = {
@@ -19,7 +18,7 @@ export let recruiter_controller = {
     recruiter_model.get_by_id(req.params.id).then(users => {
       // If request id and users id doesn't match throw
       // console.log(users)
-      // if(users[0] ? !(users[0].recruiter_hr_id == ) : true) {
+      // if(users ? !(users.recruiter_hr_id == ) : true) {
       //   throw "Not permited to perform this action"
       // }
         res.status(200).json(users)
@@ -33,8 +32,8 @@ export let recruiter_controller = {
       let sql = `SELECT r.id, r.recruiter_hr_id FROM recruiter r WHERE r.name = ?`
       query(sql, req.body.recruiter.name).then( results => {
         let object = {
-          recruiter_id:results[0].id,
-          recruiter_hr_id:results[0].recruiter_hr_id
+          recruiter_id:results.id,
+          recruiter_hr_id:results.recruiter_hr_id
         }
         let add_mapping = query(`INSERT INTO mapping_recruiter_hr SET ?`,object)
         let change_data2_status = query(`UPDATE users SET data2=true WHERE email=?`, req.token_data.user.email)  
@@ -57,21 +56,21 @@ export let recruiter_controller = {
       // Check if email is verified and request is for a recruiter before entering data
       let q = query(sql, req.token_data.user.email)
       let add_recruiter = q.then( users => {
-        if(!users[0]){          
+        if(!users){          
           throw "You are not registered"
         }
         // TODO: add middleware for email_verified
-        req.body.recruiter_data.recruiter_hr_id = users[0].id
+        req.body.recruiter_data.recruiter_hr_id = users.id
         // Add recruiter_hr
         return recruiter_model.add(req.body.recruiter_data) 
       })
       Promise.all([q, add_recruiter]).then(([users, result]) => {
         let sql = `SELECT r.id, r.recruiter_hr_id FROM recruiter r WHERE r.recruiter_hr_id = ?`
-        return query(sql, users[0].id)
+        return query(sql, users.id)
       }).then( results => {
         let object = {
-          recruiter_id:results[0].id,
-          recruiter_hr_id:results[0].recruiter_hr_id
+          recruiter_id:results.id,
+          recruiter_hr_id:results.recruiter_hr_id
         }
         let add_mapping = query(`INSERT INTO mapping_recruiter_hr SET ?`,object)
         let change_data2_status = query(`UPDATE users SET data2=true WHERE email=?`, req.token_data.user.email)  

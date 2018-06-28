@@ -47,7 +47,7 @@ export let query = (sql, value) => {
     Bluebird.using(getConnection(), (connection) => {
       return connection.query(sqlquery).then((rows) => {
         if(rows.length == 1){
-          resolve(rows[0])
+          resolve(rows)
         }else{
         let data = {}
         if (rows.length) {

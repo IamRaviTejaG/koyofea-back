@@ -26,8 +26,8 @@ export let recruiter_drive_model = {
   // TODO: needs testing
   add: (req) => {
     return dashboard.basic_data(req).then(data=>{
-      req.recruiter_hr_id = data[0].hr_id
-      req.recruiter_id = data[0].recruiter_id
+      req.recruiter_hr_id = data.hr_id
+      req.recruiter_id = data.recruiter_id
       let sql =`INSERT INTO recruiter_drive SET ?`
       return query(sql, req.body)
     })

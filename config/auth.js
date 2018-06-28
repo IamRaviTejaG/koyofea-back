@@ -20,8 +20,8 @@ function getStrategy(){
       if(err) {
         return done(err, false)
       }
-      if(row[0]){
-        return done(null, row[0])
+      if(row){
+        return done(null, row)
       } else {
         return done(null, false)
       }
@@ -58,19 +58,19 @@ export let auth = {
     let sql = `SELECT * FROM users WHERE email= ?`
     let a = query(sql, [email])
     let b = a.then(rows => {
-      if (!rows[0]) {
+      if (!rows) {
         throw "Email not register"
       }
-      if(rows[0].email_verified == 0){
+      if(rows.email_verified == 0){
         throw "Email not verified"
       }
-      return bcrypt.compare(user_password, rows[0].password)
+      return bcrypt.compare(user_password, rows.password)
     })
     Promise.join(a,b).then(([rows,result]) => {
       if (!result) {
         throw "Incorrect credentials!"
       } 
-      res.status(200).json({message: "Login successful",token: auth.genToken(rows[0]).token, user: rows[0]})
+      res.status(200).json({message: "Login successful",token: auth.genToken(rows).token, user: rows})
     }).catch((err) => {
       res.status(401).json({message: "Login failed!", error: err})
     })
@@ -91,7 +91,7 @@ export let auth = {
     }
     let sql = `SELECT * FROM users WHERE email= ?`
     query(sql, [email]).then((rows) => {
-      if (rows[0]) {
+      if (rows) {
         throw "Email already used!"
       } 
       return bcrypt.hash(unhashed_password, parseInt(process.env.SALT_ROUNDS))
@@ -110,7 +110,7 @@ export let auth = {
     let verify_token = req.query.email_token
     let sql = `SELECT * FROM users WHERE email_token="${verify_token}"`
     query(sql).then(row => {
-      if(!row[0]){
+      if(!row){
         throw "Wrong Verification Url"
       }
       let sql = `UPDATE users SET email_verified = true WHERE email_token="${verify_token}"`

@@ -8,11 +8,8 @@ import { base } from "../routes"
 import { student } from "../routes/student"
 import { recruiter } from "../routes/recruiter"
 import { college } from "../routes/college"
-import { validationResult } from "express-validator/check";
 import { dashboard } from "../modules/common";
-import { ESRCH } from "constants";
-//const auth = require("../controllers/auth").default;
-//const expressValidator = require("express-validator");
+
 
 
 let app = express()
@@ -47,12 +44,35 @@ app.all("/" + "*", (req, res, next) => {
   let token = auth.decode_token(req.get('x-api-key'))
   req.token_data = token
   dashboard.user_data(req).then(data => {
-    req.basic_data = data[0]
+    req.basic_data = data
     next()
   }).catch(err => {
     return res.status(400).send({message: "Bad request", error: err})
   })  
 })
+
+app.all("/*", (req, res, next) => {
+  if ( 
+    req.path == '/login' 
+    || req.path == '/' 
+    || req.path == '/favicon.ico' 
+    || req.path == '/robots.txt' 
+    || req.path == '/signup') {
+    return next();
+  } 
+  // TODO: add common code for getting data form user table
+  let token_email = auth.decode_token(req.get('x-api-key')).user.email
+  query(`SELECT * FROM users WHERE users.email=?`,token_email).then(data => {
+    if(data.email_verified){
+      next()
+    }else{
+      res.status(400).send({message: "Email_not_verified", error: {}})
+    }
+  }).catch(err => {
+    res.status(500).send({message: "Bad requets", error:err})
+  })
+})
+
 
 
 app.use("/", base)

@@ -20,7 +20,7 @@ export let recruiter_controller = {
     recruiter_model.get_by_id(req.params.id).then(users => {
       // If request id and users id doesn't match throw
       // console.log(users)
-      // if(users[0] ? !(users[0].recruiter_hr_id == ) : true) {
+      // if(users ? !(users.recruiter_hr_id == ) : true) {
       //   throw "Not permited to perform this action"
       // }
         res.status(200).json(users)
@@ -39,13 +39,13 @@ export let recruiter_controller = {
              WHERE hr.email=?` 
       // Check if email is verified and request is for a recruiter before entering data
       query(sql, req.token_data.user.email).then(users => {
-        if(!users[0]){          
+        if(!users){          
           throw "You are not registered"
         }
-        if(!users[0].email_verified){
+        if(!users.email_verified){
           throw "Email not verified"
         }
-        req.body.recruiter_hr_id = users[0].id
+        req.body.recruiter_hr_id = users.id
          // Add recruiter_hr
          console.log(req.body)
         return recruiter_model.add(req.body) 
