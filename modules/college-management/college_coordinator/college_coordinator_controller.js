@@ -52,10 +52,10 @@ export let college_coordinator_controller = {
     // Get data by id
     college_coordinator_model.update(req.params.id, req.body).then(user => {
       // If request id and users id doesn't match throw
-      if(!(user[0].email == req.token_data.user.email)) {
-        throw "Not permited to perform this action"
-      }
-      res.status(200).json({message: "Updated Successfully", err: {}})
+      // if(!(user[0].email == req.token_data.user.email)) {
+      //   throw "Not permited to perform this action"
+      // }
+      res.status(200).json(req.body)
     }).catch((err) => {
       res.status(400).json({ message: "Bad Request", error: err })
     })

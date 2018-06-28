@@ -6,6 +6,11 @@ export let recruiter_model = {
     return query(sql, [])
   },
 
+  get_all_name: () => {
+    let sql = `SELECT name FROM recruiter`
+    return query(sql, [])
+  },
+
   get_by_id: (id) => {
     let sql = `SELECT * FROM recruiter WHERE id= ?`
     return query(sql, id)

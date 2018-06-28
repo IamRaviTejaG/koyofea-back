@@ -45,10 +45,8 @@ app.all("/" + "*", (req, res, next) => {
     return next();
   } 
   let token = auth.decode_token(req.get('x-api-key'))
-  console.log("decoded token")
-  console.log(token)
   req.token_data = token
-  dashboard.basic_data(req).then(data => {
+  dashboard.user_data(req).then(data => {
     req.basic_data = data[0]
     next()
   }).catch(err => {

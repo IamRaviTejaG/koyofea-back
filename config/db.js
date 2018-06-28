@@ -42,16 +42,20 @@ export function getConnection() {
 
 export let query = (sql, value) => {
   let sqlquery = SqlString.format(sql, value)
-  console.log(sqlquery)
+  console.log(sqlquery.green)
   return new Bluebird ((resolve, reject) => {
     Bluebird.using(getConnection(), (connection) => {
       return connection.query(sqlquery).then((rows) => {
+        if(rows.length == 1){
+          resolve(rows[0])
+        }else{
         let data = {}
         if (rows.length) {
           for (var i=0; i<rows.length; i++)
             data[i] = JSON.parse(JSON.stringify(rows[i]))
         }
         resolve(data)
+      }
       }).catch((error) => {
         console.log(error)
         reject(error.code)

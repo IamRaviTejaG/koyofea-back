@@ -28,7 +28,7 @@ base.post("/signup", [
 ], auth.sign_up)
 base.get("/email-verify", auth.verify_email)
 base.get("/dashboard", (req, res) => {
-  dashboard.base_data(req).then(data => {
+  dashboard.user_data(req).then(data => {
     res.status(200).send(data)
   }).catch(err=> {
     res.status(400).send({message: "Bad request", error:err})

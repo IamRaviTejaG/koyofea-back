@@ -1,8 +1,10 @@
 import { recruiter_model } from "./recruiter_model"
 import { query } from "../../../config/db";
+import { dashboard } from "../../common";
 
 
 export let recruiter_controller = {
+
   get_all: (req, res) => {
     recruiter_model.get_all().then(data => {
       res.status(200).json(data)
@@ -27,33 +29,60 @@ export let recruiter_controller = {
   },
 
   add: (req, res) => {
+    if(!req.body.recruiter.new){
+      let sql = `SELECT r.id, r.recruiter_hr_id FROM recruiter r WHERE r.name = ?`
+      query(sql, req.body.recruiter.name).then( results => {
+        let object = {
+          recruiter_id:results[0].id,
+          recruiter_hr_id:results[0].recruiter_hr_id
+        }
+        let add_mapping = query(`INSERT INTO mapping_recruiter_hr SET ?`,object)
+        let change_data2_status = query(`UPDATE users SET data2=true WHERE email=?`, req.token_data.user.email)  
+        Promise.all([add_mapping, change_data2_status]).then(result => {
+          res.status(200).json(req.body)
+        }).catch(err => {
+          res.status(400).json({message: "Bad Request", error: err})
+        })
+      })
+    } else {
       // Get email from token
+      // TODO: remove extra code
       let sql = `SELECT hr.id, hr.email, u.email_verified
-             FROM users u 
-             INNER 
-             JOIN recruiter_hr hr 
-             ON hr.email=u.email 
-             WHERE hr.email=?` 
+            FROM users u 
+            INNER 
+            JOIN recruiter_hr hr 
+            ON hr.email=u.email 
+            WHERE hr.email=?` 
+        
       // Check if email is verified and request is for a recruiter before entering data
-      query(sql, req.token_data.user.email).then(users => {
+      let q = query(sql, req.token_data.user.email)
+      let add_recruiter = q.then( users => {
         if(!users[0]){          
           throw "You are not registered"
         }
-        if(!users[0].email_verified){
-          throw "Email not verified"
+        // TODO: add middleware for email_verified
+        req.body.recruiter_data.recruiter_hr_id = users[0].id
+        // Add recruiter_hr
+        return recruiter_model.add(req.body.recruiter_data) 
+      })
+      Promise.all([q, add_recruiter]).then(([users, result]) => {
+        let sql = `SELECT r.id, r.recruiter_hr_id FROM recruiter r WHERE r.recruiter_hr_id = ?`
+        return query(sql, users[0].id)
+      }).then( results => {
+        let object = {
+          recruiter_id:results[0].id,
+          recruiter_hr_id:results[0].recruiter_hr_id
         }
-        req.body.recruiter_hr_id = users[0].id
-         // Add recruiter_hr
-         console.log(req.body)
-        return recruiter_model.add(req.body) 
-      }).then(result => {
-        // Update data filled status
-        return query(`UPDATE users SET data2=true WHERE email=?`, req.token_data.user.email)
+        let add_mapping = query(`INSERT INTO mapping_recruiter_hr SET ?`,object)
+        let change_data2_status = query(`UPDATE users SET data2=true WHERE email=?`, req.token_data.user.email)  
+        return Promise.all([add_mapping, change_data2_status])
       }).then(result => {
         res.status(200).json(req.body)
       }).catch(err => {
         res.status(400).json({message: "Bad Request", error: err})
       })
+    }
+
   },
 
   update: (req, res) => { 

@@ -1,4 +1,4 @@
-import { dashboard } from "./common_controller";
+import { dashboard } from "./dashboard";
 
 export { 
   dashboard
