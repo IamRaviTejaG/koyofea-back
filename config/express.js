@@ -32,6 +32,8 @@ app.use(bodyparser.urlencoded({extended: true}))
 //     return next()
 //   })(req, res, next)
 // })
+
+// Middle ware for token
 app.all("/" + "*", (req, res, next) => {
   if ( 
     req.path == '/login' 
@@ -50,7 +52,7 @@ app.all("/" + "*", (req, res, next) => {
     return res.status(400).send({message: "Bad request", error: err})
   })  
 })
-
+//  Middleware for email_verified
 app.all("/*", (req, res, next) => {
   if ( 
     req.path == '/login' 
@@ -67,6 +69,53 @@ app.all("/*", (req, res, next) => {
       next()
     }else{
       res.status(400).send({message: "Email_not_verified", error: {}})
+    }
+  }).catch(err => {
+    res.status(500).send({message: "Bad requets", error:err})
+  })
+})
+// Middleware for data1
+app.all("/*", (req, res, next) => {
+  if ( 
+    req.path == '/login' 
+    || req.path == '/' 
+    || req.path == '/favicon.ico' 
+    || req.path == '/robots.txt' 
+    || req.path == '/signup'
+    || req.path == '/recruiter/hr') {
+    return next();
+  } 
+  // TODO: add common code for getting data form user table
+  let token_email = auth.decode_token(req.get('x-api-key')).user.email
+  query(`SELECT * FROM users WHERE users.email=?`,token_email).then(data => {
+    if(data.data1){
+      next()
+    }else{
+      res.status(400).send({message: "personal info not found", error: {}})
+    }
+  }).catch(err => {
+    res.status(500).send({message: "Bad requets", error:err})
+  })
+})
+// Middleware for data2
+app.all("/*", (req, res, next) => {
+  if ( 
+    req.path == '/login' 
+    || req.path == '/' 
+    || req.path == '/favicon.ico' 
+    || req.path == '/robots.txt' 
+    || req.path == '/signup'
+    || req.path == '/recruiter/hr'
+    || req.path == '/recruiter/base') {
+    return next();
+  } 
+  // TODO: add common code for getting data form user table
+  let token_email = auth.decode_token(req.get('x-api-key')).user.email
+  query(`SELECT * FROM users WHERE users.email=?`,token_email).then(data => {
+    if(data.email_verified){
+      next()
+    }else{
+      res.status(400).send({message: "Corporation info not found", error: {}})
     }
   }).catch(err => {
     res.status(500).send({message: "Bad requets", error:err})
