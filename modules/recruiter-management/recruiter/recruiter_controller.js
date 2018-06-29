@@ -28,20 +28,28 @@ export let recruiter_controller = {
   },
 
   add: (req, res) => {
-    if(!req.body.recruiter.new){
-      let sql = `SELECT r.id, r.recruiter_hr_id FROM recruiter r WHERE r.name = ?`
-      query(sql, req.body.recruiter.name).then( results => {
+    if(req.body.recruiter.is_new){
+      let sql = `SELECT 
+                hr.id As recruiter_hr_id,
+                (SELECT r.id FROM recruiter r WHERE r.name = ?) As recruiter_id
+                FROM recruiter_hr hr
+                WHERE hr.email=?` 
+  
+      query(sql, [req.body.recruiter.name, req.token_data.user.email]).then( results => {
         let object = {
-          recruiter_id:results.id,
+          recruiter_id:results.recruiter_id,
           recruiter_hr_id:results.recruiter_hr_id
         }
+        let recruiter_data = query(`SELECT r.* FROM recruiter r WHERE r.name =?`, req.body.recruiter.name)
         let add_mapping = query(`INSERT INTO mapping_recruiter_hr SET ?`,object)
         let change_data2_status = query(`UPDATE users SET data2=true WHERE email=?`, req.token_data.user.email)  
-        Promise.all([add_mapping, change_data2_status]).then(result => {
-          res.status(200).json(req.body)
+        Promise.all([recruiter_data, add_mapping, change_data2_status]).then(result => {
+          res.status(200).json(result)
         }).catch(err => {
           res.status(400).json({message: "Bad Request", error: err})
         })
+      }).catch(err => {
+        res.status(400).json({message: "Bad Request", error: err})
       })
     } else {
       // Get email from token
@@ -76,7 +84,7 @@ export let recruiter_controller = {
         let change_data2_status = query(`UPDATE users SET data2=true WHERE email=?`, req.token_data.user.email)  
         return Promise.all([add_mapping, change_data2_status])
       }).then(result => {
-        res.status(200).json(req.body)
+        res.status(200).json(req.body.recruiter_data)
       }).catch(err => {
         res.status(400).json({message: "Bad Request", error: err})
       })

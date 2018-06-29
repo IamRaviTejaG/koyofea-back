@@ -9,6 +9,7 @@ import { student } from "../routes/student"
 import { recruiter } from "../routes/recruiter"
 import { college } from "../routes/college"
 import { dashboard } from "../modules/common";
+import { query } from "./db";
 
 
 
@@ -82,7 +83,9 @@ app.all("/*", (req, res, next) => {
     || req.path == '/favicon.ico' 
     || req.path == '/robots.txt' 
     || req.path == '/signup'
-    || req.path == '/recruiter/hr') {
+    || req.path == '/recruiter/hr'
+    || req.path == '/dashboard'
+    || req.path == '/user') {
     return next();
   } 
   // TODO: add common code for getting data form user table

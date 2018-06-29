@@ -52,7 +52,7 @@ export let auth = {
 
   decode_token: token => jwt.decode(token, process.env.JWT_SECRET),
 
-  login: (req, res) => {
+  login: (req, res) => {   
     let email = req.body.email
     let user_password = req.body.password
     let sql = `SELECT * FROM users WHERE email= ?`
@@ -64,9 +64,10 @@ export let auth = {
       if(rows.email_verified == 0){
         throw "Email not verified"
       }
+      console.log(rows.password)
       return bcrypt.compare(user_password, rows.password)
     })
-    Promise.join(a,b).then(([rows,result]) => {
+    Promise.all([a,b]).then(([rows,result]) => {
       if (!result) {
         throw "Incorrect credentials!"
       } 
