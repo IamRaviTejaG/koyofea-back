@@ -12,6 +12,13 @@ export let recruiter_controller = {
     })
   },
 
+  get_all_name: (req, res) => {
+    recruiter_model.get_all_name().then(data => {
+      res.status(200).json(data)
+    }).catch(err => {
+      res.status(400).json({message: "Bad Request", error: err})
+    })
+  },
   get_by_id: (req, res) => {
    
     // Get data by id
@@ -28,7 +35,7 @@ export let recruiter_controller = {
   },
 
   add: (req, res) => {
-    if(req.body.recruiter.is_new){
+    if(!req.body.recruiter.is_new){
       let sql = `SELECT 
                 hr.id As recruiter_hr_id,
                 (SELECT r.id FROM recruiter r WHERE r.name = ?) As recruiter_id

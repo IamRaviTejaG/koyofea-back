@@ -16,14 +16,8 @@ export let college_coordinator_controller = {
 
   add: (req, res) => { 
     // Check if email is verified before entering data
-    query(`SELECT email from users WHERE email_verified=false AND email=?`, req.body.email).then(users => {
-      if(users){
-        // if not verified throw error
-        throw "Email not verified"
-      }
-      // Add recruiter_hr
-      return college_coordinator_model.add(req.body)
-    }).then(result => {
+    college_coordinator_model.add(req.body)
+    .then(result => {
       // Update data filled status
       return query(`UPDATE users SET data1=true WHERE email=?`, req.body.email)
     }).then((data) => {

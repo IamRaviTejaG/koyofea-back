@@ -1,10 +1,11 @@
 import { query } from "../../../config/db"
 import { dashboard } from "../../common"
 
+
 export let recruiter_drive_model = {
 
   // Get all drives of recruiter
-  get_all: () => {
+  get_all: (req) => {
     let token_data = req.token_data
     let email = token_data.user.email
     //TODO: get recruiter id by using email
@@ -16,7 +17,7 @@ export let recruiter_drive_model = {
                                         JOIN recruiter_hr hr
                                         ON hr.id = m.recruiter_hr_id
                                         WHERE hr.email = ?)`
-    return query(sql, id)
+    return query(sql, email)
   },
 
   get_by_id: (id) => {
@@ -25,7 +26,7 @@ export let recruiter_drive_model = {
   },
   // TODO: needs testing
   add: (req) => {
-    return dashboard.basic_data(req).then(data=>{
+    return dashboard.user_data(req).then(data=>{
       req.recruiter_hr_id = data.hr_id
       req.recruiter_id = data.recruiter_id
       let sql =`INSERT INTO recruiter_drive SET ?`

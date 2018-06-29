@@ -7,7 +7,7 @@ export let recruiter_model = {
   },
 
   get_all_name: () => {
-    let sql = `SELECT name FROM recruiter`
+    let sql = `SELECT id As value, name As label FROM recruiter`
     return query(sql, [])
   },
 

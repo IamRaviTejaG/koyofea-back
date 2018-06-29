@@ -15,30 +15,19 @@ export let recruiter_drive_controller = {
 
   add: (req, res) => { 
     // Check if email is verified before entering data
-    query(`SELECT email from users WHERE email_verified=false AND email=?`, req.token_data.user.email).then(users => {
-      if(users){
-        // if not verified throw error
-        throw "Email not verified"
-      }
-      // Add recruiter_hr
-      return recruiter_drive_model.add(req)
-    }).then((data) => {
+    recruiter_drive_model.add(req)
+    .then((data) => {
       res.status(200).json(req.body)
     }).catch((err) => {
       res.status(400).json({ message: "Bad Request", error: err })
-    })
-
-  
+    })  
   },
 
   get_by_id: (req, res) => {
       // Get data by id
-      recruiter_drive_model.get_by_id(req.params.id).then(users => {
+      recruiter_drive_model.get_by_id(req.params.id).then(drives => {
         // If request id and users id doesn't match throw
-        if(users ? !(users.email == req.token_data.user.email) : true) {
-          throw "Not permited to perform this action"
-        }
-        res.status(200).json(users)
+        res.status(200).json(drives)
       }).catch((err) => {
         res.status(400).json({ message: "Bad Request", error: err })
       })
@@ -49,9 +38,7 @@ export let recruiter_drive_controller = {
     // Get data by id
     recruiter_drive_model.update(req.params.id, req.body).then(user => {
       // If request id and users id doesn't match throw
-      if(!(user.email == req.token_data.user.email)) {
-        throw "Not permited to perform this action"
-      }
+
       res.status(200).json({message: "Updated Successfully", err: {}})
     }).catch((err) => {
       res.status(400).json({ message: "Bad Request", error: err })

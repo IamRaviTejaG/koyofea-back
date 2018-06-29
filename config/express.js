@@ -85,7 +85,9 @@ app.all("/*", (req, res, next) => {
     || req.path == '/signup'
     || req.path == '/recruiter/hr'
     || req.path == '/dashboard'
-    || req.path == '/user') {
+    || req.path == '/user'
+    || req.path == '/college/base'
+    || req.path == '/college/coordinator') {
     return next();
   } 
   // TODO: add common code for getting data form user table
@@ -109,7 +111,9 @@ app.all("/*", (req, res, next) => {
     || req.path == '/robots.txt' 
     || req.path == '/signup'
     || req.path == '/recruiter/hr'
-    || req.path == '/recruiter/base') {
+    || req.path == '/recruiter/base'
+    || req.path == '/college/base'
+    || req.path == '/college/coordinator') {
     return next();
   } 
   // TODO: add common code for getting data form user table

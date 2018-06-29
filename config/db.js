@@ -52,10 +52,10 @@ export let query = (sql, value) => {
         if(rows.length == 1){          
           resolve(rows[0])
         }else{
-        let data = {}
+        let data = []
         if (rows.length) {
           for (var i=0; i<rows.length; i++)
-            data[i] = JSON.parse(JSON.stringify(rows[i]))
+            data.push(JSON.parse(JSON.stringify(rows[i])))
         }
         resolve(data)
       }
