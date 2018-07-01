@@ -34,19 +34,24 @@ export default () => {
   // RECRUITER INDEX
   // GET: Gets all the companies' (recruiters') info.
   // POST: Adds a company (recruiter) data.
-  recruiter.route('/base/', jsonparser)
+  recruiter.route('/', jsonparser)
     .get(recruiter_controller.get_all)
-    .post( validate.recruiter_add , recruiter_controller.add)
+  
+  recruiter.route('/old', jsonparser)
+    .post(validate.recruiter_add_old, validate.error_handling, recruiter_controller.add_old)  
 
-  recruiter.route('/base/get-name', jsonparser)
-    .get(recruiter_controller.get_all_name)
+  recruiter.route('/new', jsonparser)
+    .post(validate.recruiter_add_new, validate.error_handling, recruiter_controller.add_new)
+
+  recruiter.route('/json', jsonparser)
+    .get(recruiter_controller.auto_fill_data)
     
   // RECRUITER with ID
   // GET: Gets a company's (recruiter's) info.
   // POST: Adds a company's (recruiter's) data.
-  recruiter.route('/base/:id')
+  recruiter.route('/:id')
     .get(recruiter_controller.get_by_id)
-    .put(validate.recruiter_update, recruiter_controller.update)
+    .put(validate.recruiter_update, validate.error_handling,recruiter_controller.update)
 
   // DRIVE
   // POST: Adds a company (recruiter) drive info.

@@ -6,8 +6,19 @@ export let college_model = {
     return query(sql, [])
   },
 
+  get_all_college_names: () => {
+    let sql = `SELECT name As label, id As value FROM college`
+    return query(sql, [])
+  },
+  
+  get_college_type: () => {
+    let sql = `SELECT id, name FROM college_type`
+    return query(sql, [])
+  },
+
   get_by_id: (id) => {
-    let sql = `SELECT * FROM college WHERE id = ?`
+    let sql = `SELECT c.* 
+              FROM college c WHERE id = ?`
     return query(sql, id)
   },
 

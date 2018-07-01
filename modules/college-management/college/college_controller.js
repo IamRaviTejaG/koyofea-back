@@ -1,4 +1,7 @@
 import { college_model } from "./college_model";
+import { query } from "../../../config/db";
+import { fun } from "../../common";
+
 
 
 
@@ -14,23 +17,38 @@ export let college_controller = {
     })
   },
 
-  add: (req, res) => {
-    if(!req.body.college.new){
-      let sql = `SELECT c.id, c.college_coordinator_id FROM college c WHERE c.name = ?`
-      query(sql, req.body.college.name).then( results => {
-        let object = {
-          college_id:results.id,
-          coordinator_id:results.college_coordinator_id
-        }
-        let add_mapping = query(`INSERT INTO mapping_college_coordinator SET ?`, object)
-        let change_data2_status = query(`UPDATE users SET data2=true WHERE email=?`, req.token_data.user.email)  
-        Promise.all([add_mapping, change_data2_status]).then(result => {
-          res.status(200).json(req.body)
-        }).catch(err => {
-          res.status(400).json({message: "Bad Request", error: err})
-        })
+  // TODO add college_type_json
+  auto_fill_data: (req, res) => {
+    let college_name_list = college_model.get_all_college_names()
+    let college_type_list = college_model.get_college_type()
+    Promise.all([college_name_list, college_type_list]).then(([college_name_list, college_type_list]) => {
+      let json = {}
+      json.college_name_list = fun.single_objet_to_array(college_name_list)
+      json.college_type_list = fun.single_objet_to_array(college_type_list)
+      res.status(200).send(json)
+    }).catch(err => {
+      res.status(400).send({message: "Bad request", error: err})
+    })
+    
+  },
+  add_old: (req, res) => {
+    let sql = `SELECT c.id, c.college_coordinator_id FROM college c WHERE c.name = ?`
+    query(sql, req.body.college.name).then( results => {
+      let object = {
+        college_id:results.id,
+        coordinator_id:results.college_coordinator_id
+      }
+      let add_mapping = query(`INSERT INTO mapping_college_coordinator SET ?`, object)
+      let change_data2_status = query(`UPDATE users SET data2=true WHERE email=?`, req.token_data.user.email)  
+      return Promise.all([add_mapping, change_data2_status])
+    }).then(result => {
+        res.status(200).json(req.body) 
+      }).catch(err => {
+        res.status(400).json({message: "Bad Request", error: err})
       })
-    } else {
+  },
+
+  add_new: (req, res) => {
       // Get email from token
       // TODO: remove extra code
       let sql = `SELECT cc.id, cc.email, u.email_verified
@@ -43,9 +61,7 @@ export let college_controller = {
       // Check if email is verified and request is for a colleg before entering data
       let q = query(sql, req.token_data.user.email)
       let add_college = q.then( users => {
-        if(!users){          
-          throw "You are not registered"
-        }
+        console.log(users)
         // TODO: add middleware for email_verified
         req.body.college_data.college_coordinator_id = users.id
         // Add college
@@ -67,8 +83,6 @@ export let college_controller = {
       }).catch(err => {
         res.status(400).json({message: "Bad Request", error: err})
       })
-    }
-
   },
   get_by_id: (req, res) => {
       // Get data by id

@@ -9,6 +9,7 @@ export const validate = {
     }
     next()
   },
+
   recruiter_hr_add:  [
     check('first_name').exists(),
     check('last_name').exists(),
@@ -20,22 +21,35 @@ export const validate = {
   recruiter_hr_update: [
     check('email').isEmpty().withMessage("Email cannot be updated")
   ],
-  recruiter_add: [
-    check('name').exists(),
-    check('website_url').exists(),
-    check('description').exists(),
-    check('verified').isEmpty().withMessage("User cannot verifiy Email"),
-    check('phone').exists().isInt(),
-    check('address_1').exists(),
-    check('landmark').exists(),
-    check('city').exists(),
-    check('state').exists(),
-    check('country').exists(),
-    check('pin').exists().isInt(),
-    check('recruiter_hr_id').isEmpty(),
-    check('size').exists().isString()
+  recruiter_add_new: [
+    check('recruiter.name').exists(),
+    check('recruiter.id').exists(),
+
+    check("recruiter_data.name").exists(),
+    check('recruiter_data.website_url').exists(),
+    check('recruiter_data.description').exists(),
+    check('recruiter_data.verified').isEmpty().withMessage("User cannot verifiy Email"),
+    check('recruiter_data.phone').exists().isInt(),
+    check('recruiter_data.address_1').exists(),
+    check('recruiter_data.landmark').exists(),
+    check('recruiter_data.city').exists(),
+    check('recruiter_data.state').exists(),
+    check('recruiter_data.country').exists(),
+    check('recruiter_data.pin').exists().isInt(),
+    check('recruiter_data.recruiter_hr_id').isEmpty(),
+    check('recruiter_data.size').exists().isString(),
+    check('recruiter_data.industry_id').exists().isInt()
   ],
+
+  recruiter_add_old: [
+    check('name').exists(),
+    check('id').exists().isInt(),
+    check('recruiter_data').isEmpty(),
+  ],
+
   recruiter_update: [
+    check('name').isEmpty(),
+    check('industry_id').isEmpty(),
     check('verified').isEmpty().withMessage("User cannot verifiy Email"),
     check('recruiter_hr_id').isEmpty()
   ]

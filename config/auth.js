@@ -92,7 +92,7 @@ export let auth = {
     }
     let sql = `SELECT * FROM users WHERE email= ?`
     query(sql, [email]).then((rows) => {
-      if (rows) {
+      if (rows.length > 0) {
         throw "Email already used!"
       } 
       return bcrypt.hash(unhashed_password, parseInt(process.env.SALT_ROUNDS))

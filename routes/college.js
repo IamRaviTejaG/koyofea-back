@@ -8,14 +8,22 @@ export default () => {
   // COLLEGE INDEX
   // GET: Gets all the colleges' info.
   // POST: Adds a college's info.
-  college.route('/base', jsonparser)
+  college.route('/', jsonparser)
     .get(college_controller.get_all)
-    .post(college_controller.add)
+    
+  college.route('/new', jsonparser)
+    .post(college_controller.add_new)
 
+  college.route('/old', jsonparser)
+    .post(college_controller.add_old)  
+  college.route('/json', jsonparser)
+    .get(college_controller.auto_fill_data)
+
+    
   // COLLEGE with ID
   // GET: Gets a college's info given the college ID.
   // DELETE: Deletes a college's info given the college ID.
-  college.route('/base/:id')
+  college.route('/:id')
     .get(college_controller.get_by_id)
     .put(college_controller.update)
 
