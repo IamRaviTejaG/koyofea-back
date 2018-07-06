@@ -6,6 +6,7 @@ import { recruiter_controller } from "../modules/recruiter-management/recruiter"
 import { recruiter_hr_extra_controller } from "../modules/recruiter-management/recruiter_hr_extra"
 import { recruiter_drive_controller } from "../modules/recruiter-management/recruiter_drive"
 import { recruiter_drive_round_controller } from "../modules/recruiter-management/recruiter_drive_round"
+import { recruiter_drive_eligibility_controller } from "../modules/recruiter-management/recruiter_drive_eligibility/recruiter_drive_eligibility_controller";
 
 
 
@@ -55,26 +56,45 @@ export default () => {
 
   // DRIVE
   // POST: Adds a company (recruiter) drive info.
-  recruiter.route('/drives', jsonparser)
+  recruiter.route('/:rid/drives', jsonparser)
     .get(recruiter_drive_controller.get_all)
     .post(recruiter_drive_controller.add)
+
+  recruiter.route('/json/drive', jsonparser)
+    .get(recruiter_drive_controller.auto_fill_data)
 
   // RECRUITER DRIVE with ID
   // GET: Gets a specific company's drive info.
   // DELETE: Deletes a company's drive info.
-  recruiter.route('/drives/:id')
+  recruiter.route('/:rid/drives/:driveid')
     .get(recruiter_drive_controller.get_by_id)
     .put(recruiter_drive_controller.update)
 
+
+    // ELIGIBILITY
+
+  recruiter.route('/json/eligibility', jsonparser)
+    .get(recruiter_drive_eligibility_controller.auto_fill_data)
+
+  recruiter.route('/drives/:driveid/eligibility', jsonparser)
+    .get(recruiter_drive_eligibility_controller.get_all)  
+    .post(recruiter_drive_eligibility_controller.add)
+    
+  recruiter.route('/drives/:driveid/eligibility/:eid', jsonparser)
+    .get(recruiter_drive_eligibility_controller.get_by_id)
+    .put(recruiter_drive_eligibility_controller.update)
   // DRIVE & ROUND with IDs
   // GET: Gets a specific company's drive's round info.
   // POST: Adds a specific company's drive's round info.
   // DELETE: Deletes a specific company's drive's round info.
-  recruiter.route('/drive/:driveid/round', jsonparser)
+  recruiter.route('/json/round')
+    .get(recruiter_drive_round_controller.auto_fill_data)
+
+  recruiter.route('/drives/:driveid/rounds', jsonparser)
     .get(recruiter_drive_round_controller.get_all)  
     .post(recruiter_drive_round_controller.add)
     
-  recruiter.route('/drive/:driveid/round/:roundid', jsonparser)
+  recruiter.route('/drives/:driveid/rounds/:roundid', jsonparser)
     .get(recruiter_drive_round_controller.get_by_id)
     .put(recruiter_drive_round_controller.update)
 

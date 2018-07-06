@@ -32,10 +32,14 @@ export let college_controller = {
     
   },
   add_old: (req, res) => {
-    let sql = `SELECT c.id, c.college_coordinator_id FROM college c WHERE c.name = ?`
-    query(sql, req.body.college.name).then( results => {
+    let sql = `SELECT 
+              cc.id As college_coordinator_id,
+              (SELECT c.id FROM college c WHERE c.name = ?) As college_id
+              FROM college_coordinator cc
+              WHERE cc.email = ?` 
+    query(sql, [req.body.name, req.token_data.user.email]).then( results => {
       let object = {
-        college_id:results.id,
+        college_id:results.college_id,
         coordinator_id:results.college_coordinator_id
       }
       let add_mapping = query(`INSERT INTO mapping_college_coordinator SET ?`, object)

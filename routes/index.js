@@ -43,6 +43,14 @@ base.get("/user", (req, res) => {
     res.status(500).send({message: "Bad requets", error:err})
   })
 })
+
+base.get("/drives", (req,res) => {
+  query(`SELECT * FROM recruiter_drive`).then(drives => {
+    res.status(200).send(drives)
+  }).catch(err => {
+    res.status(400).send({message: "Bad request", error: err})
+  })
+})
 // // If no route is matched by now, it must be a 404
 // base.use((req, res, next) => {
 //   res.status(404).json({ "error": "Endpoint not found" });

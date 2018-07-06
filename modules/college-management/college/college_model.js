@@ -17,8 +17,12 @@ export let college_model = {
   },
 
   get_by_id: (id) => {
-    let sql = `SELECT c.* 
-              FROM college c WHERE id = ?`
+    let sql = `SELECT c.* , ct.name As college_type
+              FROM college c
+              INNER 
+              JOIN college_type ct
+              ON  c.college_type_id = ct.id
+              WHERE c.id = ?`
     return query(sql, id)
   },
 

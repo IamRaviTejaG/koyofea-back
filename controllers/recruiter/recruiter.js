@@ -1,7 +1,6 @@
 import { recruiter_model } from "../../models/recruiter/recruiter"
 import { auth } from "../../config/auth";
 import { query } from "../../config/db";
-import { validationResult } from "express-validator/check"
 
 
 

@@ -56,8 +56,9 @@ export let auth = {
     let email = req.body.email
     let user_password = req.body.password
     let sql = `SELECT * FROM users WHERE email= ?`
-    let a = query(sql, [email])
+    let a = query(sql, [email])    
     let b = a.then(rows => {
+
       if (!rows) {
         throw "Email not register"
       }
