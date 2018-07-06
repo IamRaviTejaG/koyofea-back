@@ -2,7 +2,6 @@ import { query } from "../../config/db";
 
 export let dashboard = {
   user_data: (req) =>{
-
     let token_email = req.token_data.user.email
     let user_type = req.token_data.user.user_type_id
     let sql
@@ -19,7 +18,7 @@ export let dashboard = {
 
     let sql_2 = `SELECT cc.id As coordinator_id, c.id As college_id, c.name As college_name, cc.email
                 FROM college c
-                INNER 
+                INNER
                 JOIN mapping_college_coordinator m
                 ON c.id = m.college_id
                 INNER
@@ -37,7 +36,7 @@ export let dashboard = {
       case 3:
         sql = sql_3
         break;
-    
+
       default:
         break;
     }
@@ -45,6 +44,6 @@ export let dashboard = {
       return data
     }).catch(err => {
       return err
-    })      
+    })
   }
 }

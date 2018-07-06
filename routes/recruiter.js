@@ -1,8 +1,8 @@
 export const recruiter = require("express").Router()
 const jsonparser = require("body-parser").json()
 import { validate } from "../config/validator"
-import { recruiter_hr_controller } from "../modules/recruiter-management/recruiter_hr"
 import { recruiter_controller } from "../modules/recruiter-management/recruiter"
+import { recruiter_hr_controller } from "../modules/recruiter-management/recruiter_hr"
 import { recruiter_hr_extra_controller } from "../modules/recruiter-management/recruiter_hr_extra"
 import { recruiter_drive_controller } from "../modules/recruiter-management/recruiter_drive"
 import { recruiter_drive_round_controller } from "../modules/recruiter-management/recruiter_drive_round"
@@ -37,16 +37,16 @@ export default () => {
   // POST: Adds a company (recruiter) data.
   recruiter.route('/', jsonparser)
     .get(recruiter_controller.get_all)
-  
+
   recruiter.route('/old', jsonparser)
-    .post(validate.recruiter_add_old, validate.error_handling, recruiter_controller.add_old)  
+    .post(validate.recruiter_add_old, validate.error_handling, recruiter_controller.add_old)
 
   recruiter.route('/new', jsonparser)
     .post(validate.recruiter_add_new, validate.error_handling, recruiter_controller.add_new)
 
   recruiter.route('/json', jsonparser)
     .get(recruiter_controller.auto_fill_data)
-    
+
   // RECRUITER with ID
   // GET: Gets a company's (recruiter's) info.
   // POST: Adds a company's (recruiter's) data.
@@ -70,16 +70,15 @@ export default () => {
     .get(recruiter_drive_controller.get_by_id)
     .put(recruiter_drive_controller.update)
 
-
-    // ELIGIBILITY
+  // ELIGIBILITY
 
   recruiter.route('/json/eligibility', jsonparser)
     .get(recruiter_drive_eligibility_controller.auto_fill_data)
 
   recruiter.route('/drives/:driveid/eligibility', jsonparser)
-    .get(recruiter_drive_eligibility_controller.get_all)  
+    .get(recruiter_drive_eligibility_controller.get_all)
     .post(recruiter_drive_eligibility_controller.add)
-    
+
   recruiter.route('/drives/:driveid/eligibility/:eid', jsonparser)
     .get(recruiter_drive_eligibility_controller.get_by_id)
     .put(recruiter_drive_eligibility_controller.update)
@@ -91,9 +90,9 @@ export default () => {
     .get(recruiter_drive_round_controller.auto_fill_data)
 
   recruiter.route('/drives/:driveid/rounds', jsonparser)
-    .get(recruiter_drive_round_controller.get_all)  
+    .get(recruiter_drive_round_controller.get_all)
     .post(recruiter_drive_round_controller.add)
-    
+
   recruiter.route('/drives/:driveid/rounds/:roundid', jsonparser)
     .get(recruiter_drive_round_controller.get_by_id)
     .put(recruiter_drive_round_controller.update)

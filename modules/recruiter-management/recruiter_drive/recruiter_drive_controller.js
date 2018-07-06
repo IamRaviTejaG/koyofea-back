@@ -2,10 +2,8 @@ import { recruiter_drive_model } from "./recruiter_drive_model"
 import { query } from "../../../config/db";
 import { auto_fill, fun, dashboard } from "../../common";
 
-
-
 export let recruiter_drive_controller = {
-  get_all: async (req,res) => {
+  get_all: async (req, res) => {
     // TODO: with admin panel
     let user_data = await dashboard.user_data(req)
     if(user_data.recruiter_id != req.params.rid){
@@ -17,7 +15,7 @@ export let recruiter_drive_controller = {
         object.college_applicants_no = 1
         object.student_applicants_no = 5
         return object
-      } 
+      }
       data.map(add_placeholder_data)
 
       res.status(200).json(data)
@@ -44,7 +42,7 @@ export let recruiter_drive_controller = {
     })
   },
 
-  add: async (req, res) => { 
+  add: async (req, res) => {
     let user_data = await dashboard.user_data(req)
     req.body.recruiter_id = user_data.recruiter_id
     req.body.recruiter_hr_id = user_data.hr_id
@@ -53,7 +51,7 @@ export let recruiter_drive_controller = {
       res.status(200).json(req.body)
     }).catch((err) => {
       res.status(400).json({ message: "Bad Request", error: err })
-    })  
+    })
   },
 
   get_by_id: (req, res) => {
@@ -64,10 +62,9 @@ export let recruiter_drive_controller = {
       }).catch((err) => {
         res.status(400).json({ message: "Bad Request", error: err })
       })
-  
   },
-  
-  update: (req, res) => {  
+
+  update: (req, res) => {
     // Get data by id
     recruiter_drive_model.update(req.params.id, req.body).then(user => {
       // If request id and users id doesn't match throw

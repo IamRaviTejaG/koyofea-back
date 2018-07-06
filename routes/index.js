@@ -33,7 +33,7 @@ base.get("/dashboard", (req, res) => {
   }).catch(err=> {
     res.status(400).send({message: "Bad request", error:err})
   })
-  
+
 })
 base.get("/user", (req, res) => {
   let token_email = auth.decode_token(req.get('x-api-key')).user.email
@@ -45,11 +45,35 @@ base.get("/user", (req, res) => {
 })
 
 base.get("/drives", (req,res) => {
-  query(`SELECT * FROM recruiter_drive`).then(drives => {
-    res.status(200).send(drives)
-  }).catch(err => {
-    res.status(400).send({message: "Bad request", error: err})
-  })
+  query(`SELECT rd.id, r.name as company_name, rd.name,
+        rd.drive_date, rd.no_positions
+        FROM recruiter_drive rd
+        INNER
+        JOIN recruiter r
+        ON r.id = rd.recruiter_id`).then(drives => {
+   let add_placeholder_data = (object) => {
+     object.college_applicants_no = 1
+     // object.student_applicants_no = 5
+     return object
+   }
+   drives.map(add_placeholder_data)
+   res.status(200).send(drives)
+ }).catch(err => {
+   res.status(400).send({message: "Bad request", error: err})
+ })
+})
+
+base.post('/drives/:driveid/apply', (req, res) => {
+  let values = {
+    college_id: req.basic_data.college_id,
+    drive_id: req.params.driveid
+  }
+  query(`INSERT INTO mapping_drive_college SET ?`, values)
+    .then(data => {
+      res.status(200).json({message: "Updated successfully!"})
+    }).catch(err => {
+      res.status(400).send({message: "Server Error", error: err})
+    })
 })
 // // If no route is matched by now, it must be a 404
 // base.use((req, res, next) => {

@@ -1,9 +1,9 @@
 export const student = require("express").Router()
 const jsonparser = require("body-parser").json()
-import { student_model } from "../models/student/student"
-import { student_education_model } from "../models/student/student_education"
-import { student_experience_model } from "../models/student/student_experience"
-import { student_project_model } from "../models/student/student_project"
+import { student_controller } from "../modules/student-management/student"
+import { student_education_controller } from "../modules/student-management/student_education"
+import { student_experience_controller } from "../modules/student-management/student_experience"
+import { student_project_controller } from "../modules/student-management/student_project"
 
 export default () => {
   // STUDENT INDEX
