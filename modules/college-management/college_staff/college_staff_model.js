@@ -17,16 +17,18 @@ export let college_staff_model = {
   },
 
   update_role: (req) => {
-    let sql = `UPDATE college_coordinator cc
+    let sql = `UPDATE college_coordinator cc, mapping_college_coordinator mcc
           SET cc.college_role_id = ${req.body.updatedrole}
-          WHERE cc.id = ${req.params.staffid}`
+          WHERE cc.id = ${req.params.staffid}
+          AND mcc.college_id = ${req.params.collegeid}`
     return query(sql, [])
   },
 
   update_status: (req) => {
-    let sql = `UPDATE college_coordinator cc
+    let sql = `UPDATE college_coordinator cc, mapping_college_coordinator mcc
           SET cc.verified_status = ${req.body.verified_status}
-          WHERE cc.id = ${req.params.staffid}`
+          WHERE cc.id = ${req.params.staffid}
+          AND mcc.college_id = ${req.params.collegeid}`
     return query(sql, [])
   }
 }

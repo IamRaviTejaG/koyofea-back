@@ -46,8 +46,14 @@ export default () => {
     .get(college_controller.get_by_id)
     .put(college_controller.update)
 
+
   college.route('/:collegeid/staff')
     .get(college_staff_controller.get_all)
+
+  // NOTE: (For routes /:collegeid/staff/*)
+  // THESE ROUTES BELOW NEED A CHECK AS THEY UPDATE DB SOLELY BASED ON THE
+  // staff_id PROVIDED, ALTHOUGH THEY ALSO TAKE college_id AS A PARAMETER.
+  // college_id CHECK CAN FURTHER BE ADDED TO AVOID UNNECESSARY DISCREPANCIES.
 
   college.route('/:collegeid/staff/:staffid/role')
     .put(college_staff_controller.update_role)

@@ -7,8 +7,7 @@ import { recruiter_hr_extra_controller } from "../modules/recruiter-management/r
 import { recruiter_drive_controller } from "../modules/recruiter-management/recruiter_drive"
 import { recruiter_drive_round_controller } from "../modules/recruiter-management/recruiter_drive_round"
 import { recruiter_drive_eligibility_controller } from "../modules/recruiter-management/recruiter_drive_eligibility/recruiter_drive_eligibility_controller";
-
-
+import { recruiter_staff_controller } from "../modules/recruiter-management/recruiter_staff/recruiter_staff_controller";
 
 export default () => {
   // HR
@@ -70,8 +69,20 @@ export default () => {
     .get(recruiter_drive_controller.get_by_id)
     .put(recruiter_drive_controller.update)
 
-  // ELIGIBILITY
+  recruiter.route('/:rid/staff')
+    .get(recruiter_staff_controller.get_all)
 
+  // NOTE: (For routes /:rid/staff/*)
+  // THESE ROUTES BELOW NEED A CHECK AS THEY UPDATE DB SOLELY BASED ON THE
+  // staff_id PROVIDED, ALTHOUGH THEY ALSO TAKE recruiter_id AS A PARAMETER.
+  // recruiter_id CHECK CAN FURTHER BE ADDED TO AVOID UNNECESSARY DISCREPANCIES.
+  recruiter.route('/:rid/staff/:staffid/role')
+    .put(recruiter_staff_controller.update_role)
+
+  recruiter.route('/:rid/staff/:staffid/status')
+    .put(recruiter_staff_controller.update_status)
+
+  // ELIGIBILITY
   recruiter.route('/json/eligibility', jsonparser)
     .get(recruiter_drive_eligibility_controller.auto_fill_data)
 
@@ -82,6 +93,7 @@ export default () => {
   recruiter.route('/drives/:driveid/eligibility/:eid', jsonparser)
     .get(recruiter_drive_eligibility_controller.get_by_id)
     .put(recruiter_drive_eligibility_controller.update)
+
   // DRIVE & ROUND with IDs
   // GET: Gets a specific company's drive's round info.
   // POST: Adds a specific company's drive's round info.
@@ -96,5 +108,4 @@ export default () => {
   recruiter.route('/drives/:driveid/rounds/:roundid', jsonparser)
     .get(recruiter_drive_round_controller.get_by_id)
     .put(recruiter_drive_round_controller.update)
-
 }
