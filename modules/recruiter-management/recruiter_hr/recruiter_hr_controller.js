@@ -4,7 +4,7 @@ import { query } from "../../../config/db";
 
 
 export let recruiter_hr_controller = {
-  get_all: (req,res) => {
+  get_all: (req, res) => {
     // TODO: with admin panel
     recruiter_hr_model.get_all(req).then((data) => {
       res.status(200).json(data)
@@ -13,9 +13,9 @@ export let recruiter_hr_controller = {
     })
   },
 
-  add: (req, res) => { 
+  add: (req, res) => {
     // Check if email is verified before entering data
-    recruiter_hr_model.add(req.body) 
+    recruiter_hr_model.add(req.body)
     .then(result => {
       // Update data filled status
       return query(`UPDATE users SET data1=true WHERE email=?`, req.body.email)
@@ -24,7 +24,7 @@ export let recruiter_hr_controller = {
     }).catch((err) => {
       res.status(400).json({ message: "Bad Request", error: err })
     })
-  
+
   },
 
   get_by_id: (req, res) => {
@@ -38,10 +38,10 @@ export let recruiter_hr_controller = {
       }).catch((err) => {
         res.status(400).json({ message: "Bad Request", error: err })
       })
-  
+
   },
-  
-  update: (req, res) => {  
+
+  update: (req, res) => {
     // Get data by id
     recruiter_hr_model.update(req.params.id, req.body).then(user => {
       // If request id and users id doesn't match throw
