@@ -4,7 +4,7 @@ import { auto_fill, fun } from "../../common";
 
 export let recruiter_drive_eligibility_controller = {
 
-  get_all: (req,res) => {
+  get_all: (req, res) => {
     // TODO: with admin panel
     recruiter_drive_eligibility_model.get_all(req.params.driveid).then((data) => {
       res.status(200).json(data)
@@ -27,14 +27,14 @@ export let recruiter_drive_eligibility_controller = {
     })
   },
 
-  add: (req, res) => { 
+  add: (req, res) => {
     // Check if email is verified before entering data
     let fun = (data) => {
       data.recruiter_drive_id = req.params.driveid
       return recruiter_drive_eligibility_model.add(data)
     }
     console.log(req.body)
-    let eligibilities = req.body.map(fun)  
+    let eligibilities = req.body.map(fun)
     Promise.all(eligibilities)
     .then((data) => {
       res.status(200).json(req.body)
@@ -42,7 +42,7 @@ export let recruiter_drive_eligibility_controller = {
       res.status(400).json({ message: "Bad Request", error: err })
     })
 
-  
+
   },
 
   get_by_id: (req, res) => {
@@ -53,10 +53,10 @@ export let recruiter_drive_eligibility_controller = {
       }).catch((err) => {
         res.status(400).json({ message: "Bad Request", error: err })
       })
-  
+
   },
-  
-  update: (req, res) => {  
+
+  update: (req, res) => {
     // Get data by id
     recruiter_drive_eligibility_model.update(req.params.eid,  req.body).then(user => {
       // If request id and users id doesn't match throw

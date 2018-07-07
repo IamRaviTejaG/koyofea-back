@@ -1,11 +1,8 @@
-
 import { query } from "../../../config/db";
 import { college_coordinator_model } from "./college_coordinator_model";
 
-
-
 export let college_coordinator_controller = {
-  get_all: (req,res) => {
+  get_all: (req, res) => {
     // TODO: with admin panel
     college_coordinator_model.get_all().then((data) => {
       res.status(200).json(data)
@@ -14,7 +11,7 @@ export let college_coordinator_controller = {
     })
   },
 
-  add: (req, res) => { 
+  add: (req, res) => {
     // Check if email is verified before entering data
     college_coordinator_model.add(req.body)
     .then(result => {
@@ -25,7 +22,7 @@ export let college_coordinator_controller = {
     }).catch((err) => {
       res.status(400).json({ message: "Bad Request", error: err })
     })
-  
+
   },
 
   get_by_id: (req, res) => {
@@ -39,10 +36,10 @@ export let college_coordinator_controller = {
       }).catch((err) => {
         res.status(400).json({ message: "Bad Request", error: err })
       })
-  
+
   },
-  
-  update: (req, res) => {  
+
+  update: (req, res) => {
     // Get data by id
     college_coordinator_model.update(req.params.id, req.body).then(user => {
       // If request id and users id doesn't match throw

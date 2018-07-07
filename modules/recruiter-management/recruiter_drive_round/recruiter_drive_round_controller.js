@@ -4,7 +4,7 @@ import { fun } from "../../common";
 
 export let recruiter_drive_round_controller = {
 
-  get_all: (req,res) => {
+  get_all: (req, res) => {
     // TODO: with admin panel
     recruiter_drive_round_model.get_all(req.params.drive_id).then((data) => {
       res.status(200).json(data)
@@ -25,13 +25,13 @@ export let recruiter_drive_round_controller = {
     })
   },
 
-  add: (req, res) => { 
+  add: (req, res) => {
     // Check if email is verified before entering data
     let fun = (data) => {
       data.recruiter_drive_id = req.params.driveid
       return recruiter_drive_round_model.add(data)
     }
-    let eligibilities = req.body.map(fun)  
+    let eligibilities = req.body.map(fun)
     Promise.all(eligibilities)
     .then((data) => {
       res.status(200).json(req.body)
@@ -51,10 +51,10 @@ export let recruiter_drive_round_controller = {
       }).catch((err) => {
         res.status(400).json({ message: "Bad Request", error: err })
       })
-  
+
   },
-  
-  update: (req, res) => {  
+
+  update: (req, res) => {
     // Get data by id
     recruiter_drive_round_model.update(req.body.id, req.body).then(user => {
       // If request id and users id doesn't match throw

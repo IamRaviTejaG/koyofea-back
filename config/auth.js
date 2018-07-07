@@ -52,11 +52,11 @@ export let auth = {
 
   decode_token: token => jwt.decode(token, process.env.JWT_SECRET),
 
-  login: (req, res) => {   
+  login: (req, res) => {
     let email = req.body.email
     let user_password = req.body.password
     let sql = `SELECT * FROM users WHERE email= ?`
-    let a = query(sql, [email])    
+    let a = query(sql, [email])
     let b = a.then(rows => {
 
       if (!rows) {
@@ -71,7 +71,7 @@ export let auth = {
     Promise.all([a,b]).then(([rows,result]) => {
       if (!result) {
         throw "Incorrect credentials!"
-      } 
+      }
       res.status(200).json({message: "Login successful",token: auth.genToken(rows).token, user: rows})
     }).catch((err) => {
       res.status(401).json({message: "Login failed!", error: err})
@@ -95,7 +95,7 @@ export let auth = {
     query(sql, [email]).then((rows) => {
       if (rows.length > 0) {
         throw "Email already used!"
-      } 
+      }
       return bcrypt.hash(unhashed_password, parseInt(process.env.SALT_ROUNDS))
     }).then((hash) => {
       let sql = `INSERT INTO users SET ?`
@@ -105,7 +105,7 @@ export let auth = {
       res.status(200).json({message: "sign-up successful", error: {}})
     }).catch(err => {
       res.status(400).json({message: "Sign-up failed", error: err})
-    })       
+    })
   },
 
   verify_email: (req, res) => {
@@ -123,5 +123,4 @@ export let auth = {
       res.status(400).json({message: "Email verification failed", error: err})
     })
   }
-  
 }

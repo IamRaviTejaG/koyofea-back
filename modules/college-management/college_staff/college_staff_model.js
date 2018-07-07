@@ -1,23 +1,31 @@
 import { query } from "../../../config/db"
 
 export let college_staff_model = {
-  get_all: () => {
-    let sql = `SELECT cc.first_name, cc.last_name, cc.email,
-          cc.college_coordinator_position_id as coordinator_position,
-          cr.status
+  get_all: (college_id) => {
+    let sql = `SELECT cc.id as coordinator_id, cc.first_name, cc.last_name,
+          cc.email, cc.college_role_id as coordinator_role,
+          cr.role_name, cc.verified_status
           FROM college_coordinator cc
           INNER
           JOIN mapping_college_coordinator mcc
-          ON mcc.college_id = ?
+          ON mcc.coordinator_id = cc.id
           INNER
           JOIN college_role cr
-          ON cr.id = cc.college_coordinator_position_id`
+          ON cr.id = cc.college_role_id
+          WHERE mcc.college_id = ?`
+    return query(sql, college_id)
+  },
+
+  update_role: (req) => {
+    let sql = `UPDATE college_coordinator cc
+          SET cc.college_role_id = ${req.body.updatedrole}
+          WHERE cc.id = ${req.params.staffid}`
     return query(sql, [])
   },
 
-  update: (req) => {
+  update_status: (req) => {
     let sql = `UPDATE college_coordinator cc
-          SET cc.college_role_id = ${req.body.updatedrole}
+          SET cc.verified_status = ${req.body.verified_status}
           WHERE cc.id = ${req.params.staffid}`
     return query(sql, [])
   }

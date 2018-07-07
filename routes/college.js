@@ -1,10 +1,10 @@
 export const college = require("express").Router()
 const jsonparser = require("body-parser").json()
-import { college_coordinator_controller } from "../modules/college-management/college_coordinator"
 import { college_controller } from "../modules/college-management/college"
+import { college_coordinator_controller } from "../modules/college-management/college_coordinator"
+import { college_drives_controller } from "../modules/college-management/college_drives"
 import { college_role_controller } from "../modules/college-management/college_role"
 import { college_staff_controller } from "../modules/college-management/college_staff"
-
 
 export default () => {
   // COLLEGE INDEX
@@ -27,6 +27,7 @@ export default () => {
   college.route('/coordinator', jsonparser)
     .get(college_coordinator_controller.get_all)
     .post(college_coordinator_controller.add)
+
   // COORDINATOR with ID
   // GET: Gets a college coordinator's info given the coordinator ID.
   // POST: Adds a college coordinator's info given the coordinator ID.
@@ -34,6 +35,9 @@ export default () => {
   college.route('/coordinator/:id', jsonparser)
     .get(college_coordinator_controller.get_by_id)
     .put(college_coordinator_controller.update)
+
+  college.route('/:collegeid/drives')
+    .get(college_drives_controller.get_all)
 
   // COLLEGE with ID
   // GET: Gets a college's info given the college ID.
@@ -45,6 +49,9 @@ export default () => {
   college.route('/:collegeid/staff')
     .get(college_staff_controller.get_all)
 
-  college.route('/:collegeid/staff/:staffid')
-    .put(college_staff_controller.update)
+  college.route('/:collegeid/staff/:staffid/role')
+    .put(college_staff_controller.update_role)
+
+  college.route('/:collegeid/staff/:staffid/status')
+    .put(college_staff_controller.update_status)
 }
