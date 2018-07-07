@@ -46,6 +46,12 @@ base.get("/user", (req, res) => {
 
 base.get("/drives", (req,res) => {
   query(`SELECT * FROM recruiter_drive`).then(drives => {
+    let add_placeholder_data = (object) => {
+      object.college_applicants_no = 1
+      object.student_applicants_no = 5
+      return object
+    } 
+    drives.map(add_placeholder_data)
     res.status(200).send(drives)
   }).catch(err => {
     res.status(400).send({message: "Bad request", error: err})
