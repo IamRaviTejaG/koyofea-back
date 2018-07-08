@@ -36,7 +36,16 @@ export let recruiter_drive_model = {
     return query(sql, id)
   },
 
-
+  get_drives_requested: (rid) => {
+    let sql = `SELECT rd.*
+              FROM recruiter_drive rd
+              INNER 
+              JOIN mapping_drive_college mdc
+              ON rd.id = mdc.drive_id
+              WHERE mdc.recruiter_accept = false
+              AND rd.recruiter_id = ?`
+    return query(sql, rid)
+  },
 
   // TODO: needs testing
   add: (req) => {

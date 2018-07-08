@@ -24,6 +24,14 @@ export let recruiter_drive_controller = {
     })
   },
 
+  get_drives_requested: (req, res) => {
+    recruiter_drive_model.get_drives_requested(req.params.rid).then(drives => {
+      res.status(200).send(drives)
+    }).catch(err => {
+      res.status(400).send({message: "Bad request", error: err})
+    })
+  },
+
   auto_fill_data: (req, res) => {
     let duration_list = auto_fill.get_duration()
     let employment_type_list = auto_fill.get_employment_type()

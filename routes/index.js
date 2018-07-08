@@ -44,14 +44,16 @@ base.get("/user", (req, res) => {
   })
 })
 
+// TODO move this to college controller and change api to /college/alldrives
 base.get("/drives", (req,res) => {
 
-  query(`SELECT rd.id, r.name as company_name, rd.name,
-        rd.drive_date, rd.no_positions
+  query(`SELECT rd.id As drive_id , r.name as company_name, rd.name As drive_name,
+        rd.drive_date, rd.no_positions ,
+        ( SELECT college_accept FROM mapping_drive_college mdc WHERE mdc.college_id = ? AND mdc.drive_id = rd.id) As college_applied
         FROM recruiter_drive rd
         INNER
         JOIN recruiter r
-        ON r.id = rd.recruiter_id`).then(drives => {
+        ON r.id = rd.recruiter_id`, [req.basic_data.college_id]).then(drives => {
    let add_placeholder_data = (object) => {
      object.college_applicants_no = 1
      // object.student_applicants_no = 5
@@ -65,13 +67,14 @@ base.get("/drives", (req,res) => {
 })
 
 base.post('/drives/:driveid/apply', (req, res) => {
+  // TODO if drive type is single then change recruiter_accept to true in mapping_drive_college
   let values = {
     college_id: req.basic_data.college_id,
     drive_id: req.params.driveid
   }
   query(`INSERT INTO mapping_drive_college SET ?`, values)
     .then(data => {
-      res.status(200).json({message: "Updated successfully!"})
+      res.status(200).json({message: "Applied successfully!"})
     }).catch(err => {
       res.status(400).send({message: "Server Error", error: err})
     })

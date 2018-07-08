@@ -49,15 +49,10 @@ export default () => {
   // RECRUITER with ID
   // GET: Gets a company's (recruiter's) info.
   // POST: Adds a company's (recruiter's) data.
-  recruiter.route('/:id')
-    .get(recruiter_controller.get_by_id)
-    .put(validate.recruiter_update, validate.error_handling,recruiter_controller.update)
 
   // DRIVE
   // POST: Adds a company (recruiter) drive info.
-  recruiter.route('/:rid/drives', jsonparser)
-    .get(recruiter_drive_controller.get_all)
-    .post(recruiter_drive_controller.add)
+
 
   recruiter.route('/json/drive', jsonparser)
     .get(recruiter_drive_controller.auto_fill_data)
@@ -65,9 +60,14 @@ export default () => {
   // RECRUITER DRIVE with ID
   // GET: Gets a specific company's drive info.
   // DELETE: Deletes a company's drive info.
+  recruiter.route('/:rid/drives/requested', jsonparser)
+    .get(recruiter_drive_controller.get_drives_requested)
+
   recruiter.route('/:rid/drives/:driveid')
     .get(recruiter_drive_controller.get_by_id)
     .put(recruiter_drive_controller.update)
+
+
 
   recruiter.route('/:rid/staff')
     .get(recruiter_staff_controller.get_all)
@@ -86,6 +86,8 @@ export default () => {
   recruiter.route('/json/eligibility', jsonparser)
     .get(recruiter_drive_eligibility_controller.auto_fill_data)
 
+
+    
   recruiter.route('/drives/:driveid/eligibility', jsonparser)
     .get(recruiter_drive_eligibility_controller.get_all)
     .post(recruiter_drive_eligibility_controller.add)
@@ -108,4 +110,12 @@ export default () => {
   recruiter.route('/drives/:driveid/rounds/:roundid', jsonparser)
     .get(recruiter_drive_round_controller.get_by_id)
     .put(recruiter_drive_round_controller.update)
+
+  recruiter.route('/:id')
+    .get(recruiter_controller.get_by_id)
+    .put(validate.recruiter_update, validate.error_handling,recruiter_controller.update)
+
+  recruiter.route('/:rid/drives', jsonparser)
+    .get(recruiter_drive_controller.get_all)
+    .post(recruiter_drive_controller.add)  
 }
