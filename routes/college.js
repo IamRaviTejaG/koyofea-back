@@ -5,6 +5,7 @@ import { college_coordinator_controller } from "../modules/college-management/co
 import { college_drives_controller } from "../modules/college-management/college_drives"
 import { college_role_controller } from "../modules/college-management/college_role"
 import { college_staff_controller } from "../modules/college-management/college_staff"
+import { college_student_controller } from "../modules/college-management/college_student"
 
 export default () => {
   // COLLEGE INDEX
@@ -39,13 +40,18 @@ export default () => {
   college.route('/:collegeid/drives')
     .get(college_drives_controller.get_all)
 
+  college.route('/:collegeid/students')
+    .get(college_student_controller.get_all)
+
+  college.route('/:collegeid/students/:studentid/status')
+    .put(college_student_controller.update_status)
+
   // COLLEGE with ID
   // GET: Gets a college's info given the college ID.
   // DELETE: Deletes a college's info given the college ID.
   college.route('/:id')
     .get(college_controller.get_by_id)
     .put(college_controller.update)
-
 
   college.route('/:collegeid/staff')
     .get(college_staff_controller.get_all)
