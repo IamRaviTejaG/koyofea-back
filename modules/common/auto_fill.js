@@ -20,6 +20,7 @@ export let auto_fill = {
     let sql = `SELECT id, name FROM job_type`
     return query(sql, [])
   },
+
   get_positions: () => {
     let sql = `SELECT id, name FROM position`
     return query(sql, [])

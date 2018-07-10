@@ -41,8 +41,6 @@ export let recruiter_drive_eligibility_controller = {
     }).catch((err) => {
       res.status(400).json({ message: "Bad Request", error: err })
     })
-
-
   },
 
   get_by_id: (req, res) => {
