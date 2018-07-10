@@ -19,6 +19,7 @@ export default () => {
 
   college.route('/old', jsonparser)
     .post(college_controller.add_old)
+
   college.route('/json', jsonparser)
     .get(college_controller.auto_fill_data)
 
