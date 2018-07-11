@@ -67,8 +67,6 @@ export default () => {
     .get(recruiter_drive_controller.get_by_id)
     .put(recruiter_drive_controller.update)
 
-
-
   recruiter.route('/:rid/staff')
     .get(recruiter_staff_controller.get_all)
 
@@ -87,7 +85,7 @@ export default () => {
     .get(recruiter_drive_eligibility_controller.auto_fill_data)
 
 
-    
+
   recruiter.route('/drives/:driveid/eligibility', jsonparser)
     .get(recruiter_drive_eligibility_controller.get_all)
     .post(recruiter_drive_eligibility_controller.add)
@@ -117,5 +115,5 @@ export default () => {
 
   recruiter.route('/:rid/drives', jsonparser)
     .get(recruiter_drive_controller.get_all)
-    .post(recruiter_drive_controller.add)  
+    .post(recruiter_drive_controller.add)
 }

@@ -1232,24 +1232,19 @@ CREATE TABLE `student_education` (
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
   `institute_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `marks` double NOT NULL,
-  `marks_type` int(11) NOT NULL,
-  `scale_type` int(11) NOT NULL,
+  `percentage` double DEFAULT NULL,
+  `cgpa` double NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `student_id` int(11) NOT NULL,
   `college_major_id` int(11) NOT NULL,
   `college_program_id` int(11) NOT NULL,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `education_id_uindex` (`id`),
   KEY `student_education_student_id_fk` (`student_id`),
   KEY `student_education_college_program_id_fk` (`college_program_id`),
   KEY `student_education_college_major_id_fk` (`college_major_id`),
-  KEY `student_education_scale_type_fk` (`scale_type`),
-  KEY `student_education_marks_type_fk` (`marks_type`),
   CONSTRAINT `student_education_college_major_id_fk` FOREIGN KEY (`college_major_id`) REFERENCES `major` (`id`),
   CONSTRAINT `student_education_college_program_id_fk` FOREIGN KEY (`college_program_id`) REFERENCES `college_program` (`id`),
-  CONSTRAINT `student_education_marks_type_fk` FOREIGN KEY (`marks_type`) REFERENCES `grade_scale` (`id`),
-  CONSTRAINT `student_education_scale_type_fk` FOREIGN KEY (`scale_type`) REFERENCES `eligibility_type` (`id`),
   CONSTRAINT `student_education_student_id_fk` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1277,10 +1272,12 @@ CREATE TABLE `student_experience` (
   `position` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `student_id` int(11) NOT NULL,
-  `company_name` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `student_experience_type_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `experience_id_uindex` (`id`),
   KEY `student_experience_student_id_fk` (`student_id`),
+  KEY `student_experience_student_experience_type_id_fk` (`student_experience_type_id`),
+  CONSTRAINT `student_experience_student_experience_type_id_fk` FOREIGN KEY (`student_experience_type_id`) REFERENCES `student_experience_type` (`id`),
   CONSTRAINT `student_experience_student_id_fk` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1421,7 +1418,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `users_email_uindex` (`email`),
   KEY `users_user_type_id_fk` (`user_type_id`),
   CONSTRAINT `users_user_type_id_fk` FOREIGN KEY (`user_type_id`) REFERENCES `user_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=156 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=155 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1430,7 +1427,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `user_type_id`, `email_verified`, `email_token`, `data1`, `data2`) VALUES (145,'recr','uiter','recruiteronboard@gmail.com','$2b$10$Ym5yeujGaOesvOio2lMZzOwyiM66fQt5QN7fCnh.INuFm/xlxK1Vq',1,1,NULL,1,1),(146,'Anmo','L','anmol23@gmail.com','$2b$10$e3.RCgSyZMES9kX163AtSOuCiYOBzeNWYBVFVZoasp.h9qFkDQZP.',1,1,NULL,1,1),(147,'Popo','ok','asdfpo23@gmail.com','$2b$10$2Ou889YG6CpoW9hJes7z7u2bhaF1YBSbYjVJ8DakNld9Oxb11oPRi',1,1,NULL,1,1),(148,'Popo','Ili','pospmklm2@gmail.com','$2b$10$wO0Rl50Luhx.HFCENF4zdeLA3xlyjS41tbzgtCTz4uOQheucN0b36',1,1,NULL,1,1),(149,'New','Rec','newrecr21@gmail.com','$2b$10$issZ1QrPp22jG8TREwmp5OxLxUruKxZq79W9KiLiALXFBTDO96RTq',1,1,NULL,1,1),(150,'Soumya','Mohanty','srm2323@gmail.com','$2b$10$9gQOcP56iOfGyNhkCY35Hez29jLAZyZWNj34B80FkZik9/mv5zmEe',1,1,NULL,1,1),(151,'College','Signup','collegesignup@gmail.com','$2b$10$wYjNfgDRwdInb16TpMCUlua7h4Tm7Lil9T4218u6WOFJzbjskW6Ym',2,1,NULL,1,1),(152,'New','User','college12345@gmail.com','$2b$10$YJvUypxr44.GnxGMZcXFCeq2pX6KDpp4dzUUSm4UH8isBT5LIltoO',2,1,NULL,1,1),(153,'Ip','man','ipman123@gmail.com','$2b$10$g8.N3ZnRm2HoE05/IPMUkeYBxDLHi9Dfa90wh9ZokVMnfN80F4pRC',2,1,NULL,1,1),(154,'Nw','coord','newcoordiunator@gmail.com','$2b$10$iBnu8nVIRP7nDqNJuZt/iOKb9ZbkKJAfdXpfHVKSCje0ZHGNbgRny',2,1,NULL,1,1),(155,'Chutiya','Sengupta','laudalehsun@gmail.com','$2b$10$HcloiZX88kWrFwDlFGHHrO0AG.TKfwCIKVyfakIOdubMNGARR9bOS',3,1,NULL,1,1);
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `user_type_id`, `email_verified`, `email_token`, `data1`, `data2`) VALUES (145,'recr','uiter','recruiteronboard@gmail.com','$2b$10$Ym5yeujGaOesvOio2lMZzOwyiM66fQt5QN7fCnh.INuFm/xlxK1Vq',1,1,NULL,1,1),(146,'Anmo','L','anmol23@gmail.com','$2b$10$e3.RCgSyZMES9kX163AtSOuCiYOBzeNWYBVFVZoasp.h9qFkDQZP.',1,1,NULL,1,1),(147,'Popo','ok','asdfpo23@gmail.com','$2b$10$2Ou889YG6CpoW9hJes7z7u2bhaF1YBSbYjVJ8DakNld9Oxb11oPRi',1,1,NULL,1,1),(148,'Popo','Ili','pospmklm2@gmail.com','$2b$10$wO0Rl50Luhx.HFCENF4zdeLA3xlyjS41tbzgtCTz4uOQheucN0b36',1,1,NULL,1,1),(149,'New','Rec','newrecr21@gmail.com','$2b$10$issZ1QrPp22jG8TREwmp5OxLxUruKxZq79W9KiLiALXFBTDO96RTq',1,1,NULL,1,1),(150,'Soumya','Mohanty','srm2323@gmail.com','$2b$10$9gQOcP56iOfGyNhkCY35Hez29jLAZyZWNj34B80FkZik9/mv5zmEe',1,1,NULL,1,1),(151,'College','Signup','collegesignup@gmail.com','$2b$10$wYjNfgDRwdInb16TpMCUlua7h4Tm7Lil9T4218u6WOFJzbjskW6Ym',2,1,NULL,1,1),(152,'New','User','college12345@gmail.com','$2b$10$YJvUypxr44.GnxGMZcXFCeq2pX6KDpp4dzUUSm4UH8isBT5LIltoO',2,1,NULL,1,1),(153,'Ip','man','ipman123@gmail.com','$2b$10$g8.N3ZnRm2HoE05/IPMUkeYBxDLHi9Dfa90wh9ZokVMnfN80F4pRC',2,1,NULL,1,1),(154,'Nw','coord','newcoordiunator@gmail.com','$2b$10$iBnu8nVIRP7nDqNJuZt/iOKb9ZbkKJAfdXpfHVKSCje0ZHGNbgRny',2,1,NULL,1,1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1443,4 +1440,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-11 21:04:48
+-- Dump completed on 2018-07-09 17:36:41
