@@ -2,13 +2,15 @@ export const base = require("express").Router()
 const { check } = require("express-validator/check")
 import { query } from "../config/db"
 import { auth } from "../config/auth"
+import { dashboard } from "../modules/common"
+import autofill from "./autofill"
+import college from "./college"
 import recruiter from "./recruiter"
 import student from "./student"
-import college from "./college"
-import { dashboard } from "../modules/common"
+autofill()
+college()
 recruiter()
 student()
-college()
 
 base.get("/", (req, res) => {
   query('show tables').then((result) => {
@@ -19,6 +21,7 @@ base.get("/", (req, res) => {
 })
 
 base.post("/login", auth.login)
+
 base.post("/signup", [
   check('first_name').exists(),
   check('last_name').exists(),
@@ -26,7 +29,9 @@ base.post("/signup", [
   check('password').exists(),
   check('user_type').toInt()
 ], auth.sign_up)
+
 base.get("/email-verify", auth.verify_email)
+
 base.get("/dashboard", (req, res) => {
   dashboard.user_data(req).then(data => {
     res.status(200).send(data)
@@ -35,6 +40,7 @@ base.get("/dashboard", (req, res) => {
   })
 
 })
+
 base.get("/user", (req, res) => {
   let token_email = auth.decode_token(req.get('x-api-key')).user.email
   query(`SELECT * FROM users WHERE users.email=?`,token_email).then(data => {
@@ -46,7 +52,6 @@ base.get("/user", (req, res) => {
 
 // TODO move this to college controller and change api to /college/alldrives
 base.get("/drives", (req,res) => {
-
   query(`SELECT rd.id As drive_id , r.name as company_name, rd.name As drive_name,
         rd.drive_date, rd.no_positions ,
         ( SELECT college_accept FROM mapping_drive_college mdc WHERE mdc.college_id = ? AND mdc.drive_id = rd.id) As college_applied
