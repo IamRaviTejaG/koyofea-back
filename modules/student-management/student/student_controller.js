@@ -28,7 +28,7 @@ export let student_controller = {
 
   get_by_id: (req, res) => {
     // Get data by id
-    student_model.get_by_id(req.params.id).then(users => {
+    student_model.get_by_id(req.params.studentid).then(users => {
         res.status(200).json(users)
       }).catch(err => {
         res.status(400).json({message: "Bad Request", error: err})
