@@ -46,7 +46,7 @@ base.get("/user", (req, res) => {
 
 // TODO move this to college controller and change api to /college/alldrives
 base.get("/drives", (req,res) => {
-
+  console.log(req.basic_data)
   query(`SELECT rd.id As drive_id , r.name as company_name, rd.name As drive_name,
         rd.drive_date, rd.no_positions ,
         ( SELECT college_accept FROM mapping_drive_college mdc WHERE mdc.college_id = ? AND mdc.drive_id = rd.id) As college_applied
@@ -64,6 +64,51 @@ base.get("/drives", (req,res) => {
  }).catch(err => {
    res.status(400).send({message: "Bad request", error: err})
  })
+})
+
+base.get('/drives/:driveid', (req, res) => {
+  query(`SELECT rd.*, r.name As company_name 
+        FROM recruiter_drive rd 
+        INNER 
+        JOIN recruiter r
+        ON r.id = rd.recruiter_id
+        WHERE rd.id = ?`, [req.params.driveid])
+  .then(data => {
+    res.status(200).send(data)
+  }).catch(err => {
+    res.status(400).send({message: "bad requqest" , error: err})
+  })
+})
+
+base.get('/drives/:driveid/rounds', (req, res) => {
+  query(`SELECT rdr.*, rrt.name As round_name
+        FROM recruiter_drive_round rdr
+        INNER 
+        JOIN recruiter_round_type rrt
+        ON rrt.id = rdr.recruiter_round_type_id
+        WHERE rdr.recruiter_drive_id = ?`, [req.params.driveid])
+  .then(data => {
+    res.status(200).send(data)
+  }).catch(err => {
+    res.status(400).send({message: "bad requqest" , error: err})
+  })
+})
+
+base.get('/drives/:driveid/eligibility', (req, res) => {
+  query(`SELECT rde.*, ret.name As eligibility_name, gs.name As grade_scale_name
+        FROM recruiter_drive_eligibility rde
+        INNER 
+        JOIN eligibility_type ret
+        ON ret.id = rde.eligibility_type_id
+        INNER 
+        JOIN grade_scale gs
+        ON gs.id = rde.grade_scale_id
+        WHERE rde.recruiter_drive_id = ?`, [req.params.driveid])
+  .then(data => {
+    res.status(200).send(data)
+  }).catch(err => {
+    res.status(400).send({message: "bad requqest" , error: err})
+  })
 })
 
 base.post('/drives/:driveid/apply', (req, res) => {

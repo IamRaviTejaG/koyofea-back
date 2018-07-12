@@ -6,6 +6,8 @@ import { college_drives_controller } from "../modules/college-management/college
 import { college_role_controller } from "../modules/college-management/college_role"
 import { college_staff_controller } from "../modules/college-management/college_staff"
 import { college_student_controller } from "../modules/college-management/college_student"
+import { college_recruiter_controller } from "../modules/college-management/college_recruiter/college_recruiter_controller";
+
 
 export default () => {
   // COLLEGE INDEX
@@ -40,6 +42,9 @@ export default () => {
   college.route('/:collegeid/drives')
     .get(college_drives_controller.get_all)
 
+  college.route('/:collegeid/recruiters')
+    .get(college_recruiter_controller.get_all)
+    
   college.route('/:collegeid/students')
     .get(college_student_controller.get_all)
 

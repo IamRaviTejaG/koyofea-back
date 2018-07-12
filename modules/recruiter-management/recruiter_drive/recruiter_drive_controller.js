@@ -56,8 +56,11 @@ export let recruiter_drive_controller = {
     req.body.recruiter_hr_id = user_data.hr_id
     recruiter_drive_model.add(req)
     .then((data) => {
-      res.status(200).json(req.body)
-    }).catch((err) => {
+      return query(`SELECt id FROM recruiter_drive WHERE name = ? order by id DESC LIMIT 1`, [req.body.name])
+    }).then(data => {
+        res.status(200).json(data)
+    })
+    .catch((err) => {
       res.status(400).json({ message: "Bad Request", error: err })
     })
   },
