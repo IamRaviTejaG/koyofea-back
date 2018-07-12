@@ -17,15 +17,11 @@ export default () => {
   recruiter
     .route("/hr", jsonparser)
     .get(recruiter_hr_controller.get_all)
-<<<<<<< HEAD
     .post(
       validate.recruiter_hr_add,
       validate.error_handling,
       recruiter_hr_controller.add
     );
-=======
-    .post(validate.recruiter_hr_add, validate.error_handling , recruiter_hr_controller.add)
->>>>>>> 1ec5088fa879315255350b4ad47cb3affc674647
 
   // HR with ID
   // GET: Gets a specific HR's personal info.
@@ -33,11 +29,7 @@ export default () => {
   recruiter
     .route("/hr/:id")
     .get(recruiter_hr_controller.get_by_id)
-<<<<<<< HEAD
     .put(validate.recruiter_hr_update, recruiter_hr_controller.update);
-=======
-    .put(validate.recruiter_hr_update, recruiter_hr_controller.update)
->>>>>>> 1ec5088fa879315255350b4ad47cb3affc674647
 
   // HR EXTRA
   // GET: Gets a specific HR's extra info.
@@ -93,12 +85,7 @@ export default () => {
     .get(recruiter_drive_controller.get_by_id)
     .put(recruiter_drive_controller.update);
 
-<<<<<<< HEAD
   recruiter.route("/:rid/staff").get(recruiter_staff_controller.get_all);
-=======
-  recruiter.route('/:rid/staff')
-    .get(recruiter_staff_controller.get_all)
->>>>>>> 1ec5088fa879315255350b4ad47cb3affc674647
 
   // NOTE: (For routes /:rid/staff/*)
   // THESE ROUTES BELOW NEED A CHECK AS THEY UPDATE DB SOLELY BASED ON THE
@@ -117,14 +104,8 @@ export default () => {
     .route("/json/eligibility", jsonparser)
     .get(recruiter_drive_eligibility_controller.auto_fill_data);
 
-<<<<<<< HEAD
   recruiter
     .route("/drives/:driveid/eligibility", jsonparser)
-=======
-
-
-  recruiter.route('/drives/:driveid/eligibility', jsonparser)
->>>>>>> 1ec5088fa879315255350b4ad47cb3affc674647
     .get(recruiter_drive_eligibility_controller.get_all)
     .post(recruiter_drive_eligibility_controller.add);
 
@@ -167,10 +148,5 @@ export default () => {
   recruiter
     .route("/:rid/drives", jsonparser)
     .get(recruiter_drive_controller.get_all)
-<<<<<<< HEAD
     .post(recruiter_drive_controller.add);
 };
-=======
-    .post(recruiter_drive_controller.add)
-}
->>>>>>> 1ec5088fa879315255350b4ad47cb3affc674647
