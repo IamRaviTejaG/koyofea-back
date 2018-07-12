@@ -47,6 +47,25 @@ All the routes are classified into three categories.
 |`/coordinator/:coordinatorid`|`GET`|Gets a specific coordinator's information.|`coordinatorid`|-|
 |`/coordinator/:coordinatorid`|`PUT`|Updates a specific coordinator's information.|`coordinatorid`|`first_name`, `last_name`, `email`, `phone`, `created_date`, `college_role_id`, `gender_id`, `bio`, `designation`, `verified_status`|
 
+
+### Recruiter Routes
+**All the recruiter routes are available at base URL `/recruiter`**
+
+|URL|Request Type|Action|URL Parameters|Data Parameters|
+|:---:|:-:|:---:|:---:|:---:|
+|`/`|`GET`|Gets the list of all recruiters.|-|-|
+|`/new`|`POST`|Adds a new recruiter information into the database.|-|`name`, `website_url`, `description`, `verified`, `phone`, `address_1`, `address_2`, `landmark`, `city`, `state`, `country`, `pin`, `size`, `recruiter_hr_id`, `industry_id`|
+|`/old`|`PUT`|Updates a pre-existing recruiter record.|-|`name`, `website_url`, `description`, `verified`, `phone`, `address_1`, `address_2`, `landmark`, `city`, `state`, `country`, `pin`, `size`, `recruiter_hr_id`, `industry_id`|
+|`/json`|`GET`|Gets the auto-fill data.|-|-|
+|`/hr`|`GET`|Gets all the HRs' details.|-|-|
+|`/hr`|`POST`|Adds a new HR's info into the database.|-|`first_name`, `last_name`, `email`, `linkedin`, `linkedin_id`, `recruitment_hr_role_id`, `verified_status`|
+|`/hr/:hrid`|`GET`|Gets a specific HR's profile.|-|-|
+|`/hr/:hrid`|`PUT`|Updates a pre-existing HR record.|`hrid`|`first_name`, `last_name`, `email`, `linkedin`, `linkedin_id`, `recruitment_hr_role_id`, `verified_status`|
+|`/hr/:hrid`|`GET`|Gets a specific HR's profile.|-|-|
+|`/hr/:hrid/extra`|`POST`|Adds extra details of a pre-existing HR.|`hrid`|`recruitment_hr_id`, `public_profile`, `phone`, `bio`, `designation`|
+|`/hr/:hrid/extra`|`PUT`|Updates extra details of a pre-existing HR.|`hrid`|`recruitment_hr_id`, `public_profile`, `phone`, `bio`, `designation`|
+
+
 ### Student Routes
 **All the student routes are available at base URL `/student`**
 

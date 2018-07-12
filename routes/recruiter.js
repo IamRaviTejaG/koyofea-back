@@ -15,14 +15,14 @@ export default () => {
   // POST: Posts a specific company's HR personal info.
   recruiter.route('/hr', jsonparser)
     .get(recruiter_hr_controller.get_all)
-    .post( validate.recruiter_hr_add, validate.error_handling , recruiter_hr_controller.add)
+    .post(validate.recruiter_hr_add, validate.error_handling , recruiter_hr_controller.add)
 
   // HR with ID
   // GET: Gets a specific HR's personal info.
   // DELETE: Deletes a specific HR's personal info.
   recruiter.route('/hr/:id')
     .get(recruiter_hr_controller.get_by_id)
-    .put( validate.recruiter_hr_update ,recruiter_hr_controller.update)
+    .put(validate.recruiter_hr_update, recruiter_hr_controller.update)
 
   // HR EXTRA
   // GET: Gets a specific HR's extra info.
