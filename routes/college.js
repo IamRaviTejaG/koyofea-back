@@ -21,6 +21,7 @@ export default () => {
 
   college.route('/old', jsonparser)
     .post(college_controller.add_old)
+
   college.route('/json', jsonparser)
     .get(college_controller.auto_fill_data)
 
@@ -35,7 +36,7 @@ export default () => {
   // GET: Gets a college coordinator's info given the coordinator ID.
   // POST: Adds a college coordinator's info given the coordinator ID.
   // DELETE: Deletes a college coordinator's info given the coordinator ID.
-  college.route('/coordinator/:id', jsonparser)
+  college.route('/coordinator/:coordinatorid', jsonparser)
     .get(college_coordinator_controller.get_by_id)
     .put(college_coordinator_controller.update)
 
@@ -54,7 +55,7 @@ export default () => {
   // COLLEGE with ID
   // GET: Gets a college's info given the college ID.
   // DELETE: Deletes a college's info given the college ID.
-  college.route('/:id')
+  college.route('/:collegeid')
     .get(college_controller.get_by_id)
     .put(college_controller.update)
 

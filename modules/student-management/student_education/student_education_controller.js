@@ -36,11 +36,22 @@ export let student_education_controller = {
   },
 
   add_new: (req, res) => {
-    student_education_model.add_new(req.params.studentid, req.body).then(data => {
+    let fun = (data) => {
+      data.student_id = req.params.studentid
+      return student_education_model.add_new(data)
+    }
+    let education = req.body.map(fun)
+    Promise.all(education)
+    .then(data => {
       res.status(200).json(data)
     }).catch(err => {
-      res.status(400).json({message: "Bad Request", error: err})
+      res.status(400).json({ message: "Bad Request", error: err })
     })
+    // student_education_model.add_new(req.params.studentid, req.body).then(data => {
+    //   res.status(200).json(data)
+    // }).catch(err => {
+    //   res.status(400).json({message: "Bad Request", error: err})
+    // })
   },
 
   update: (req, res) => {

@@ -15,7 +15,7 @@ export default () => {
   // STUDENT with ID
   // GET: Gets a specific student's info given the student id.
   // DELETE: Deletes a specific student's info given the student id.
-  student.route('/:id')
+  student.route('/:studentid')
     .get(student_controller.get_by_id)
     .put(student_controller.update)
 

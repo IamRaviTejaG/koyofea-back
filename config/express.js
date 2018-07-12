@@ -5,13 +5,12 @@ const morgan = require('morgan')
 const cors = require('cors')
 import { auth } from "./auth"
 import { base } from "../routes"
-import { student } from "../routes/student"
-import { recruiter } from "../routes/recruiter"
+import { autofill } from "../routes/autofill"
 import { college } from "../routes/college"
+import { recruiter } from "../routes/recruiter"
+import { student } from "../routes/student"
 import { dashboard } from "../modules/common";
 import { query } from "./db";
-
-
 
 let app = express()
 app.use(cors())
@@ -19,6 +18,11 @@ app.use(morgan('dev'))
 app.use(auth.initialize())
 app.use(bodyparser.json()) //for parsing application/json()
 app.use(bodyparser.urlencoded({extended: true}))
+app.use("/", base)
+app.use("/autofill", autofill)
+app.use("/college", college)
+app.use("/recruiter", recruiter)
+app.use("/student", student)
 // app.all("/" + "*", (req, res, next) => {
 //   return auth.authenticate((err, user, info) => {
 //     if(err) {return next(err)}
@@ -35,15 +39,15 @@ app.use(bodyparser.urlencoded({extended: true}))
 // })
 
 // Middle ware for token
-app.all("/" + "*", (req, res, next) => {
-  if ( 
-    req.path == '/login' 
-    || req.path == '/' 
-    || req.path == '/favicon.ico' 
-    || req.path == '/robots.txt' 
+app.all("/*", (req, res, next) => {
+  if (
+    req.path == '/login'
+    || req.path == '/'
+    || req.path == '/favicon.ico'
+    || req.path == '/robots.txt'
     || req.path == '/signup') {
     return next();
-  } 
+  }
   let token = auth.decode_token(req.get('x-api-key'))
   req.token_data = token
   dashboard.user_data(req).then(data => {
@@ -51,18 +55,19 @@ app.all("/" + "*", (req, res, next) => {
     next()
   }).catch(err => {
     return res.status(400).send({message: "Bad request", error: err})
-  })  
+  })
 })
+
 //  Middleware for email_verified
 app.all("/*", (req, res, next) => {
-  if ( 
-    req.path == '/login' 
-    || req.path == '/' 
-    || req.path == '/favicon.ico' 
-    || req.path == '/robots.txt' 
+  if (
+    req.path == '/login'
+    || req.path == '/'
+    || req.path == '/favicon.ico'
+    || req.path == '/robots.txt'
     || req.path == '/signup') {
     return next();
-  } 
+  }
   // TODO: add common code for getting data form user table
   let token_email = auth.decode_token(req.get('x-api-key')).user.email
   query(`SELECT * FROM users WHERE users.email=?`,token_email).then(data => {
@@ -75,13 +80,14 @@ app.all("/*", (req, res, next) => {
     res.status(500).send({message: "Bad requets", error:err})
   })
 })
+
 // Middleware for data1
 app.all("/*", (req, res, next) => {
-  if ( 
-    req.path == '/login' 
-    || req.path == '/' 
-    || req.path == '/favicon.ico' 
-    || req.path == '/robots.txt' 
+  if (
+    req.path == '/login'
+    || req.path == '/'
+    || req.path == '/favicon.ico'
+    || req.path == '/robots.txt'
     || req.path == '/signup'
     || req.path == '/recruiter/hr'
     || req.path == '/dashboard'
@@ -89,7 +95,7 @@ app.all("/*", (req, res, next) => {
     || req.path == '/college/base'
     || req.path == '/college/coordinator') {
     return next();
-  } 
+  }
   // TODO: add common code for getting data form user table
   let token_email = auth.decode_token(req.get('x-api-key')).user.email
   query(`SELECT * FROM users WHERE users.email=?`,token_email).then(data => {
@@ -102,20 +108,21 @@ app.all("/*", (req, res, next) => {
     res.status(500).send({message: "Bad requets", error:err})
   })
 })
+
 // Middleware for data2
 app.all("/*", (req, res, next) => {
-  if ( 
-    req.path == '/login' 
-    || req.path == '/' 
-    || req.path == '/favicon.ico' 
-    || req.path == '/robots.txt' 
+  if (
+    req.path == '/login'
+    || req.path == '/'
+    || req.path == '/favicon.ico'
+    || req.path == '/robots.txt'
     || req.path == '/signup'
     || req.path == '/recruiter/hr'
     || req.path == '/recruiter/base'
     || req.path == '/college/base'
     || req.path == '/college/coordinator') {
     return next();
-  } 
+  }
   // TODO: add common code for getting data form user table
   let token_email = auth.decode_token(req.get('x-api-key')).user.email
   query(`SELECT * FROM users WHERE users.email=?`,token_email).then(data => {
@@ -128,13 +135,6 @@ app.all("/*", (req, res, next) => {
     res.status(500).send({message: "Bad requets", error:err})
   })
 })
-
-
-
-app.use("/", base)
-app.use("/student", student)
-app.use("/college", college)
-app.use("/recruiter", recruiter)
 
 //app.use(expressValidator());
 

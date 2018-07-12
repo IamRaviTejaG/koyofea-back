@@ -27,7 +27,7 @@ export let college_coordinator_controller = {
 
   get_by_id: (req, res) => {
       // Get data by id
-      college_coordinator_model.get_by_id(req.params.id).then(users => {
+      college_coordinator_model.get_by_id(req.params.coordinatorid).then(users => {
         // If request id and users id doesn't match throw
         // if(users ? !(users.email == req.token_data.user.email) : true) {
         //   throw "Not permited to perform this action"
@@ -41,7 +41,7 @@ export let college_coordinator_controller = {
 
   update: (req, res) => {
     // Get data by id
-    college_coordinator_model.update(req.params.id, req.body).then(user => {
+    college_coordinator_model.update(req.params.coordinatorid, req.body).then(user => {
       // If request id and users id doesn't match throw
       // if(!(user.email == req.token_data.user.email)) {
       //   throw "Not permited to perform this action"

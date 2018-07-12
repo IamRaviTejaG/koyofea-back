@@ -20,6 +20,7 @@ export let auto_fill = {
     let sql = `SELECT id, name FROM job_type`
     return query(sql, [])
   },
+
   get_positions: () => {
     let sql = `SELECT id, name FROM position`
     return query(sql, [])
@@ -32,6 +33,16 @@ export let auto_fill = {
 
   get_grade_scales: () => {
     let sql = `SELECT id, name FROM grade_scale`
+    return query(sql, [])
+  },
+
+  get_gender: () => {
+    let sql = `SELECT id, name FROM gender`
+    return query(sql, [])
+  },
+
+  get_major: () => {
+    let sql = `SELECT * FROM major`
     return query(sql, [])
   }
 }
