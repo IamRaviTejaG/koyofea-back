@@ -12,14 +12,18 @@ college();
 recruiter();
 student();
 
+/*
 base.get("/", (req, res) => {
-  query("show tables")
-    .then(result => {})
-    .catch(err => {
-      console.log(err);
-    });
-  res.status(200).json({ message: "welcome to api testing" });
+  //query("show tables")
+    //.then(result => {})
+    //.catch(err => {
+      //console.log(err);
+    //});
+
+  res.status(200).sendFile("/home/ubuntu/koyofea-backend/landing_page/index.html");
 });
+*/
+
 
 base.post("/login", auth.login);
 

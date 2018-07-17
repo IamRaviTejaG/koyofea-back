@@ -3,6 +3,7 @@ const dotenv = require("dotenv").config()
 const express = require("express")
 const morgan = require('morgan')
 const cors = require('cors')
+const router =  require("express").Router();
 import { auth } from "./auth"
 import { base } from "../routes"
 import { autofill } from "../routes/autofill"
@@ -11,18 +12,26 @@ import { recruiter } from "../routes/recruiter"
 import { student } from "../routes/student"
 import { dashboard } from "../modules/common";
 import { query } from "./db";
+const path = require('path')
 
 let app = express()
+app.use(express.static('/home/ubuntu/koyofea-backend/landing_page'));
 app.use(cors())
 app.use(morgan('dev'))
 app.use(auth.initialize())
 app.use(bodyparser.json()) //for parsing application/json()
 app.use(bodyparser.urlencoded({extended: true}))
-app.use("/", base)
-app.use("/autofill", autofill)
-app.use("/college", college)
-app.use("/recruiter", recruiter)
-app.use("/student", student)
+
+
+router.get("/", (req, res) => {
+    res.status(200).sendFile("/home/ubuntu/koyofea-backend/landing_page/index.html");
+});
+
+app.use("/api/", base)
+app.use("/api/autofill", autofill)
+app.use("/api/college", college)
+app.use("/api/recruiter", recruiter)
+app.use("/api/student", student)
 // app.all("/" + "*", (req, res, next) => {
 //   return auth.authenticate((err, user, info) => {
 //     if(err) {return next(err)}
@@ -39,7 +48,7 @@ app.use("/student", student)
 // })
 
 // Middle ware for token
-app.all("/*", (req, res, next) => {
+/*app.all("/*", (req, res, next) => {
   if (
     req.path == '/login'
     || req.path == '/'
@@ -135,7 +144,7 @@ app.all("/*", (req, res, next) => {
     res.status(500).send({message: "Bad requets", error:err})
   })
 })
-
+*/
 //app.use(expressValidator());
 
 //app.use(auth.initialize());
