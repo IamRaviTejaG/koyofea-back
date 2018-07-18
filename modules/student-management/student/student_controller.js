@@ -1,7 +1,6 @@
-import { student_model } from "./student_model";
-import { query } from "../../../config/db";
-import { auto_fill, fun } from "../../common";
-
+import { student_model } from "./student_model"
+import { query } from "../../../config/db"
+import { auto_fill, fun } from "../../common"
 
 export let student_controller = {
   // get_all: (req, res) => {
@@ -28,28 +27,37 @@ export let student_controller = {
 
   get_by_id: (req, res) => {
     // Get data by id
-    student_model.get_by_id(req.params.studentid).then(users => {
+    student_model
+      .get_by_id(req.params.studentid)
+      .then(users => {
         res.status(200).json(users)
-      }).catch(err => {
-        res.status(400).json({message: "Bad Request", error: err})
+      })
+      .catch(err => {
+        res.status(400).json({ message: "Bad Request", error: err })
       })
   },
 
   add_new: (req, res) => {
-      // Get email from token
-      // TODO: remove extra code
-    student_model.add_new(req.body).then(data => {
-      res.status(200).json(data)
-    }).catch(err => {
-      res.status(400).json({message: "Bad Request", error: err})
-    })
+    // Get email from token
+    // TODO: remove extra code
+    student_model
+      .add_new(req.body)
+      .then(data => {
+        res.status(200).json({ message: "Succesfully addded", error: null })
+      })
+      .catch(err => {
+        res.status(400).json({ message: "Bad Request", error: err })
+      })
   },
 
   update: (req, res) => {
-    student_model.update(req.params.studentid, req.body).then((data) => {
-      res.status(200).json(req.body)
-    }).catch((err) => {
-      res.status(400).json({ message: "Bad Request", error: err })
-    })
+    student_model
+      .update(req.params.studentid, req.body)
+      .then(data => {
+        res.status(200).json(req.body)
+      })
+      .catch(err => {
+        res.status(400).json({ message: "Bad Request", error: err })
+      })
   }
 }

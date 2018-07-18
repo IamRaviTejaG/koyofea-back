@@ -15,18 +15,22 @@ export let student_model = {
   //   return query(sql, [])
   // },
 
-  get_by_id: (id) => {
-    let sql = `SELECT s.id, s.first_name, s.last_name, s.email, s.dob,
-              s.linkedin_id, s.college_id, s.gender_id, s.college_major_id,
-              s.college_program_id FROM student s WHERE s.id = ?`
+  get_by_id: id => {
+    let sql = `SELECT * FROM student s WHERE s.id = ?`
     return query(sql, id)
   },
 
-  add_new: (values) => {
+  // get_by_id: (id) => {
+  //   let sql = `SELECT s.id, s.first_name, s.last_name, s.email, s.dob,
+  //             s.linkedin_id, s.college_id, s.gender_id, s.college_major_id,
+  //             s.college_program_id FROM student s WHERE s.id = ?`
+  //   return query(sql, id)
+  // },
+
+  add_new: values => {
     let sql = `INSERT INTO student SET ?`
     return query(sql, values)
   },
-
 
   // Not Deleting the data
   // del: (id) => {
@@ -36,7 +40,7 @@ export let student_model = {
   // },
 
   update: (id, values) => {
-      let sql = `UPDATE student SET ? WHERE id = ?`
-      return query(sql, [values, id])
+    let sql = `UPDATE student SET ? WHERE id = ?`
+    return query(sql, [values, id])
   }
 }

@@ -1,53 +1,31 @@
-<<<<<<< HEAD
 const bodyparser = require("body-parser");
 const dotenv = require("dotenv").config();
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
+const router = require("express").Router();
 import { auth } from "./auth";
 import { base } from "../routes";
 import { autofill } from "../routes/autofill";
 import { college } from "../routes/college";
 import { recruiter } from "../routes/recruiter";
 import { student } from "../routes/student";
-=======
-const bodyparser = require("body-parser")
-const dotenv = require("dotenv").config()
-const express = require("express")
-const morgan = require('morgan')
-const cors = require('cors')
-const router =  require("express").Router();
-import { auth } from "./auth"
-import { base } from "../routes"
-import { autofill } from "../routes/autofill"
-import { college } from "../routes/college"
-import { recruiter } from "../routes/recruiter"
-import { student } from "../routes/student"
->>>>>>> 1cd4671bed36971389289ec7036a823f793a2331
 import { dashboard } from "../modules/common";
 import { query } from "./db";
-const path = require('path')
+const path = require("path");
 
-<<<<<<< HEAD
 let app = express();
+app.use(express.static("/home/ubuntu/koyofea-backend/landing_page"));
 app.use(cors());
 app.use(morgan("dev"));
 app.use(auth.initialize());
 app.use(bodyparser.json()); //for parsing application/json()
 app.use(bodyparser.urlencoded({ extended: true }));
 
-=======
-let app = express()
-app.use(express.static('/home/ubuntu/koyofea-backend/landing_page'));
-app.use(cors())
-app.use(morgan('dev'))
-app.use(auth.initialize())
-app.use(bodyparser.json()) //for parsing application/json()
-app.use(bodyparser.urlencoded({extended: true}))
-
-
 router.get("/", (req, res) => {
-    res.status(200).sendFile("/home/ubuntu/koyofea-backend/landing_page/index.html");
+  res
+    .status(200)
+    .sendFile("/home/ubuntu/koyofea-backend/landing_page/index.html");
 });
 
 /*
@@ -57,7 +35,6 @@ app.use("/api/college", college)
 app.use("/api/recruiter", recruiter)
 app.use("/api/student", student)
 */
->>>>>>> 1cd4671bed36971389289ec7036a823f793a2331
 // app.all("/" + "*", (req, res, next) => {
 //   return auth.authenticate((err, user, info) => {
 //     if(err) {return next(err)}
@@ -76,20 +53,12 @@ app.use("/api/student", student)
 // Middle ware for token
 app.all("/api/*", (req, res, next) => {
   if (
-<<<<<<< HEAD
-    req.path == "/login" ||
-    req.path == "/" ||
+    req.path == "/api/login" ||
+    req.path == "/api" ||
     req.path == "/favicon.ico" ||
     req.path == "/robots.txt" ||
-    req.path == "/signup"
+    req.path == "/api/signup"
   ) {
-=======
-    req.path == '/api/login'
-    || req.path == '/api'
-    || req.path == '/favicon.ico'
-    || req.path == '/robots.txt'
-    || req.path == '/api/signup') {
->>>>>>> 1cd4671bed36971389289ec7036a823f793a2331
     return next();
   }
   let token = auth.decode_token(req.get("x-api-key"));
@@ -108,20 +77,12 @@ app.all("/api/*", (req, res, next) => {
 //  Middleware for email_verified
 app.all("/api/*", (req, res, next) => {
   if (
-<<<<<<< HEAD
-    req.path == "/login" ||
-    req.path == "/" ||
+    req.path == "/api/login" ||
+    req.path == "/api" ||
     req.path == "/favicon.ico" ||
     req.path == "/robots.txt" ||
-    req.path == "/signup"
+    req.path == "/api/signup"
   ) {
-=======
-    req.path == '/api/login'
-    || req.path == '/api'
-    || req.path == '/favicon.ico'
-    || req.path == '/robots.txt'
-    || req.path == '/api/signup') {
->>>>>>> 1cd4671bed36971389289ec7036a823f793a2331
     return next();
   }
   // TODO: add common code for getting data form user table
@@ -142,30 +103,17 @@ app.all("/api/*", (req, res, next) => {
 // Middleware for data1
 app.all("/api/*", (req, res, next) => {
   if (
-<<<<<<< HEAD
-    req.path == "/login" ||
-    req.path == "/" ||
+    req.path == "/api/login" ||
+    req.path == "/api" ||
     req.path == "/favicon.ico" ||
     req.path == "/robots.txt" ||
-    req.path == "/signup" ||
-    req.path == "/recruiter/hr" ||
-    req.path == "/dashboard" ||
-    req.path == "/user" ||
-    req.path == "/college/base" ||
+    req.path == "/api/signup" ||
+    req.path == "/api/recruiter/hr" ||
+    req.path == "/api/dashboard" ||
+    req.path == "/api/user" ||
+    req.path == "/api/college/base" ||
     req.path == "/college/coordinator"
   ) {
-=======
-    req.path == '/api/login'
-    || req.path == '/api'
-    || req.path == '/favicon.ico'
-    || req.path == '/robots.txt'
-    || req.path == '/api/signup'
-    || req.path == '/api/recruiter/hr'
-    || req.path == '/api/dashboard'
-    || req.path == '/api/user'
-    || req.path == '/api/college/base'
-    || req.path == '/college/coordinator') {
->>>>>>> 1cd4671bed36971389289ec7036a823f793a2331
     return next();
   }
   // TODO: add common code for getting data form user table
@@ -186,16 +134,15 @@ app.all("/api/*", (req, res, next) => {
 // Middleware for data2
 app.all("/api/*", (req, res, next) => {
   if (
-<<<<<<< HEAD
-    req.path == "/login" ||
-    req.path == "/" ||
+    req.path == "/api/login" ||
+    req.path == "/api" ||
     req.path == "/favicon.ico" ||
     req.path == "/robots.txt" ||
-    req.path == "/signup" ||
-    req.path == "/recruiter/hr" ||
-    req.path == "/recruiter/base" ||
-    req.path == "/college/base" ||
-    req.path == "/college/coordinator"
+    req.path == "/api/signup" ||
+    req.path == "/api/recruiter/hr" ||
+    req.path == "/api/recruiter/base" ||
+    req.path == "/api/college/base" ||
+    req.path == "/api/college/coordinator"
   ) {
     return next();
   }
@@ -215,36 +162,11 @@ app.all("/api/*", (req, res, next) => {
       res.status(500).send({ message: "Bad requets", error: err });
     });
 });
-=======
-    req.path == '/api/login'
-    || req.path == '/api'
-    || req.path == '/favicon.ico'
-    || req.path == '/robots.txt'
-    || req.path == '/api/signup'
-    || req.path == '/api/recruiter/hr'
-    || req.path == '/api/recruiter/base'
-    || req.path == '/api/college/base'
-    || req.path == '/api/college/coordinator') {
-    return next();
-  }
-  // TODO: add common code for getting data form user table
-  let token_email = auth.decode_token(req.get('x-api-key')).user.email
-  query(`SELECT * FROM users WHERE users.email=?`,token_email).then(data => {
-    if(data.email_verified){
-      next()
-    }else{
-      res.status(400).send({message: "Corporation info not found", error: {}})
-    }
-  }).catch(err => {
-    res.status(500).send({message: "Bad requets", error:err})
-  })
-})
-app.use("/api", base)
-app.use("/api/autofill", autofill)
-app.use("/api/college", college)
-app.use("/api/recruiter", recruiter)
-app.use("/api/student", student)
->>>>>>> 1cd4671bed36971389289ec7036a823f793a2331
+app.use("/api", base);
+app.use("/api/autofill", autofill);
+app.use("/api/college", college);
+app.use("/api/recruiter", recruiter);
+app.use("/api/student", student);
 
 //app.use(expressValidator());
 
