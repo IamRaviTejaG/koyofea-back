@@ -13,13 +13,16 @@ recruiter();
 student();
 
 base.get("/", (req, res) => {
-  query("show tables")
-    .then(result => {})
-    .catch(err => {
-      console.log(err);
-    });
-  res.status(200).json({ message: "welcome to api testing" });
+  //query("show tables")
+    //.then(result => {})
+    //.catch(err => {
+      //console.log(err);
+    //});
+res.status(200).json("API TESTING: WORKING FINE")
+
 });
+
+
 
 base.post("/login", auth.login);
 

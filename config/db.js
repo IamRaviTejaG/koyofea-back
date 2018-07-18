@@ -8,16 +8,16 @@ let dbname
 
 switch (process.env.NODE_ENV) {
   case "test":
-    dbname = "koyofea_test"
+    dbname = "koyofea_testing"
     break
   case "development":
-    dbname = "koyofeav1"
+    dbname = "koyofea_development"
     break
   case "production":
     dbname = "koyofea_production"
     break
   default:
-    dbname = "koyofeav1"
+    dbname = "koyofeav_development"
 }
 
 const dbAddress = process.env.DB_HOST || "127.0.0.1"
