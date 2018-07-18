@@ -1,18 +1,15 @@
 import { query } from "../../../config/db"
 
 export let student_experience_model = {
-  get_by_id: (id) => {
-    let sql = `SELECT sexp.start_date, sexp.end_date, sexp.position,
-              sexp.description, sexp.experience_type_id
+  get_all: id => {
+    let sql = `SELECT sexp.*
               FROM student_experience sexp
-              INNER
-              JOIN student s
-              ON sexp.student_id = s.id
-              WHERE s.id = ?`
+              WHERE sexp.student_id = ?
+              ORDER BY sp.end_date DESC`
     return query(sql, id)
   },
 
-  add_new: (values) => {
+  add_new: values => {
     let sql = `INSERT INTO student_experience sexp SET ?`
     return query(sql, values)
   },
@@ -25,7 +22,7 @@ export let student_experience_model = {
   // },
 
   update: (id, values) => {
-      let sql = `UPDATE student_experience sexp SET ? WHERE sexp.student_id = ?`
-      return query(sql, [values, id])
+    let sql = `UPDATE student_experience sexp SET ? WHERE sexp.student_id = ?`
+    return query(sql, [values, id])
   }
 }

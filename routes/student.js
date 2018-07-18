@@ -9,13 +9,13 @@ export default () => {
   // STUDENT INDEX
   // POST: Adds student's personal info.
   // GET: Gets all the student's data.
-  student.route('/')
-    .post(student_controller.add_new)
+  student.route("/").post(student_controller.add_new)
 
   // STUDENT with ID
   // GET: Gets a specific student's info given the student id.
   // DELETE: Deletes a specific student's info given the student id.
-  student.route('/:studentid')
+  student
+    .route("/:studentid")
     .get(student_controller.get_by_id)
     .put(student_controller.update)
 
@@ -23,7 +23,8 @@ export default () => {
   // POST: Adds student education info with a specific student id.
   // GET: Gets the student's education info given the student id.
   // PUT: Updates the student's education info given the student id.
-  student.route('/:studentid/education')
+  student
+    .route("/:studentid/education")
     .get(student_education_controller.get_by_id)
     .post(student_education_controller.add_new)
     .put(student_education_controller.update)
@@ -32,8 +33,9 @@ export default () => {
   // POST: Adds student experience info with a specific student id.
   // GET: Gets the student's experience info given the student id.
   // PUT: Updates the student's experience info given the student id.
-  student.route('/:studentid/experience')
-    .get(student_experience_controller.get_by_id)
+  student
+    .route("/:studentid/experience")
+    .get(student_experience_controller.get_all)
     .post(student_experience_controller.add_new)
     .put(student_experience_controller.update)
 
@@ -41,8 +43,9 @@ export default () => {
   // POST: Adds student project info with a specific student id.
   // GET: Gets the student's project info given the student id.
   // PUT: Updates the student's project info given the student id.
-  student.route('/:studentid/projects')
-    .get(student_project_controller.get_by_id)
+  student
+    .route("/:studentid/projects")
+    .get(student_project_controller.get_all)
     .post(student_project_controller.add_new)
-    .put(student_project_controller.update)
+  // .put(student_project_controller.update)
 }
