@@ -18,16 +18,14 @@ base.get("/", (req, res) => {
     //.catch(err => {
       //console.log(err);
     //});
-res.status(200).json("API TESTING: WORKING FINE")
-
+  res.status(200).json({message: "API TEST: WORKING FINE"});
 });
 
 
 
 base.post("/login", auth.login);
 
-base.post(
-  "/signup",
+base.post("/signup",
   [
     check("first_name").exists(),
     check("last_name").exists(),
@@ -44,10 +42,10 @@ base.get("/dashboard", (req, res) => {
   dashboard
     .user_data(req)
     .then(data => {
-      res.status(200).send(data);
+      res.status(200).json(data);
     })
     .catch(err => {
-      res.status(400).send({ message: "Bad request", error: err });
+      res.status(400).json({message: "Bad Request!", error: err});
     });
 });
 
@@ -55,10 +53,10 @@ base.get("/user", (req, res) => {
   let token_email = auth.decode_token(req.get("x-api-key")).user.email;
   query(`SELECT * FROM users WHERE users.email=?`, token_email)
     .then(data => {
-      res.status(200).send(data);
+      res.status(200).json(data);
     })
     .catch(err => {
-      res.status(500).send({ message: "Bad requets", error: err });
+      res.status(500).json({message: "Bad Request!", error: err});
     });
 });
 
@@ -81,28 +79,28 @@ base.get("/drives", (req, res) => {
         return object;
       };
       drives.map(add_placeholder_data);
-      res.status(200).send(drives);
+      res.status(200).json(drives);
     })
     .catch(err => {
-      res.status(400).send({ message: "Bad request", error: err });
+      res.status(400).json({message: "Bad Request!", error: err});
     });
 });
 
 base.get("/drives/:driveid", (req, res) => {
   query(
-    `SELECT rd.*, r.name As company_name 
-        FROM recruiter_drive rd 
-        INNER 
+    `SELECT rd.*, r.name As company_name
+        FROM recruiter_drive rd
+        INNER
         JOIN recruiter r
         ON r.id = rd.recruiter_id
         WHERE rd.id = ?`,
     [req.params.driveid]
   )
     .then(data => {
-      res.status(200).send(data);
+      res.status(200).json(data);
     })
     .catch(err => {
-      res.status(400).send({ message: "bad requqest", error: err });
+      res.status(400).json({message: "Bad Request!", error: err});
     });
 });
 
@@ -110,17 +108,17 @@ base.get("/drives/:driveid/rounds", (req, res) => {
   query(
     `SELECT rdr.*, rrt.name As round_name
         FROM recruiter_drive_round rdr
-        INNER 
+        INNER
         JOIN recruiter_round_type rrt
         ON rrt.id = rdr.recruiter_round_type_id
         WHERE rdr.recruiter_drive_id = ?`,
     [req.params.driveid]
   )
     .then(data => {
-      res.status(200).send(data);
+      res.status(200).json(data);
     })
     .catch(err => {
-      res.status(400).send({ message: "bad requqest", error: err });
+      res.status(400).json({message: "Bad Request!", error: err});
     });
 });
 
@@ -128,20 +126,20 @@ base.get("/drives/:driveid/eligibility", (req, res) => {
   query(
     `SELECT rde.*, ret.name As eligibility_name, gs.name As grade_scale_name
         FROM recruiter_drive_eligibility rde
-        INNER 
+        INNER
         JOIN eligibility_type ret
         ON ret.id = rde.eligibility_type_id
-        INNER 
+        INNER
         JOIN grade_scale gs
         ON gs.id = rde.grade_scale_id
         WHERE rde.recruiter_drive_id = ?`,
     [req.params.driveid]
   )
     .then(data => {
-      res.status(200).send(data);
+      res.status(200).json(data);
     })
     .catch(err => {
-      res.status(400).send({ message: "bad requqest", error: err });
+      res.status(400).json({message: "Bad Request!", error: err});
     });
 });
 
@@ -153,10 +151,10 @@ base.post("/drives/:driveid/apply", (req, res) => {
   };
   query(`INSERT INTO mapping_drive_college SET ?`, values)
     .then(data => {
-      res.status(200).json({ message: "Applied successfully!" });
+      res.status(200).json({message: "Applied Successfully!"});
     })
     .catch(err => {
-      res.status(400).send({ message: "Server Error", error: err });
+      res.status(400).json({message: "Server Error", error: err});
     });
 });
 

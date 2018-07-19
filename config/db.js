@@ -49,9 +49,9 @@ export let query = (sql, value) => {
         if(rows.length == 0) {
           resolve({})
         }
-        if(rows.length == 1){          
+        if(rows.length == 1) {
           resolve(rows[0])
-        }else{
+        } else {
         let data = []
         if (rows.length) {
           for (var i=0; i<rows.length; i++)
