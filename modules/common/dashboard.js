@@ -48,6 +48,7 @@ export let dashboard = {
         sql = sql_3;
         break;
       default:
+        sql = 'SELECT * FROM empty e';
         break;
     }
 

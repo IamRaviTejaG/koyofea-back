@@ -16,11 +16,11 @@ function getStrategy(){
   }
 
   return new Strategy(options, (req, payload, done) => {
-    db.query("show * from users where email=" + payload.email, (row, err) =>{
-      if(err) {
+    db.query("SHOW * FROM users WHERE email=" + payload.email, (row, err) => {
+      if (err) {
         return done(err, false)
       }
-      if(row){
+      if (row) {
         return done(null, row)
       } else {
         return done(null, false)
@@ -35,7 +35,10 @@ export let auth = {
     return passport.initialize()
   },
 
-  authenticate : callback => passport.authenticate("jwt", {sesson : false, failWithError: true}, callback),
+  authenticate : callback => passport.authenticate("jwt",
+    {sesson: false, failWithError: true},
+    callback
+  ),
 
   genToken: user => {
     let expires = moment().utc().add({ days: 7 }).unix();
