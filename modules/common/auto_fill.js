@@ -44,5 +44,20 @@ export let auto_fill = {
   get_major: () => {
     let sql = `SELECT * FROM major`
     return query(sql, [])
+  },
+
+  get_schools: () => {
+    let sql = `SELECT DISTINCT sed.institute_name from student_education sed`
+    return query(sql, [])
+  },
+
+  get_colleges: () => {
+    let sql = `SELECT DISTINCT col.name from college col`
+    return query(sql, [])
+  },
+
+  get_programs: () => {
+    let sql = `SELECT id, name FROM program`
+    return query(sql, [])
   }
 }

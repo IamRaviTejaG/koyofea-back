@@ -74,7 +74,7 @@ export let auto_fill = {
   },
 
   get_grade_scales: (req, res) => {
-    let sql = `SELECT id, name FROM grade_scale`
+    let sql = `SELECT id FROM grade_scale`
     query(sql).then(result => {
       res.status(200).json(result)
     }).catch(err => {
@@ -99,6 +99,42 @@ export let auto_fill = {
 
   get_major: (req, res) => {
     let sql = `SELECT id, name FROM major`
+    query(sql).then(result => {
+      res.status(200).json(result)
+    }).catch(err => {
+      res.status(500).json({
+        message: "Server Error",
+        error: err
+      })
+    })
+  },
+
+  get_schools: (req, res) => {
+    let sql = `SELECT DISTINCT sed.institute_name from student_education sed`
+    query(sql).then(result => {
+      res.status(200).json(result)
+    }).catch(err => {
+      res.status(500).json({
+        message: "Server Error",
+        error: err
+      })
+    })
+  },
+
+  get_colleges: (req, res) => {
+    let sql = `SELECT DISTINCT col.name from college col`
+    query(sql).then(result => {
+      res.status(200).json(result)
+    }).catch(err => {
+      res.status(500).json({
+        message: "Server Error",
+        error: err
+      })
+    })
+  },
+
+  get_programs: (req, res) => {
+    let sql = `SELECT id, name FROM program`
     query(sql).then(result => {
       res.status(200).json(result)
     }).catch(err => {

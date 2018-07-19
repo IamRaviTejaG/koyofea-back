@@ -14,7 +14,7 @@ export default () => {
   autofill.route('/gender')
     .get(auto_fill.get_gender)
 
-  autofill.route('/gradescale')
+  autofill.route('/grade-scale')
     .get(auto_fill.get_grade_scales)
 
   autofill.route('/industry')
@@ -28,4 +28,13 @@ export default () => {
 
   autofill.route('/positions')
     .get(auto_fill.get_positions)
+
+  autofill.route('/schools')
+    .get(auto_fill.get_schools)
+
+  autofill.route('/colleges')
+    .get(auto_fill.get_colleges)
+
+  autofill.route('/programs')
+    .get(auto_fill.get_programs)
 }

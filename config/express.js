@@ -23,8 +23,7 @@ app.use(bodyparser.json()); //for parsing application/json()
 app.use(bodyparser.urlencoded({ extended: true }));
 
 router.get("/", (req, res) => {
-  res
-    .status(200)
+  res.status(200)
     .sendFile("/home/ubuntu/koyofea-backend/landing_page/index.html");
 });
 
@@ -163,7 +162,7 @@ app.all("/api/*", (req, res, next) => {
     });
 });
 app.use("/api", base);
-app.use("/api/autofill", autofill);
+app.use("/api/autofills", autofill);
 app.use("/api/college", college);
 app.use("/api/recruiter", recruiter);
 app.use("/api/student", student);
