@@ -62,16 +62,21 @@ base.get("/user", (req, res) => {
 
 // TODO move this to college controller and change api to /college/alldrives
 base.get("/drives", (req, res) => {
-  query(
-    `SELECT rd.id As drive_id , r.name as company_name, rd.name As drive_name,
-        rd.drive_date, rd.no_positions ,
-        ( SELECT college_accept FROM mapping_drive_college mdc WHERE mdc.college_id = ? AND mdc.drive_id = rd.id) As college_applied
+  // let sql = `SELECT rd.id As drive_id , r.name as company_name, rd.name As drive_name,
+  //     rd.drive_date, rd.no_positions ,
+  //     ( SELECT college_accept FROM mapping_drive_college mdc WHERE mdc.college_id = ? AND mdc.drive_id = rd.id) As college_applied
+  //     FROM recruiter_drive rd
+  //     INNER
+  //     JOIN recruiter r
+  //     ON r.id = rd.recruiter_id`,
+  let sql = `SELECT rd.id As drive_id , r.name as company_name,
+        rd.name As drive_name, rd.drive_date, rd.no_positions
         FROM recruiter_drive rd
         INNER
         JOIN recruiter r
-        ON r.id = rd.recruiter_id`,
-    [req.basic_data.college_id]
-  )
+        ON r.id = rd.recruiter_id`;
+
+  query(sql) // [req.basic_data.college_id])
     .then(drives => {
       let add_placeholder_data = object => {
         object.college_applicants_no = 1;
