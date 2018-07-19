@@ -1,7 +1,7 @@
 import { query } from "../../config/db";
 
 export let auto_fill = {
-  industry_type_list : (req, res) => {
+  get_industry_type_list : (req, res) => {
     let sql = `SELECT id, name FROM industry`
     query(sql).then(result => {
       res.status(200).json(result)
@@ -143,5 +143,68 @@ export let auto_fill = {
         error: err
       })
     })
+  },
+
+  get_designations: (req, res) => {
+    let sql = `SELECT DISTINCT sexp.designation FROM student_experience sexp`
+    query(sql).then(result => {
+      res.status(200).json(result)
+    }).catch(err => {
+      res.status(500).json({
+        message: "Server Error",
+        error: err
+      })
+    })
+  },
+
+  get_organizations: (req, res) => {
+    let sql = `SELECT DISTINCT sexp.organization_name
+              FROM student_experience sexp`
+    query(sql).then(result => {
+      res.status(200).json(result)
+    }).catch(err => {
+      res.status(500).json({
+        message: "Server Error",
+        error: err
+      })
+    })
+  },
+
+  get_education_collection: (req, res) => {
+    let edu_array = []
+    async function create_edu_array () {
+      let sql = `SELECT DISTINCT sed.institute_name from student_education sed`
+      let res1 = await query(sql)
+      edu_array.push(res1)
+      sql = `SELECT id FROM grade_scale`
+      let res2 = await query(sql)
+      edu_array.push(res2)
+      sql = `SELECT DISTINCT col.name from college col`
+      let res3 = await query(sql)
+      edu_array.push(res3)
+      sql = `SELECT id, name FROM major`
+      let res4 = await query(sql)
+      edu_array.push(res4)
+      sql = `SELECT id, name FROM program`
+      let res5 = await query(sql)
+      edu_array.push(res5)
+      res.status(200).json(edu_array)
+    }
+    create_edu_array()
+  },
+
+  get_experience_collection: (req, res) => {
+    let exp_array = []
+    async function create_exp_array () {
+      let sql = `SELECT DISTINCT sexp.designation FROM student_experience sexp`
+      let res1 = await query(sql)
+      exp_array.push(res1)
+      sql = `SELECT DISTINCT sexp.organization_name
+            FROM student_experience sexp`
+      let res2 = await query(sql)
+      exp_array.push(res2)
+      res.status(200).json(exp_array)
+    }
+    create_exp_array()
   }
 }

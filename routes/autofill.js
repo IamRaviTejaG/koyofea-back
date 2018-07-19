@@ -18,7 +18,7 @@ export default () => {
     .get(auto_fill.get_grade_scales)
 
   autofill.route('/industry')
-    .get(auto_fill.industry_type_list)
+    .get(auto_fill.get_industry_type_list)
 
   autofill.route('/job')
     .get(auto_fill.get_job_type)
@@ -37,4 +37,17 @@ export default () => {
 
   autofill.route('/programs')
     .get(auto_fill.get_programs)
+
+  autofill.route('/designations')
+    .get(auto_fill.get_designations)
+
+  autofill.route('/organizations')
+    .get(auto_fill.get_organizations)
+
+  // Autofill ROUTES WITH /collections PREFIX RETURN ARRAYS of OBJECTS.
+  autofill.route('/collections/education')
+    .get(auto_fill.get_education_collection)
+
+  autofill.route('/collections/experience')
+    .get(auto_fill.get_experience_collection)
 }
