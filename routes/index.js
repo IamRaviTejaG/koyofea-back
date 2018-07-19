@@ -69,9 +69,14 @@ base.get("/drives", (req, res) => {
   //     INNER
   //     JOIN recruiter r
   //     ON r.id = rd.recruiter_id`,
-  let sql = `SELECT * FROM recruiter_drive rd`;
+  let sql = `SELECT rd.id As drive_id , r.name as company_name,
+        rd.name As drive_name, rd.drive_date, rd.no_positions
+        FROM recruiter_drive rd
+        INNER
+        JOIN recruiter r
+        ON r.id = rd.recruiter_id`;
 
-  query(sql, [req.basic_data.college_id])
+  query(sql) // [req.basic_data.college_id])
     .then(drives => {
       let add_placeholder_data = object => {
         object.college_applicants_no = 1;
