@@ -1,19 +1,18 @@
 import { query } from "../../../config/db"
 
 export let student_education_model = {
-  get_by_id: (id) => {
-    let sql = `SELECT s.id, s.first_name, s.last_name, sed.start_date,
-              sed.end_date, sed.institute_name, sed.percentage, sed.cgpa
+  get: id => {
+    let sql = `SELECT s.id, s.first_name, s.last_name, sed.*
               FROM student s
               INNER
-              JOIN student_education sed
+              JOIN student_education_new sed
               ON sed.student_id = s.id
               WHERE s.id = ?`
     return query(sql, id)
   },
 
-  add_new: (values) => {
-    let sql = `INSERT INTO student_education sed SET ?`
+  add_new: values => {
+    let sql = `INSERT INTO student_education_new sed SET ?`
     return query(sql, values)
   },
 
@@ -25,7 +24,7 @@ export let student_education_model = {
   // },
 
   update: (id, values) => {
-      let sql = `UPDATE student_education sed SET ? WHERE sed.student_id = ?`
-      return query(sql, [values, id])
+    let sql = `UPDATE student_education_new sed SET ? WHERE sed.student_id = ?`
+    return query(sql, [values, id])
   }
 }

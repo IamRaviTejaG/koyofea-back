@@ -25,7 +25,7 @@ export default () => {
   // PUT: Updates the student's education info given the student id.
   student
     .route("/:studentid/education")
-    .get(student_education_controller.get_by_id)
+    .get(student_education_controller.get)
     .post(student_education_controller.add_new)
     .put(student_education_controller.update)
 
