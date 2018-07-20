@@ -1,5 +1,5 @@
 export let fun = {
-  single_objet_to_array: (object) => {
+  single_object_to_array: (object) => {
     let array = []
     // empty object
     if(Object.keys(object).length == 0) {

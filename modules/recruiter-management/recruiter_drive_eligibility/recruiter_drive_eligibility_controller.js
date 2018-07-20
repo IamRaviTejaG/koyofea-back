@@ -19,8 +19,8 @@ export let recruiter_drive_eligibility_controller = {
     Promise.all([eligibility_type_list, grade_scale_list])
     .then(([eligibility_type_list, grade_scale_list]) => {
       let json = {}
-      json.grade_scale_list = fun.single_objet_to_array(grade_scale_list)
-      json.eligibility_type_list = fun.single_objet_to_array(eligibility_type_list)
+      json.grade_scale_list = fun.single_object_to_array(grade_scale_list)
+      json.eligibility_type_list = fun.single_object_to_array(eligibility_type_list)
       res.status(200).send(json)
     }).catch(err => {
       res.status(400).send({message: "Bad request", error: err})
