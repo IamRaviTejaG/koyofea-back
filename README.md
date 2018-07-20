@@ -1,13 +1,32 @@
 # Koyofea Backend
-Contains the backend, written in NodeJS.
+Contains the backend, written entirely in NodeJS.
 
 ## Routes
 All the routes are classified into three categories.
-* Autofill routes (Endpoint: `/autofill`)
-* Autofill Collection routes (Endpoint: `/autofill-collections`)
-* College routes (Endpoint: `/college`)
-* Recruiter routes (Endpoint: `/recruiter`)
-* Student routes (Endpoint: `/student`)
+* Base (Endpoint: `/`)
+* Autofill (Endpoint: `/autofill`)
+* Autofill Collections (Endpoint: `/autofill-collections`)
+* College (Endpoint: `/college`)
+* Recruiter (Endpoint: `/recruiter`)
+* Student (Endpoint: `/student`)
+
+### Base Routes
+**These routes are directly available at base URL `/`**
+
+|URL|Request Type|Action|URL Parameters|Data Parameters
+|:---:|:-:|:---:|:---:|:---:|
+|`/`|`GET`|Check to test if the API is up and running.|-|-|
+|`/login`|`POST`|Signin to your existing user account.|-|`email`, `password`|
+|`/signup`|`POST`|Signup for a new user account.|-|`first_name`, `last_name`, `email`, `password`, `user_type`|
+|`/email-verify`|`GET`|Verifies your email.|`email_token`|-|
+|`/dashboard`|`GET`|Gets the dashboard data of the logged in user.|-|-|
+|`/user`|`GET`|Gets the user data of the logged in user.|-|-|
+|`/drives`|`GET`|Gets all the drives of a recruiter.|-|-|
+|`/drives/:driveid`|`GET`|Gets a specific drive's info.|`driveid`|-|
+|`/drives/:driveid/rounds`|`GET`|Gets rounds' info of a specific drive.|`driveid`|-|
+|`/drives/:driveid/eligibility`|`GET`|Gets a specific drive's eligibility info.|`driveid`|-|
+|`/drives/:driveid/apply`|`POST`|Allows a college to apply for a specific drive.|`driveid`|`college_id`|
+
 
 ### Autofill Routes
 **All the autofill routes are available at base URL `/autofill`**
@@ -28,6 +47,15 @@ All the routes are classified into three categories.
 |`/programs`|`GET`|Gets programs' autofill data.|-|-|
 |`/designations`|`GET`|Gets designations' autofill data.|-|-|
 |`/organizations`|`GET`|Gets organizations' autofill data.|-|-|
+
+
+### Autofill Collections Routes
+**All the autofill routes are available at base URL `/autofill-collections`**
+
+|URL|Request Type|Action|URL Parameters|Data Parameters|
+|:---:|:-:|:---:|:---:|:---:|
+|`/education`|`GET`|Gets a JSON of student education based autofills.|-|-|
+|`/experience`|`GET`|Gets a JSON of student experience based autofills.|-|-|
 
 
 ### College Routes
@@ -70,6 +98,21 @@ All the routes are classified into three categories.
 |`/hr/:hrid`|`GET`|Gets a specific HR's profile.|-|-|
 |`/hr/:hrid/extra`|`POST`|Adds extra details of a pre-existing HR.|`hrid`|`recruitment_hr_id`, `public_profile`, `phone`, `bio`, `designation`|
 |`/hr/:hrid/extra`|`PUT`|Updates extra details of a pre-existing HR.|`hrid`|`recruitment_hr_id`, `public_profile`, `phone`, `bio`, `designation`|
+|`/:rid/drives/requested`|`GET`|Gets colleges' list that requested drives from the specific recruiter.|`rid`|-|
+|`/:rid/drives/:driveid`|`GET`|Gets a recruiter's specific drive info.|`rid`, `driveid`|-|
+|`/:rid/drives/:driveid`|`PUT`|Updates a recruiter's specific drive info.|`rid`, `driveid`|`name`, `duration_id`, `work_study_job`, `paid`, `salary_low`, `salary_high`, `joining_date`, `description`, `no_openings`, `no_positions`, `url`, `recruiter_employment_type_id`, `recruiter_hr_id`, `job_type_id`, `job_location_id`, `drive_date`|
+|`/:rid/staff`|`GET`|Gets a recruiter's staff details.|`rid`|-|
+|`/:rid/staff/:staffid/role`|`PUT`|Gets a recruiter's staff details.|`rid`, `staffid`|`updatedrole`|
+|`/:rid/staff/:staffid/status`|`PUT`|Gets a recruiter's staff details.|`rid`, `staffid`|`status`|
+|`/drives/:driveid/rounds`|`GET`|Gets rounds' info of a specific drive.|`driveid`|-|
+|`/drives/:driveid/rounds`|`POST`|Adds a new round info of a specific drive.|`driveid`|`name`, `round_no`, `url`, `description`, `no_eligible`, `no_applied`, `round_intake`, `no_passed`, `date`, `duration`, `recruiter_drive_id`, `recruiter_round_type_id`, `is_virtual_drive`|
+|`/drives/:driveid/rounds/:roundid`|`GET`|Gets specific round's info of a specific drive.|`driveid`, `roundid`|-|
+|`/drives/:driveid/rounds/:roundid`|`PUT`|Updates specific round's info of a specific drive.|`driveid`, `roundid`|`name`, `round_no`, `url`, `description`, `no_eligible`, `no_applied`, `round_intake`, `no_passed`, `date`, `duration`, `recruiter_drive_id`, `recruiter_round_type_id`, `is_virtual_drive`|
+|`/drives/:driveid/eligibility/:eid`|`GET`|Gets a specific drive's eligibility info.|`driveid`, `eid`|-|
+|`/drives/:driveid/eligibility/:eid`|`PUT`|Updates a specific drive's eligibility info.|`driveid`, `eid`|`grade_scale_id`, `cutoff`, `eligibility_type_id`, `recruiter_drive_id`|
+|`/:recruiterid/colleges`|`GET`|Gets a recruiter's applied colleges list.|`recruiterid`|-|
+|`/:rid/drives`|`GET`|Gets a recruiter's all drives.|`rid`|-|
+|`/:rid/drives`|`POST`|Adds a new drive of a specific recruiter.|`rid`|`name`, `duration_id`, `work_study_job`, `paid`, `salary_low`, `salary_high`, `joining_date`, `description`, `no_openings`, `no_positions`, `url`, `recruiter_employment_type_id`, `recruiter_hr_id`, `job_type_id`, `job_location_id`, `drive_date`|
 
 
 ### Student Routes
