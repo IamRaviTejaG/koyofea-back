@@ -1,6 +1,5 @@
 export const autofill = require("express").Router()
 import { autofill_controller } from "../modules/common/autofill/autofill_controller";
-import { autofill_collections_controller } from "../modules/common/autofill_collections/autofill_collections_controller";
 
 export default () => {
   autofill.route('/duration')
@@ -44,11 +43,4 @@ export default () => {
 
   autofill.route('/organizations')
     .get(autofill_controller.get_organizations)
-
-  // Autofill ROUTES WITH /collections PREFIX RETURN ARRAYS of OBJECTS.
-  autofill.route('/collections/education')
-    .get(autofill_collections_controller.get_education)
-
-  autofill.route('/collections/experience')
-    .get(autofill_collections_controller.get_experience)
 }
