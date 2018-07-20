@@ -1,53 +1,54 @@
 export const autofill = require("express").Router()
-import { auto_fill } from "../modules/common/autofill";
+import { autofill_controller } from "../modules/common/autofill/autofill_controller";
+import { autofill_collections_controller } from "../modules/common/autofill_collections/autofill_collections_controller";
 
 export default () => {
   autofill.route('/duration')
-    .get(auto_fill.get_duration)
+    .get(autofill_controller.get_duration)
 
   autofill.route('/eligibility')
-    .get(auto_fill.get_eligibility_types)
+    .get(autofill_controller.get_eligibility_types)
 
   autofill.route('/employment')
-    .get(auto_fill.get_employment_type)
+    .get(autofill_controller.get_employment_type)
 
   autofill.route('/gender')
-    .get(auto_fill.get_gender)
+    .get(autofill_controller.get_gender)
 
   autofill.route('/grade-scale')
-    .get(auto_fill.get_grade_scales)
+    .get(autofill_controller.get_grade_scales)
 
   autofill.route('/industry')
-    .get(auto_fill.get_industry_type_list)
+    .get(autofill_controller.get_industry_type_list)
 
   autofill.route('/job')
-    .get(auto_fill.get_job_type)
+    .get(autofill_controller.get_job_type)
 
   autofill.route('/major')
-    .get(auto_fill.get_major)
+    .get(autofill_controller.get_major)
 
   autofill.route('/positions')
-    .get(auto_fill.get_positions)
+    .get(autofill_controller.get_positions)
 
   autofill.route('/schools')
-    .get(auto_fill.get_schools)
+    .get(autofill_controller.get_schools)
 
   autofill.route('/colleges')
-    .get(auto_fill.get_colleges)
+    .get(autofill_controller.get_colleges)
 
   autofill.route('/programs')
-    .get(auto_fill.get_programs)
+    .get(autofill_controller.get_programs)
 
   autofill.route('/designations')
-    .get(auto_fill.get_designations)
+    .get(autofill_controller.get_designations)
 
   autofill.route('/organizations')
-    .get(auto_fill.get_organizations)
+    .get(autofill_controller.get_organizations)
 
   // Autofill ROUTES WITH /collections PREFIX RETURN ARRAYS of OBJECTS.
   autofill.route('/collections/education')
-    .get(auto_fill.get_education_collection)
+    .get(autofill_collections_controller.get_education)
 
   autofill.route('/collections/experience')
-    .get(auto_fill.get_experience_collection)
+    .get(autofill_collections_controller.get_experience)
 }

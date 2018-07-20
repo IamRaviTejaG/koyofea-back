@@ -18,8 +18,8 @@ export let recruiter_controller = {
 
     Promise.all([recruiter_name, industry_type]).then(([recruiter_name_list, industry_type_list]) => {
       let json = {}
-      json.industry_type_list = fun.single_objet_to_array(industry_type_list)
-      json.recruiter_name_list = fun.single_objet_to_array(recruiter_name_list)
+      json.industry_type_list = fun.single_object_to_array(industry_type_list)
+      json.recruiter_name_list = fun.single_object_to_array(recruiter_name_list)
       res.status(200).send(json)
     }).catch(err => {
       res.status(400).send({message: "Bad request", error: err})

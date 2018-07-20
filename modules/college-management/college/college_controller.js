@@ -17,8 +17,8 @@ export let college_controller = {
     let college_type_list = college_model.get_college_type()
     Promise.all([college_name_list, college_type_list]).then(([college_name_list, college_type_list]) => {
       let json = {}
-      json.college_name_list = fun.single_objet_to_array(college_name_list)
-      json.college_type_list = fun.single_objet_to_array(college_type_list)
+      json.college_name_list = fun.single_object_to_array(college_name_list)
+      json.college_type_list = fun.single_object_to_array(college_type_list)
       res.status(200).send(json)
     }).catch(err => {
       res.status(400).send({message: "Bad request", error: err})

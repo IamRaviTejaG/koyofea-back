@@ -17,8 +17,8 @@ export let student_controller = {
   //
   //   Promise.all([student_name, industry_type]).then(([student_name_list, industry_type_list]) => {
   //     let json = {}
-  //     json.industry_type_list = fun.single_objet_to_array(industry_type_list)
-  //     json.student_name_list = fun.single_objet_to_array(student_name_list)
+  //     json.industry_type_list = fun.single_object_to_array(industry_type_list)
+  //     json.student_name_list = fun.single_object_to_array(student_name_list)
   //     res.status(200).send(json)
   //   }).catch(err => {
   //     res.status(400).send({message: "Bad request", error: err})

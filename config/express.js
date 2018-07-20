@@ -7,6 +7,7 @@ const router = require("express").Router();
 import { auth } from "./auth";
 import { base } from "../routes";
 import { autofill } from "../routes/autofill";
+import { autofill_collections } from "../routes/autofill_collections";
 import { college } from "../routes/college";
 import { recruiter } from "../routes/recruiter";
 import { student } from "../routes/student";
@@ -163,6 +164,7 @@ app.all("/api/*", (req, res, next) => {
 });
 app.use("/api", base);
 app.use("/api/autofills", autofill);
+app.use("/api/autofill-collections", autofill_collections);
 app.use("/api/college", college);
 app.use("/api/recruiter", recruiter);
 app.use("/api/student", student);
@@ -188,10 +190,10 @@ app.use("/api/student", student);
 //     })(req, res, next);
 // });
 
-app.use("/", base);
-app.use("/autofill", autofill);
-app.use("/college", college);
-app.use("/recruiter", recruiter);
-app.use("/student", student);
+// app.use("/", base);
+// app.use("/autofill", autofill);
+// app.use("/college", college);
+// app.use("/recruiter", recruiter);
+// app.use("/student", student);
 
 export default app;
