@@ -61,12 +61,11 @@ export let auth = {
     let sql = `SELECT * FROM users WHERE email= ?`
     let a = query(sql, [email])
     let b = a.then(rows => {
-
       if (!rows) {
-        throw "Email not register"
+        throw "Email not registered!"
       }
-      if(rows.email_verified == 0){
-        throw "Email not verified"
+      if (rows.email_verified == 0){
+        throw "Email not verified!"
       }
       console.log(rows.password)
       return bcrypt.compare(user_password, rows.password)
@@ -75,7 +74,11 @@ export let auth = {
       if (!result) {
         throw "Incorrect credentials!"
       }
-      res.status(200).json({message: "Login successful",token: auth.genToken(rows).token, user: rows})
+      res.status(200).json({
+        message: "Login successful",
+        token: auth.genToken(rows).token,
+        user: rows
+      })
     }).catch((err) => {
       res.status(401).json({message: "Login failed!", error: err})
     })
@@ -92,7 +95,7 @@ export let auth = {
     }
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      return res.status(400).json({ message: "Error!", error: errors.mapped() })
+      return res.status(400).json({message: "Error!", error: errors.mapped()})
     }
     let sql = `SELECT * FROM users WHERE email= ?`
     query(sql, [email]).then((rows) => {
@@ -105,9 +108,9 @@ export let auth = {
       object.password = hash;
       return query(sql, object)
     }).then(row => {
-      res.status(200).json({message: "sign-up successful", error: {}})
+      res.status(200).json({message: "Signup successful!", error: {}})
     }).catch(err => {
-      res.status(400).json({message: "Sign-up failed", error: err})
+      res.status(400).json({message: "Signup failed!", error: err})
     })
   },
 
@@ -116,14 +119,18 @@ export let auth = {
     let sql = `SELECT * FROM users WHERE email_token="${verify_token}"`
     query(sql).then(row => {
       if(!row){
-        throw "Wrong Verification Url"
+        throw "Wrong Verification URL"
       }
-      let sql = `UPDATE users SET email_verified = true WHERE email_token="${verify_token}"`
+      let sql = `UPDATE users SET email_verified = true
+                WHERE email_token="${verify_token}"`
       return query(sql)
     }).then((result) => {
-      res.status(200).json({message: "Email verification Successful", error: null})
+      res.status(200).json({
+        message: "Email verification successful!",
+        error: null
+      })
     }).catch(err => {
-      res.status(400).json({message: "Email verification failed", error: err})
+      res.status(400).json({message: "Email verification failed!", error: err})
     })
   }
 }

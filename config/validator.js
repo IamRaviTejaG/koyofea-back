@@ -1,6 +1,5 @@
 import { check, validationResult } from "express-validator/check";
 
-
 export const validate = {
   error_handling: (req, res, next) => {
     const errors = validationResult(req)
@@ -28,7 +27,7 @@ export const validate = {
     check("recruiter_data.name").exists(),
     check('recruiter_data.website_url').exists(),
     check('recruiter_data.description').exists(),
-    check('recruiter_data.verified').isEmpty().withMessage("User cannot verifiy Email"),
+    check('recruiter_data.verified').isEmpty().withMessage("User cannot verify Email"),
     check('recruiter_data.phone').exists().isInt(),
     check('recruiter_data.address_1').exists(),
     check('recruiter_data.landmark').exists(),
@@ -50,7 +49,7 @@ export const validate = {
   recruiter_update: [
     check('name').isEmpty(),
     check('industry_id').isEmpty(),
-    check('verified').isEmpty().withMessage("User cannot verifiy Email"),
+    check('verified').isEmpty().withMessage("User cannot verify Email"),
     check('recruiter_hr_id').isEmpty()
   ]
 }

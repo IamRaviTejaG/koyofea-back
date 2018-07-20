@@ -1,9 +1,10 @@
 # Koyofea Backend
-Contains the backend, written completely in ExpressJS.
+Contains the backend, written in NodeJS.
 
 ## Routes
 All the routes are classified into three categories.
 * Autofill routes (Endpoint: `/autofill`)
+* Autofill Collection routes (Endpoint: `/autofill-collections`)
 * College routes (Endpoint: `/college`)
 * Recruiter routes (Endpoint: `/recruiter`)
 * Student routes (Endpoint: `/student`)
@@ -21,7 +22,12 @@ All the routes are classified into three categories.
 |`/industry`|`GET`|Gets industry type autofill data.|-|-|
 |`/job`|`GET`|Gets job type autofill data.|-|-|
 |`/major`|`GET`|Gets college major autofill data.|-|-|
-|`/positions`|`GET`|Gets positions' autofill data. |-|-|
+|`/positions`|`GET`|Gets positions' autofill data.|-|-|
+|`/schools`|`GET`|Gets schools' autofill data.|-|-|
+|`/colleges`|`GET`|Gets colleges' autofill data.|-|-|
+|`/programs`|`GET`|Gets programs' autofill data.|-|-|
+|`/designations`|`GET`|Gets designations' autofill data.|-|-|
+|`/organizations`|`GET`|Gets organizations' autofill data.|-|-|
 
 
 ### College Routes

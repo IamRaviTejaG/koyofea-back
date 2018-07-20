@@ -21,7 +21,7 @@ app.use(cors());
 app.use(morgan("dev"));
 app.use(auth.initialize());
 app.use(bodyparser.json()); //for parsing application/json()
-app.use(bodyparser.urlencoded({ extended: true }));
+app.use(bodyparser.urlencoded({extended: true}));
 
 router.get("/", (req, res) => {
   res.status(200)
@@ -63,15 +63,12 @@ app.all("/api/*", (req, res, next) => {
   }
   let token = auth.decode_token(req.get("x-api-key"));
   req.token_data = token;
-  dashboard
-    .user_data(req)
-    .then(data => {
-      req.basic_data = data;
-      next();
-    })
-    .catch(err => {
-      return res.status(400).send({ message: "Bad request", error: err });
-    });
+  dashboard.user_data(req).then(data => {
+    req.basic_data = data;
+    next();
+  }).catch(err => {
+    return res.status(400).send({message: "Bad Request!", error: err});
+  });
 });
 
 //  Middleware for email_verified
@@ -87,17 +84,15 @@ app.all("/api/*", (req, res, next) => {
   }
   // TODO: add common code for getting data form user table
   let token_email = auth.decode_token(req.get("x-api-key")).user.email;
-  query(`SELECT * FROM users WHERE users.email=?`, token_email)
-    .then(data => {
-      if (data.email_verified) {
-        next();
-      } else {
-        res.status(400).send({ message: "Email_not_verified", error: {} });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({ message: "Bad requets", error: err });
-    });
+  query(`SELECT * FROM users WHERE users.email=?`, token_email).then(data => {
+    if (data.email_verified) {
+      next();
+    } else {
+      res.status(400).send({message: "Email not verified!", error: {}});
+    }
+  }).catch(err => {
+    res.status(500).send({message: "Bad Request!", error: err});
+  });
 });
 
 // Middleware for data1
@@ -118,17 +113,15 @@ app.all("/api/*", (req, res, next) => {
   }
   // TODO: add common code for getting data form user table
   let token_email = auth.decode_token(req.get("x-api-key")).user.email;
-  query(`SELECT * FROM users WHERE users.email=?`, token_email)
-    .then(data => {
-      if (data.data1) {
-        next();
-      } else {
-        res.status(400).send({ message: "personal info not found", error: {} });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({ message: "Bad requets", error: err });
-    });
+  query(`SELECT * FROM users WHERE users.email=?`, token_email).then(data => {
+    if (data.data1) {
+      next();
+    } else {
+      res.status(400).send({message: "Personal info not found!", error: {}});
+    }
+  }).catch(err => {
+    res.status(500).send({message: "Bad Request!", error: err});
+  });
 });
 
 // Middleware for data2
@@ -148,22 +141,18 @@ app.all("/api/*", (req, res, next) => {
   }
   // TODO: add common code for getting data form user table
   let token_email = auth.decode_token(req.get("x-api-key")).user.email;
-  query(`SELECT * FROM users WHERE users.email=?`, token_email)
-    .then(data => {
-      if (data.email_verified) {
-        next();
-      } else {
-        res
-          .status(400)
-          .send({ message: "Corporation info not found", error: {} });
-      }
-    })
-    .catch(err => {
-      res.status(500).send({ message: "Bad requets", error: err });
-    });
+  query(`SELECT * FROM users WHERE users.email=?`, token_email).then(data => {
+    if (data.email_verified) {
+      next();
+    } else {
+      res.status(400).send({message: "Corporation info not found!", error: {}});
+    }
+  }).catch(err => {
+    res.status(500).send({message: "Bad Request!", error: err});
+  });
 });
 app.use("/api", base);
-app.use("/api/autofills", autofill);
+app.use("/api/autofill", autofill);
 app.use("/api/autofill-collections", autofill_collections);
 app.use("/api/college", college);
 app.use("/api/recruiter", recruiter);
