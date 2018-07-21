@@ -18,7 +18,8 @@ All the routes are classified into three categories.
 |`/`|`GET`|Check to test if the API is up and running.|-|-|
 |`/login`|`POST`|Signin to your existing user account.|-|`email`, `password`|
 |`/signup`|`POST`|Signup for a new user account.|-|`first_name`, `last_name`, `email`, `password`, `user_type`|
-|`/email-verify`|`GET`|Verifies your email.|`email_token`|-|
+|`/verify/:verificationtoken`|`GET`|Verifies your email.|`verificationtoken`|-|
+|`/email-verify`|`GET`|Verifies your email.|`email_token`|- **TO BE DEPRECATED SOON** -|
 |`/dashboard`|`GET`|Gets the dashboard data of the logged in user.|-|-|
 |`/user`|`GET`|Gets the user data of the logged in user.|-|-|
 |`/drives`|`GET`|Gets all the drives of a recruiter.|-|-|

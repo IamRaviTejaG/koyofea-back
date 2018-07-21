@@ -40,6 +40,8 @@ base.post("/signup",
 
 base.get("/email-verify", auth.verify_email);
 
+base.get("/verify/:verificationtoken", auth.verify);
+
 base.get("/dashboard", (req, res) => {
   dashboard
     .user_data(req)

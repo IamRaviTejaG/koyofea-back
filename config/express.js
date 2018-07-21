@@ -4,6 +4,7 @@ const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
 const router = require("express").Router();
+const path = require("path");
 import { auth } from "./auth";
 import { base } from "../routes";
 import { autofill } from "../routes/autofill";
@@ -13,7 +14,6 @@ import { recruiter } from "../routes/recruiter";
 import { student } from "../routes/student";
 import { dashboard } from "../modules/common";
 import { query } from "./db";
-const path = require("path");
 
 let app = express();
 app.use(express.static("/home/ubuntu/koyofea-backend/landing_page"));
@@ -50,15 +50,17 @@ app.use("/api/student", student)
 //   })(req, res, next)
 // })
 
-// Middle ware for token
+// Middleware for token
 app.all("/api/*", (req, res, next) => {
   if (
-    req.path == "/api/login" ||
-    req.path == "/api" ||
-    req.path == "/favicon.ico" ||
-    req.path == "/robots.txt" ||
-    req.path == "/api/signup"
+    req.path === "/api/login" ||
+    req.path === "/api" ||
+    req.path === "/favicon.ico" ||
+    req.path === "/robots.txt" ||
+    req.path === "/api/signup" ||
+    req.path.slice(0,11) === "/api/verify"
   ) {
+    // console.log("SKIP MIDDLEWARE: 1/4 (token verification)".cyan)
     return next();
   }
   let token = auth.decode_token(req.get("x-api-key"));
@@ -74,12 +76,14 @@ app.all("/api/*", (req, res, next) => {
 //  Middleware for email_verified
 app.all("/api/*", (req, res, next) => {
   if (
-    req.path == "/api/login" ||
-    req.path == "/api" ||
-    req.path == "/favicon.ico" ||
-    req.path == "/robots.txt" ||
-    req.path == "/api/signup"
+    req.path === "/api/login" ||
+    req.path === "/api" ||
+    req.path === "/favicon.ico" ||
+    req.path === "/robots.txt" ||
+    req.path === "/api/signup" ||
+    req.path.slice(0,11) === "/api/verify"
   ) {
+    // console.log("SKIP MIDDLEWARE: 2/4 (email)".magenta)
     return next();
   }
   // TODO: add common code for getting data form user table
@@ -98,17 +102,19 @@ app.all("/api/*", (req, res, next) => {
 // Middleware for data1
 app.all("/api/*", (req, res, next) => {
   if (
-    req.path == "/api/login" ||
-    req.path == "/api" ||
-    req.path == "/favicon.ico" ||
-    req.path == "/robots.txt" ||
-    req.path == "/api/signup" ||
-    req.path == "/api/recruiter/hr" ||
-    req.path == "/api/dashboard" ||
-    req.path == "/api/user" ||
-    req.path == "/api/college/base" ||
-    req.path == "/college/coordinator"
+    req.path === "/api/login" ||
+    req.path === "/api" ||
+    req.path === "/favicon.ico" ||
+    req.path === "/robots.txt" ||
+    req.path === "/api/signup" ||
+    req.path === "/api/recruiter/hr" ||
+    req.path === "/api/dashboard" ||
+    req.path === "/api/user" ||
+    req.path === "/api/college/base" ||
+    req.path === "/college/coordinator" ||
+    req.path.slice(0,11) === "/api/verify"
   ) {
+    // console.log("SKIP MIDDLEWARE: 3/4 (data1)".blue)
     return next();
   }
   // TODO: add common code for getting data form user table
@@ -127,16 +133,18 @@ app.all("/api/*", (req, res, next) => {
 // Middleware for data2
 app.all("/api/*", (req, res, next) => {
   if (
-    req.path == "/api/login" ||
-    req.path == "/api" ||
-    req.path == "/favicon.ico" ||
-    req.path == "/robots.txt" ||
-    req.path == "/api/signup" ||
-    req.path == "/api/recruiter/hr" ||
-    req.path == "/api/recruiter/base" ||
-    req.path == "/api/college/base" ||
-    req.path == "/api/college/coordinator"
+    req.path === "/api/login" ||
+    req.path === "/api" ||
+    req.path === "/favicon.ico" ||
+    req.path === "/robots.txt" ||
+    req.path === "/api/signup" ||
+    req.path === "/api/recruiter/hr" ||
+    req.path === "/api/recruiter/base" ||
+    req.path === "/api/college/base" ||
+    req.path === "/api/college/coordinator" ||
+    req.path.slice(0,11) === "/api/verify"
   ) {
+    // console.log("SKIP MIDDLEWARE: 4/4 (data2)".yellow)
     return next();
   }
   // TODO: add common code for getting data form user table

@@ -1,8 +1,9 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require("bcrypt")
 const dotenv = require("dotenv").config()
 const moment = require("moment")
 const Promise = require("bluebird")
 const passport = require("passport")
+const uuid = require("uuid/v4")
 const { validationResult } = require('express-validator/check')
 import * as jwt from "jwt-simple"
 import { db, query } from "./db"
@@ -70,7 +71,7 @@ export let auth = {
       console.log(rows.password)
       return bcrypt.compare(user_password, rows.password)
     })
-    Promise.all([a,b]).then(([rows,result]) => {
+    Promise.all([a,b]).then(([rows, result]) => {
       if (!result) {
         throw "Incorrect credentials!"
       }
@@ -91,26 +92,51 @@ export let auth = {
       first_name: req.body.first_name,
       last_name: req.body.last_name,
       email: email,
-      user_type_id: req.body.user_type
+      user_type_id: req.body.user_type,
+      verification_token: uuid()
     }
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
       return res.status(400).json({message: "Error!", error: errors.mapped()})
     }
     let sql = `SELECT * FROM users WHERE email= ?`
-    query(sql, [email]).then((rows) => {
+    query(sql, [email]).then(rows => {
       if (rows.length > 0) {
         throw "Email already used!"
       }
       return bcrypt.hash(unhashed_password, parseInt(process.env.SALT_ROUNDS))
-    }).then((hash) => {
+    }).then(hash => {
       let sql = `INSERT INTO users SET ?`
       object.password = hash;
       return query(sql, object)
     }).then(row => {
-      res.status(200).json({message: "Signup successful!", error: {}})
+      res.status(200).json({
+        message: "Signup successful!",
+        verificationToken: object.verification_token
+      })
     }).catch(err => {
       res.status(400).json({message: "Signup failed!", error: err})
+    })
+  },
+
+  verify: (req, res) => {
+    let token = req.params.verificationtoken
+    let sql1 = `UPDATE users u SET u.email_verified = 1
+              WHERE u.verification_token='${token}'`
+    let sql2 = `SELECT u.email_verified FROM users u
+                WHERE u.verification_token='${token}'`
+    query(sql2).then(row2 => {
+      if (row2.email_verified === 1) {
+        res.status(400).json({message: "Already verified!"});
+      } else if (row2.email_verified === undefined) {
+        throw "Invalid verification URL"
+      } else {
+        query(sql1).then(row1 => {
+          res.status(200).json({message: "Email verified!"});
+        })
+      }
+    }).catch(err => {
+      res.status(400).json({error: err})
     })
   },
 
