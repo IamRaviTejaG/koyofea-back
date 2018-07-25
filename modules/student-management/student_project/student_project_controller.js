@@ -10,7 +10,7 @@ export let student_project_controller = {
         res.status(200).json(projects)
       })
       .catch(err => {
-        res.status(400).json({ message: "Bad Request", error: err })
+        res.status(400).json({message: "Bad Request!", error: err})
       })
   },
 
@@ -21,7 +21,7 @@ export let student_project_controller = {
   //       res.status(200).json(users)
   //     })
   //     .catch(err => {
-  //       res.status(400).json({ message: "Bad Request", error: err })
+  //       res.status(400).json({ message: "Bad Request!", error: err })
   //     })
   // },
 
@@ -33,10 +33,10 @@ export let student_project_controller = {
     let projects = req.body.map(fun)
     Promise.all(projects)
       .then(data => {
-        res.status(200).json({ message: "Added successfully", error: null })
+        res.status(200).json({message: "Added successfully!", error: null})
       })
       .catch(err => {
-        res.status(400).json({ message: "Bad Request", error: err })
+        res.status(400).json({message: "Bad Request!", error: err})
       })
   }
 
@@ -47,7 +47,7 @@ export let student_project_controller = {
   //       res.status(200).json(req.body)
   //     })
   //     .catch(err => {
-  //       res.status(400).json({ message: "Bad Request", error: err })
+  //       res.status(400).json({ message: "Bad Request!", error: err })
   //     })
   // }
 }

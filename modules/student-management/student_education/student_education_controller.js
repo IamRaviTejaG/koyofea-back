@@ -7,7 +7,7 @@ export let student_education_controller = {
   //   student_education_model.get_all().then(data => {
   //     res.status(200).json(data)
   //   }).catch(err => {
-  //     res.status(400).json({message: "Bad Request", error: err})
+  //     res.status(400).json({message: "Bad Request!", error: err})
   //   })
   // },
 
@@ -21,7 +21,7 @@ export let student_education_controller = {
   //     json.student_name_list = fun.single_object_to_array(student_name_list)
   //     res.status(200).send(json)
   //   }).catch(err => {
-  //     res.status(400).send({message: "Bad request", error: err})
+  //     res.status(400).send({message: "Bad Request!", error: err})
   //   })
   // },
 
@@ -33,7 +33,7 @@ export let student_education_controller = {
         res.status(200).json(users)
       })
       .catch(err => {
-        res.status(400).json({ message: "Bad Request", error: err })
+        res.status(400).json({message: "Bad Request!", error: err})
       })
   },
 
@@ -48,12 +48,12 @@ export let student_education_controller = {
         res.status(200).json(data)
       })
       .catch(err => {
-        res.status(400).json({ message: "Bad Request", error: err })
+        res.status(400).json({message: "Bad Request!", error: err})
       })
     // student_education_model.add_new(req.params.studentid, req.body).then(data => {
     //   res.status(200).json(data)
     // }).catch(err => {
-    //   res.status(400).json({message: "Bad Request", error: err})
+    //   res.status(400).json({message: "Bad Request!", error: err})
     // })
   },
 
@@ -64,7 +64,7 @@ export let student_education_controller = {
         res.status(200).json(req.body)
       })
       .catch(err => {
-        res.status(400).json({ message: "Bad Request", error: err })
+        res.status(400).json({message: "Bad Request!", error: err})
       })
   }
 }

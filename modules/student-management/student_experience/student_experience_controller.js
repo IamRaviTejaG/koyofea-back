@@ -10,7 +10,7 @@ export let student_experience_controller = {
         res.status(200).json(users)
       })
       .catch(err => {
-        res.status(400).json({ message: "Bad Request", error: err })
+        res.status(400).json({message: "Bad Request!", error: err})
       })
   },
 
@@ -22,10 +22,10 @@ export let student_experience_controller = {
     let experience = req.body.map(fun)
     Promise.all(experience)
       .then(data => {
-        res.status(200).json({ message: "successfully added", error: null })
+        res.status(200).json({message: "Successfully added!", error: null})
       })
       .catch(err => {
-        res.status(400).json({ message: "Bad Request", error: err })
+        res.status(400).json({message: "Bad Request!", error: err})
       })
   },
 
@@ -36,7 +36,7 @@ export let student_experience_controller = {
         res.status(200).json(req.body)
       })
       .catch(err => {
-        res.status(400).json({ message: "Bad Request", error: err })
+        res.status(400).json({message: "Bad Request!", error: err})
       })
   }
 }
