@@ -2,7 +2,7 @@
 Contains the backend, written entirely in NodeJS.
 
 ## Routes
-All the routes are classified into three categories.
+All the routes are classified into the following categories.
 * Base (Endpoint: `/`)
 * Autofill (Endpoint: `/autofill`)
 * Autofill Collections (Endpoint: `/autofill-collections`)
