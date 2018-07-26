@@ -2,8 +2,8 @@ import { query } from "../../../config/db"
 
 export let student_project_model = {
   get_all: id => {
-    let sql = `SELECT 
-    sp.* FROM student_project sp 
+    let sql = `SELECT
+    sp.* FROM student_project sp
     WHERE sp.student_id = ?
     ORDER BY sp.end_date DESC`
     return query(sql, id)
@@ -20,7 +20,7 @@ export let student_project_model = {
   // },
 
   add_new: values => {
-    let sql = `INSERT INTO student_project sp SET ?`
+    let sql = `INSERT INTO student_project SET ?`
     return query(sql, values)
   },
 

@@ -12,7 +12,7 @@ export let student_education_model = {
   },
 
   add_new: values => {
-    let sql = `INSERT INTO student_education_new sed SET ?`
+    let sql = `INSERT INTO student_education_new SET ?`
     return query(sql, values)
   },
 

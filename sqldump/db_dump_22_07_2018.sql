@@ -302,7 +302,7 @@ CREATE TABLE `empty` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   UNIQUE KEY `empty_id_uindex` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1218,11 +1218,17 @@ CREATE TABLE `student` (
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `college_id` int(11) NOT NULL,
   `gender_id` int(11) NOT NULL,
+  `college_major_id` int(11) NOT NULL,
+  `college_program_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `student_id_uindex` (`id`),
   KEY `student_gender_id_fk` (`gender_id`),
   KEY `student_college_id_fk` (`college_id`),
+  KEY `student_college_major_id_fk` (`college_major_id`),
+  KEY `student_college_program_id_fk` (`college_program_id`),
   CONSTRAINT `student_college_id_fk` FOREIGN KEY (`college_id`) REFERENCES `college` (`id`),
+  CONSTRAINT `student_college_major_id_fk` FOREIGN KEY (`college_major_id`) REFERENCES `major` (`id`),
+  CONSTRAINT `student_college_program_id_fk` FOREIGN KEY (`college_program_id`) REFERENCES `college_program` (`id`),
   CONSTRAINT `student_gender_id_fk` FOREIGN KEY (`gender_id`) REFERENCES `gender` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1233,7 +1239,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
-INSERT INTO `student` (`id`, `first_name`, `last_name`, `email`, `dob`, `verified`, `mobile`, `linkedin`, `linkedin_id`, `created_date`, `college_id`, `gender_id`) VALUES (3,'ravi','teja','raviteja@gmail.com','1998-04-08',1,993,0,'google.com','2018-07-09 00:00:00',11,1),(4,'Ankit','Choudhary','ankit@koyofea.com','1998-08-16',0,9416050764,0,NULL,'2018-07-18 11:33:08',11,1);
+INSERT INTO `student` (`id`, `first_name`, `last_name`, `email`, `dob`, `verified`, `mobile`, `linkedin`, `linkedin_id`, `created_date`, `college_id`, `gender_id`, `college_major_id`, `college_program_id`) VALUES (3,'ravi','teja','raviteja@gmail.com','1998-04-08',1,993,0,'google.com','2018-07-09 00:00:00',11,1,1,1),(4,'Ankit','Choudhary','ankit@koyofea.com','1998-08-16',0,9416050764,0,NULL,'2018-07-18 11:33:08',11,1,1,1);
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1276,61 +1282,6 @@ LOCK TABLES `student_education` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `student_education_new`
---
-
-DROP TABLE IF EXISTS `student_education_new`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `student_education_new` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `x_school` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `x_board` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `x_grade_scale_id` int(11) NOT NULL,
-  `x_mark` double NOT NULL,
-  `x_end` date NOT NULL,
-  `xii_school` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `xii_board` varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `xii_grade_scale_id` int(11) NOT NULL,
-  `xii_stream` varchar(60) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `xii_mark` double NOT NULL,
-  `xii_end` date NOT NULL,
-  `grad_school` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `grad_program_id` int(11) NOT NULL,
-  `grad_major_id` int(11) NOT NULL,
-  `grad_grade_scale_id` int(11) NOT NULL,
-  `grad_mark` double NOT NULL,
-  `grad_start` date NOT NULL,
-  `grad_end` date NOT NULL,
-  `student_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `student_education_new_id_uindex` (`id`),
-  KEY `student_education_new_major_id_fk` (`grad_major_id`),
-  KEY `student_education_new_program_id_fk` (`grad_program_id`),
-  KEY `student_education_new_grade_scale_id_fk` (`x_grade_scale_id`),
-  KEY `student_education_new_grade_scale_id_fk_2` (`xii_grade_scale_id`),
-  KEY `student_education_new_grade_scale_id_fk_3` (`grad_grade_scale_id`),
-  KEY `student_education_new_student_id_fk` (`student_id`),
-  CONSTRAINT `student_education_new_grade_scale_id_fk` FOREIGN KEY (`x_grade_scale_id`) REFERENCES `grade_scale` (`id`),
-  CONSTRAINT `student_education_new_grade_scale_id_fk_2` FOREIGN KEY (`xii_grade_scale_id`) REFERENCES `grade_scale` (`id`),
-  CONSTRAINT `student_education_new_grade_scale_id_fk_3` FOREIGN KEY (`grad_grade_scale_id`) REFERENCES `grade_scale` (`id`),
-  CONSTRAINT `student_education_new_major_id_fk` FOREIGN KEY (`grad_major_id`) REFERENCES `major` (`id`),
-  CONSTRAINT `student_education_new_program_id_fk` FOREIGN KEY (`grad_program_id`) REFERENCES `program` (`id`),
-  CONSTRAINT `student_education_new_student_id_fk` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `student_education_new`
---
-
-LOCK TABLES `student_education_new` WRITE;
-/*!40000 ALTER TABLE `student_education_new` DISABLE KEYS */;
-INSERT INTO `student_education_new` (`id`, `x_school`, `x_board`, `x_grade_scale_id`, `x_mark`, `x_end`, `xii_school`, `xii_board`, `xii_grade_scale_id`, `xii_stream`, `xii_mark`, `xii_end`, `grad_school`, `grad_program_id`, `grad_major_id`, `grad_grade_scale_id`, `grad_mark`, `grad_start`, `grad_end`, `student_id`) VALUES (5,'DAV','CBSE',1,9,'2013-03-31','DAV','CBSE',2,'Science',81.8,'2015-03-31','IIIT',1,1,1,7.75,'2016-08-01','2020-04-30',3);
-/*!40000 ALTER TABLE `student_education_new` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `student_experience`
 --
 
@@ -1349,7 +1300,7 @@ CREATE TABLE `student_experience` (
   UNIQUE KEY `experience_id_uindex` (`id`),
   KEY `student_experience_student_id_fk` (`student_id`),
   CONSTRAINT `student_experience_student_id_fk` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1358,6 +1309,7 @@ CREATE TABLE `student_experience` (
 
 LOCK TABLES `student_experience` WRITE;
 /*!40000 ALTER TABLE `student_experience` DISABLE KEYS */;
+INSERT INTO `student_experience` (`id`, `start_date`, `end_date`, `designation`, `description`, `student_id`, `organization_name`) VALUES (2,'2018-07-18','2018-07-20','CEO','NOPE',3,'PEPSICO'),(3,'2018-07-17','2018-07-26','CTO','NOPE',4,'PEPSICO'),(4,'2018-07-11','2018-07-03','CFO','NOPE',4,'DIRECTI'),(5,'2018-07-12','2018-07-05','CEO','NOPE',3,'DIRECTI');
 /*!40000 ALTER TABLE `student_experience` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1490,7 +1442,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `users_email_uindex` (`email`),
   KEY `users_user_type_id_fk` (`user_type_id`),
   CONSTRAINT `users_user_type_id_fk` FOREIGN KEY (`user_type_id`) REFERENCES `user_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=158 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1499,7 +1451,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `user_type_id`, `verification_token`, `email_verified`, `email_token`, `data1`, `data2`) VALUES (145,'recr','uiter','recruiteronboard@gmail.com','$2b$10$Ym5yeujGaOesvOio2lMZzOwyiM66fQt5QN7fCnh.INuFm/xlxK1Vq',1,'',1,NULL,1,1),(146,'Anmo','L','anmol23@gmail.com','$2b$10$e3.RCgSyZMES9kX163AtSOuCiYOBzeNWYBVFVZoasp.h9qFkDQZP.',1,'',1,NULL,1,1),(147,'Popo','ok','asdfpo23@gmail.com','$2b$10$2Ou889YG6CpoW9hJes7z7u2bhaF1YBSbYjVJ8DakNld9Oxb11oPRi',1,'',1,NULL,1,1),(148,'Popo','Ili','pospmklm2@gmail.com','$2b$10$wO0Rl50Luhx.HFCENF4zdeLA3xlyjS41tbzgtCTz4uOQheucN0b36',1,'',1,NULL,1,1),(149,'New','Rec','newrecr21@gmail.com','$2b$10$issZ1QrPp22jG8TREwmp5OxLxUruKxZq79W9KiLiALXFBTDO96RTq',1,'',1,NULL,1,1),(150,'Soumya','Mohanty','srm2323@gmail.com','$2b$10$9gQOcP56iOfGyNhkCY35Hez29jLAZyZWNj34B80FkZik9/mv5zmEe',1,'',1,NULL,1,1),(151,'College','Signup','collegesignup@gmail.com','$2b$10$wYjNfgDRwdInb16TpMCUlua7h4Tm7Lil9T4218u6WOFJzbjskW6Ym',2,'',1,NULL,1,1),(152,'New','User','college12345@gmail.com','$2b$10$YJvUypxr44.GnxGMZcXFCeq2pX6KDpp4dzUUSm4UH8isBT5LIltoO',2,'',1,NULL,1,1),(153,'Ip','man','ipman123@gmail.com','$2b$10$g8.N3ZnRm2HoE05/IPMUkeYBxDLHi9Dfa90wh9ZokVMnfN80F4pRC',2,'',1,NULL,1,1),(154,'Nw','coord','newcoordiunator@gmail.com','$2b$10$iBnu8nVIRP7nDqNJuZt/iOKb9ZbkKJAfdXpfHVKSCje0ZHGNbgRny',2,'',1,NULL,1,1),(155,'se','sddad','asdasd@fddf.ghh','$2b$10$94m87cjWSX3Wi9ifbK1Ppu96VR1iHS9709lnIbxNoYRb46Bf0Y08i',3,'',0,NULL,0,0),(156,'sadd','asd','adasd@ffdg.ggf','$2b$10$uPB7bgV54OwiqgUlAJD.0eCl2m8gGRE2CURSRYCas9e2IHkA4aPGS',3,'',0,NULL,0,0),(158,'ravi','teja','raviteja@gmail.com','$2b$10$mbtjchmycK3Z/bofBaYglOOU7.6CExnijM.4WUIHfnvPjfrB2leGG',3,'bb19ae20-b51a-4f99-b997-07d5dc44b2ef',1,NULL,1,1);
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `user_type_id`, `verification_token`, `email_verified`, `email_token`, `data1`, `data2`) VALUES (145,'recr','uiter','recruiteronboard@gmail.com','$2b$10$Ym5yeujGaOesvOio2lMZzOwyiM66fQt5QN7fCnh.INuFm/xlxK1Vq',1,'',1,NULL,1,1),(146,'Anmo','L','anmol23@gmail.com','$2b$10$e3.RCgSyZMES9kX163AtSOuCiYOBzeNWYBVFVZoasp.h9qFkDQZP.',1,'',1,NULL,1,1),(147,'Popo','ok','asdfpo23@gmail.com','$2b$10$2Ou889YG6CpoW9hJes7z7u2bhaF1YBSbYjVJ8DakNld9Oxb11oPRi',1,'',1,NULL,1,1),(148,'Popo','Ili','pospmklm2@gmail.com','$2b$10$wO0Rl50Luhx.HFCENF4zdeLA3xlyjS41tbzgtCTz4uOQheucN0b36',1,'',1,NULL,1,1),(149,'New','Rec','newrecr21@gmail.com','$2b$10$issZ1QrPp22jG8TREwmp5OxLxUruKxZq79W9KiLiALXFBTDO96RTq',1,'',1,NULL,1,1),(150,'Soumya','Mohanty','srm2323@gmail.com','$2b$10$9gQOcP56iOfGyNhkCY35Hez29jLAZyZWNj34B80FkZik9/mv5zmEe',1,'',1,NULL,1,1),(151,'College','Signup','collegesignup@gmail.com','$2b$10$wYjNfgDRwdInb16TpMCUlua7h4Tm7Lil9T4218u6WOFJzbjskW6Ym',2,'',1,NULL,1,1),(152,'New','User','college12345@gmail.com','$2b$10$YJvUypxr44.GnxGMZcXFCeq2pX6KDpp4dzUUSm4UH8isBT5LIltoO',2,'',1,NULL,1,1),(153,'Ip','man','ipman123@gmail.com','$2b$10$g8.N3ZnRm2HoE05/IPMUkeYBxDLHi9Dfa90wh9ZokVMnfN80F4pRC',2,'',1,NULL,1,1),(154,'Nw','coord','newcoordiunator@gmail.com','$2b$10$iBnu8nVIRP7nDqNJuZt/iOKb9ZbkKJAfdXpfHVKSCje0ZHGNbgRny',2,'',1,NULL,1,1),(155,'ravi','teja','raviteja@gmail.com','$2b$10$KixSBndxvKot..aIYKNfTuFAlIjE/6fdKOARGY0RpCBqri8MSiHhW',3,'',1,NULL,0,0),(156,'fuck','this','fuckthis@gmail.com','$2b$10$BC24.3TpZx90Ge82zhloROed19HYrqjGY9wPVgGDTtGFCkmHvojqe',3,'20b69462-b2ea-4a3a-912b-d2eaeb73d701',1,NULL,0,0),(157,'ravi2','teja2','raviteja2@gmail.com','$2b$10$ltIZtcEl1vH1SWMMKK2mBedWEGICoTNVQzR/pHCk.ha4H7HuKPN3S',3,'48f04623-5ca4-4528-8dec-eb74905027f7',1,NULL,0,0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1512,4 +1464,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-07-26 17:34:09
+-- Dump completed on 2018-07-22  3:22:35

@@ -10,7 +10,7 @@ export let student_experience_model = {
   },
 
   add_new: values => {
-    let sql = `INSERT INTO student_experience sexp SET ?`
+    let sql = `INSERT INTO student_experience SET ?`
     return query(sql, values)
   },
 

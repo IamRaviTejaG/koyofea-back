@@ -27,44 +27,30 @@ export let student_education_controller = {
 
   get: (req, res) => {
     // Get data by id
-    student_education_model
-      .get(req.params.studentid)
-      .then(users => {
+    student_education_model.get(req.params.studentid).then(users => {
         res.status(200).json(users)
-      })
-      .catch(err => {
+      }).catch(err => {
         res.status(400).json({message: "Bad Request!", error: err})
       })
   },
 
   add_new: (req, res) => {
-    let fun = data => {
-      data.student_id = req.params.studentid
-      return student_education_model.add_new(data)
-    }
-    let education = req.body.map(fun)
-    Promise.all(education)
-      .then(data => {
-        res.status(200).json(data)
-      })
-      .catch(err => {
-        res.status(400).json({message: "Bad Request!", error: err})
-      })
-    // student_education_model.add_new(req.params.studentid, req.body).then(data => {
-    //   res.status(200).json(data)
-    // }).catch(err => {
-    //   res.status(400).json({message: "Bad Request!", error: err})
-    // })
+    student_education_model.add_new(req.body).then(data => {
+      res.status(200).json({message: "Added successfully!"})
+    }).catch(err => {
+      res.status(400).json({message: "Bad Request!", error: err})
+    })
   },
 
   update: (req, res) => {
-    student_education_model
-      .update(req.params.studentid, req.body)
-      .then(data => {
-        res.status(200).json(req.body)
+    student_education_model.update(req.params.studentid, req.body)
+    .then(data => {
+      res.status(200).json({
+        message: "Updated education details!",
+        studentid: req.params.studentid
       })
-      .catch(err => {
-        res.status(400).json({message: "Bad Request!", error: err})
-      })
+    }).catch(err => {
+      res.status(400).json({message: "Bad Request!", error: err})
+    })
   }
 }
