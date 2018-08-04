@@ -13,61 +13,61 @@ All the routes are classified into the following categories.
 ### Base Routes
 **These routes are directly available at base URL `/`**
 
-|URL|Request Type|Action|URL Parameters|Data Parameters
-|:---:|:-:|:---:|:---:|:---:|
-|`/`|`GET`|Check to test if the API is up and running.|-|-|
-|`/login`|`POST`|Signin to your existing user account.|-|`email`, `password`|
-|`/signup`|`POST`|Signup for a new user account.|-|`first_name`, `last_name`, `email`, `password`, `user_type`|
-|`/verify/:verificationtoken`|`GET`|Verifies your email.|`verificationtoken`|-|
-|`/email-verify`|`GET`|Verifies your email.|`email_token`|- **TO BE DEPRECATED SOON** -|
-|`/dashboard`|`GET`|Gets the dashboard data of the logged in user.|-|-|
-|`/user`|`GET`|Gets the user data of the logged in user.|-|-|
-|`/drives`|`GET`|Gets all the drives of a recruiter.|-|-|
-|`/drives/:driveid`|`GET`|Gets a specific drive's info.|`driveid`|-|
-|`/drives/:driveid/rounds`|`GET`|Gets rounds' info of a specific drive.|`driveid`|-|
-|`/drives/:driveid/eligibility`|`GET`|Gets a specific drive's eligibility info.|`driveid`|-|
-|`/drives/:driveid/apply`|`POST`|Allows a college to apply for a specific drive.|`driveid`|`college_id`|
+|URL|Request Type|Action|URL Parameters|Data Parameters|Status|
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|`/`|`GET`|Check to test if the API is up and running.|-|-|-|
+|`/login`|`POST`|Signin to your existing user account.|-|`email`, `password`|-|
+|`/signup`|`POST`|Signup for a new user account.|-|`first_name`, `last_name`, `email`, `password`, `user_type`|-|
+|`/verify/:verificationtoken`|`GET`|Verifies your email.|`verificationtoken`|-|-|
+|`/email-verify`|`GET`|Verifies your email.|`email_token`|- **TO BE DEPRECATED SOON** -|-|
+|`/dashboard`|`GET`|Gets the dashboard data of the logged in user.|-|-|-|
+|`/user`|`GET`|Gets the user data of the logged in user.|-|-|-|
+|`/drives`|`GET`|Gets all the drives of a recruiter.|-|-|-|
+|`/drives/:driveid`|`GET`|Gets a specific drive's info.|`driveid`|-|-|
+|`/drives/:driveid/rounds`|`GET`|Gets rounds' info of a specific drive.|`driveid`|-|-|
+|`/drives/:driveid/eligibility`|`GET`|Gets a specific drive's eligibility info.|`driveid`|-|-|
+|`/drives/:driveid/apply`|`POST`|Allows a college to apply for a specific drive.|`driveid`|`college_id`|-|
 
 
 ### Autofill Routes
 **All the autofill routes are available at base URL `/autofill`**
 
-|URL|Request Type|Action|URL Parameters|Data Parameters|
-|:---:|:-:|:---:|:---:|:---:|
-|`/duration`|`GET`|Gets recruitment drive duration autofill data.|-|-|
-|`/eligibility`|`GET`|Gets eligibility type autofill data.|-|-|
-|`/emploment`|`GET`|Gets employment type autofill data.|-|-|
-|`/gender`|`GET`|Gets gender autofill data.|-|-|
-|`/gradescale`|`GET`|Gets gradescale autofill data.|-|-|
-|`/industry`|`GET`|Gets industry type autofill data.|-|-|
-|`/job`|`GET`|Gets job type autofill data.|-|-|
-|`/major`|`GET`|Gets college major autofill data.|-|-|
-|`/positions`|`GET`|Gets positions' autofill data.|-|-|
-|`/schools`|`GET`|Gets schools' autofill data.|-|-|
-|`/colleges`|`GET`|Gets colleges' autofill data.|-|-|
-|`/programs`|`GET`|Gets programs' autofill data.|-|-|
-|`/designations`|`GET`|Gets designations' autofill data.|-|-|
-|`/organizations`|`GET`|Gets organizations' autofill data.|-|-|
+|URL|Request Type|Action|URL Parameters|Data Parameters|Status|
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|`/duration`|`GET`|Gets recruitment drive duration autofill data.|-|-|-|
+|`/eligibility`|`GET`|Gets eligibility type autofill data.|-|-|-|
+|`/emploment`|`GET`|Gets employment type autofill data.|-|-|-|
+|`/gender`|`GET`|Gets gender autofill data.|-|-|-|
+|`/gradescale`|`GET`|Gets gradescale autofill data.|-|-|-|
+|`/industry`|`GET`|Gets industry type autofill data.|-|-|-|
+|`/job`|`GET`|Gets job type autofill data.|-|-|-|
+|`/major`|`GET`|Gets college major autofill data.|-|-|-|
+|`/positions`|`GET`|Gets positions' autofill data.|-|-|-|
+|`/schools`|`GET`|Gets schools' autofill data.|-|-|-|
+|`/colleges`|`GET`|Gets colleges' autofill data.|-|-|-|
+|`/programs`|`GET`|Gets programs' autofill data.|-|-|-|
+|`/designations`|`GET`|Gets designations' autofill data.|-|-|-|
+|`/organizations`|`GET`|Gets organizations' autofill data.|-|-|-|
 
 
 ### Autofill Collections Routes
 **All the autofill routes are available at base URL `/autofill-collections`**
 
-|URL|Request Type|Action|URL Parameters|Data Parameters|
-|:---:|:-:|:---:|:---:|:---:|
-|`/education`|`GET`|Gets a JSON of student education based autofills.|-|-|
-|`/experience`|`GET`|Gets a JSON of student experience based autofills.|-|-|
+|URL|Request Type|Action|URL Parameters|Data Parameters|Status|
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|`/education`|`GET`|Gets a JSON of student education based autofills.|-|-|-|
+|`/experience`|`GET`|Gets a JSON of student experience based autofills.|-|-|-|
 
 
 ### College Routes
 **All the college routes are available at base URL `/college`**
 
-|URL|Request Type|Action|URL Parameters|Data Parameters|
-|:---:|:-:|:---:|:---:|:---:|
-|`/`|`GET`|Gets the list of all colleges.|-|-|
-|`/new`|`POST`|Adds a new college information into the database.|-|`name`, `website_url`, `placement_url`, `verified`, `created_date`, `live`, `address_1`, `address_2`, `landmark`, `city`, `state`, `country`, `pin`, `college_type_id`, `phone`, `description`|
-|`/old`|`POST`|- WAIT -|-|- WAIT -|
-|`/json`|`GET`|Gets the auto-fill data.|-|-|
+|URL|Request Type|Action|URL Parameters|Data Parameters|Status|
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|`/`|`GET`|Gets the list of all colleges.|-|-|-|
+|`/new`|`POST`|Adds a new college information into the database.|-|`name`, `website_url`, `placement_url`, `verified`, `created_date`, `live`, `address_1`, `address_2`, `landmark`, `city`, `state`, `country`, `pin`, `college_type_id`, `phone`, `description`|**DEPRECATED**|
+|`/old`|`POST`|- WAIT -|-|- WAIT -|**DEPRECATED**|
+|`/json`|`GET`|Gets the auto-fill data.|-|-|**DEPRECATED**|
 |`/role`|`GET`|Gets all the available college roles.|-|-|
 |`/:collegeid`|`GET`|Gets the college details given by ID.|`collegeid`|-|
 |`/:collegeid`|`PUT`|Updates the college details given by ID.|`collegeid`|`name`, `website_url`, `placement_url`, `verified`, `created_date`, `live`, `address_1`, `address_2`, `landmark`, `city`, `state`, `country`, `pin`, `college_type_id`, `phone`, `description`|
@@ -86,12 +86,12 @@ All the routes are classified into the following categories.
 ### Recruiter Routes
 **All the recruiter routes are available at base URL `/recruiter`**
 
-|URL|Request Type|Action|URL Parameters|Data Parameters|
-|:---:|:-:|:---:|:---:|:---:|
-|`/`|`GET`|Gets the list of all recruiters.|-|-|
-|`/new`|`POST`|Adds a new recruiter information into the database.|-|`name`, `website_url`, `description`, `verified`, `phone`, `address_1`, `address_2`, `landmark`, `city`, `state`, `country`, `pin`, `size`, `recruiter_hr_id`, `industry_id`|
-|`/old`|`PUT`|Updates a pre-existing recruiter record.|-|`name`, `website_url`, `description`, `verified`, `phone`, `address_1`, `address_2`, `landmark`, `city`, `state`, `country`, `pin`, `size`, `recruiter_hr_id`, `industry_id`|
-|`/json`|`GET`|Gets the auto-fill data.|-|-|
+|URL|Request Type|Action|URL Parameters|Data Parameters|Status|
+|:---:|:---:|:---:|:---:|:---:|:---:|
+|`/`|`GET`|Gets the list of all recruiters.|-|-|-|
+|`/new`|`POST`|Adds a new recruiter information into the database.|-|`name`, `website_url`, `description`, `verified`, `phone`, `address_1`, `address_2`, `landmark`, `city`, `state`, `country`, `pin`, `size`, `recruiter_hr_id`, `industry_id`|**DEPRECATED**|
+|`/old`|`PUT`|Updates a pre-existing recruiter record.|-|`name`, `website_url`, `description`, `verified`, `phone`, `address_1`, `address_2`, `landmark`, `city`, `state`, `country`, `pin`, `size`, `recruiter_hr_id`, `industry_id`|**DEPRECATED**|
+|`/json`|`GET`|Gets the auto-fill data.|-|-|**DEPRECATED**|
 |`/hr`|`GET`|Gets all the HRs' details.|-|-|
 |`/hr`|`POST`|Adds a new HR's info into the database.|-|`first_name`, `last_name`, `email`, `linkedin`, `linkedin_id`, `recruitment_hr_role_id`, `verified_status`|
 |`/hr/:hrid`|`GET`|Gets a specific HR's profile.|-|-|
@@ -119,8 +119,8 @@ All the routes are classified into the following categories.
 ### Student Routes
 **All the student routes are available at base URL `/student`**
 
-|URL|Request Type|Action|URL Parameters|Data Parameters|
-|:---:|:-:|:---:|:---:|:---:|
+|URL|Request Type|Action|URL Parameters|Data Parameters|Status|
+|:---:|:---:|:---:|:---:|:---:|:---:|
 |`/`|`POST`|Adds a new student info to the database.|-|`first_name`, `last_name`, `email`, `dob`, `verified`, `mobile`, `linkedin`, `linkedin_id`, `college_id`, `gender_id`, `college_major_id`, `college_program_id`|
 |`/:studentid`|`GET`|Gets a student info from the database.|`studentid`|-|
 |`/:studentid`|`PUT`|Adds a new student info to the database.|`studentid`|`first_name`, `last_name`, `email`, `dob`, `verified`, `mobile`, `linkedin`, `linkedin_id`, `college_id`, `gender_id`, `college_major_id`, `college_program_id`|

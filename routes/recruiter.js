@@ -44,34 +44,48 @@ export default () => {
   // POST: Adds a company (recruiter) data.
   recruiter.route("/", jsonparser).get(recruiter_controller.get_all);
 
-  recruiter
-    .route("/old", jsonparser)
-    .post(
-      validate.recruiter_add_old,
-      validate.error_handling,
-      recruiter_controller.add_old
-    );
+  /* UPDATE DATE: 04 August 2018
+  NOTE: DEPRECATED ROUTES
 
-  recruiter
-    .route("/new", jsonparser)
-    .post(
-      validate.recruiter_add_new,
-      validate.error_handling,
-      recruiter_controller.add_new
-    );
+  // recruiter
+  //   .route("/old", jsonparser)
+  //   .post(
+  //     validate.recruiter_add_old,
+  //     validate.error_handling,
+  //     recruiter_controller.add_old
+  //   );
+  //
+  // recruiter
+  //   .route("/new", jsonparser)
+  //   .post(
+  //     validate.recruiter_add_new,
+  //     validate.error_handling,
+  //     recruiter_controller.add_new
+  //   );
+  //
+  // recruiter.route("/json", jsonparser).get(recruiter_controller.auto_fill_data);
+  //
+  // // RECRUITER with ID
+  // // GET: Gets a company's (recruiter's) info.
+  // // POST: Adds a company's (recruiter's) data.
+  //
+  // // DRIVE
+  // // POST: Adds a company (recruiter) drive info.
+  //
+  // recruiter
+  //   .route("/json/drive", jsonparser)
+  //   .get(recruiter_drive_controller.auto_fill_data);
 
-  recruiter.route("/json", jsonparser).get(recruiter_controller.auto_fill_data);
+  // ELIGIBILITY
+  // recruiter
+  //   .route("/json/eligibility", jsonparser)
+  //   .get(recruiter_drive_eligibility_controller.auto_fill_data);
 
-  // RECRUITER with ID
-  // GET: Gets a company's (recruiter's) info.
-  // POST: Adds a company's (recruiter's) data.
+  // recruiter
+  //   .route("/json/round")
+  //   .get(recruiter_drive_round_controller.auto_fill_data);
 
-  // DRIVE
-  // POST: Adds a company (recruiter) drive info.
-
-  recruiter
-    .route("/json/drive", jsonparser)
-    .get(recruiter_drive_controller.auto_fill_data);
+  */
 
   // RECRUITER DRIVE with ID
   // GET: Gets a specific company's drive info.
@@ -99,11 +113,6 @@ export default () => {
     .route("/:rid/staff/:staffid/status")
     .put(recruiter_staff_controller.update_status);
 
-  // ELIGIBILITY
-  recruiter
-    .route("/json/eligibility", jsonparser)
-    .get(recruiter_drive_eligibility_controller.auto_fill_data);
-
   recruiter
     .route("/drives/:driveid/eligibility", jsonparser)
     .get(recruiter_drive_eligibility_controller.get_all)
@@ -118,9 +127,6 @@ export default () => {
   // GET: Gets a specific company's drive's round info.
   // POST: Adds a specific company's drive's round info.
   // DELETE: Deletes a specific company's drive's round info.
-  recruiter
-    .route("/json/round")
-    .get(recruiter_drive_round_controller.auto_fill_data);
 
   recruiter
     .route("/drives/:driveid/rounds", jsonparser)

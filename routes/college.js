@@ -16,14 +16,17 @@ export default () => {
   college.route('/', jsonparser)
     .get(college_controller.get_all)
 
-  college.route('/new', jsonparser)
-    .post(college_controller.add_new)
-
-  college.route('/old', jsonparser)
-    .post(college_controller.add_old)
-
-  college.route('/json', jsonparser)
-    .get(college_controller.auto_fill_data)
+  /* UPDATE DATE: 04 August 2018
+  NOTE: DEPRECATED ROUTES
+  // college.route('/new', jsonparser)
+  //   .post(college_controller.add_new)
+  //
+  // college.route('/old', jsonparser)
+  //   .post(college_controller.add_old)
+  //
+  // college.route('/json', jsonparser)
+  //   .get(college_controller.auto_fill_data)
+  */
 
   college.route('/role')
     .get(college_role_controller.get_all)
@@ -45,7 +48,7 @@ export default () => {
 
   college.route('/:collegeid/recruiters')
     .get(college_recruiter_controller.get_all)
-    
+
   college.route('/:collegeid/students')
     .get(college_student_controller.get_all)
 
