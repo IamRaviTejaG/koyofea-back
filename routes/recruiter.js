@@ -1,14 +1,24 @@
 export const recruiter = require("express").Router();
 const jsonparser = require("body-parser").json();
 import { validate } from "../config/validator";
-import { recruiter_controller } from "../modules/recruiter-management/recruiter";
-import { recruiter_hr_controller } from "../modules/recruiter-management/recruiter_hr";
-import { recruiter_hr_extra_controller } from "../modules/recruiter-management/recruiter_hr_extra";
-import { recruiter_drive_controller } from "../modules/recruiter-management/recruiter_drive";
-import { recruiter_drive_round_controller } from "../modules/recruiter-management/recruiter_drive_round";
-import { recruiter_drive_eligibility_controller } from "../modules/recruiter-management/recruiter_drive_eligibility/recruiter_drive_eligibility_controller";
-import { recruiter_staff_controller } from "../modules/recruiter-management/recruiter_staff/recruiter_staff_controller";
-import { recruiter_college_controller } from "../modules/recruiter-management/recruiter_college/recruiter_college_controller";
+import {
+  recruiter_controller,
+  recruiter_college_controller,
+  recruiter_drive_controller,
+  recruiter_drive_eligibility_controller,
+  recruiter_drive_round_controller,
+  recruiter_hr_controller,
+  recruiter_hr_extra_controller,
+  recruiter_staff_controller
+} from "../modules/recruiter-management";
+// import { recruiter_controller } from "../modules/recruiter-management/recruiter";
+// import { recruiter_hr_controller } from "../modules/recruiter-management/recruiter_hr";
+// import { recruiter_hr_extra_controller } from "../modules/recruiter-management/recruiter_hr_extra";
+// import { recruiter_drive_controller } from "../modules/recruiter-management/recruiter_drive";
+// import { recruiter_drive_round_controller } from "../modules/recruiter-management/recruiter_drive_round";
+// import { recruiter_drive_eligibility_controller } from "../modules/recruiter-management/recruiter_drive_eligibility/recruiter_drive_eligibility_controller";
+// import { recruiter_staff_controller } from "../modules/recruiter-management/recruiter_staff/recruiter_staff_controller";
+// import { recruiter_college_controller } from "../modules/recruiter-management/recruiter_college/recruiter_college_controller";
 
 export default () => {
   // HR
