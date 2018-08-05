@@ -6,7 +6,7 @@ export let fun = {
       return array
     }
     // single object :- not a array
-    else if(object.constructor.name != "Array"){
+    else if(object.constructor.name !== "Array"){
       array.push(object)
       return array
     } else {

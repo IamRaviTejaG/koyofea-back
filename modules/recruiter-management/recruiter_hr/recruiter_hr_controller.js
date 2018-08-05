@@ -1,7 +1,5 @@
-import { recruiter_hr_model } from "./recruiter_hr_model"
+import { recruiter_hr_model } from "./recruiter_hr_model";
 import { query } from "../../../config/db";
-
-
 
 export let recruiter_hr_controller = {
   get_all: (req, res) => {

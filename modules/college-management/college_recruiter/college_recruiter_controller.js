@@ -1,9 +1,5 @@
-import {
-  query
-} from "../../../config/db";
-import {
-  college_recruiter_model
-} from "./college_recruiter_model";
+import { query } from "../../../config/db";
+import { college_recruiter_model } from "./college_recruiter_model";
 
 export let college_recruiter_controller = {
   get_all: (req, res) => {

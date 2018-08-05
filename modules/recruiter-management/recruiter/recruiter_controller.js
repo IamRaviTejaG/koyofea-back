@@ -1,4 +1,4 @@
-import { recruiter_model } from "./recruiter_model"
+import { recruiter_model } from "./recruiter_model";
 import { query } from "../../../config/db";
 import { auto_fill, fun } from "../../common";
 

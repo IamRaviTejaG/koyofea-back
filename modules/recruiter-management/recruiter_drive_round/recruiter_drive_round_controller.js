@@ -1,4 +1,4 @@
-import { recruiter_drive_round_model } from "./recruiter_drive_round_model"
+import { recruiter_drive_round_model } from "./recruiter_drive_round_model";
 import { query } from "../../../config/db";
 import { fun } from "../../common";
 
