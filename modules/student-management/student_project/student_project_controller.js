@@ -1,6 +1,6 @@
-import { student_project_model } from "./student_project_model"
-import { query } from "../../../config/db"
-import { auto_fill, fun } from "../../common"
+import { student_project_model } from "./student_project_model";
+import { query } from "../../../config/db";
+import { auto_fill, fun } from "../../common";
 
 export let student_project_controller = {
   get_all: (req, res) => {

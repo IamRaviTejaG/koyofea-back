@@ -46,7 +46,10 @@ export let student_controller = {
 
   update: (req, res) => {
     student_model.update(req.params.studentid, req.body).then(data => {
-      res.status(200).json(req.body)
+      res.status(200).json({
+          message: "Updated student details!",
+          error: null
+      })
     }).catch(err => {
       res.status(400).json({message: "Bad Request!", error: err})
     })

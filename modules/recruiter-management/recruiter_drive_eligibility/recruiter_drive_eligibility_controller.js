@@ -1,4 +1,4 @@
-import { recruiter_drive_eligibility_model } from "./recruiter_drive_eligibility_model"
+import { recruiter_drive_eligibility_model } from "./recruiter_drive_eligibility_model";
 import { query } from "../../../config/db";
 import { auto_fill, fun } from "../../common";
 

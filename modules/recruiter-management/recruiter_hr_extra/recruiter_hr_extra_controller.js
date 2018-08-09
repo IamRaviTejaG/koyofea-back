@@ -1,4 +1,4 @@
-import { recruiter_hr_extra_model } from "./recruiter_hr_extra_model"
+import { recruiter_hr_extra_model } from "./recruiter_hr_extra_model";
 import { query } from "../../../config/db";
 
 export let recruiter_hr_extra_controller = {
@@ -7,7 +7,7 @@ export let recruiter_hr_extra_controller = {
     return recruiter_hr_extra_model.get_all()
   },
 
-  add: (req, res) => {   
+  add: (req, res) => {
     let basic_data = req.basic_data
     console.log(basic_data)
     // Check if email is verified before entering data
@@ -32,7 +32,7 @@ export let recruiter_hr_extra_controller = {
 
   get_by_id: (req, res) => {
     // Get email from token
-  
+
     // Get data by id
     recruiter_hr_extra_model.get_by_id(req.params.id).then(users => {
       // If request id and users id doesn't match throw
@@ -44,7 +44,7 @@ export let recruiter_hr_extra_controller = {
       res.status(400).json({ message: "Bad Request", error: err })
     })
   },
-  
+
   update: (req, res) => {
 
       // Get data by id

@@ -1,4 +1,4 @@
-import { recruiter_drive_model } from "./recruiter_drive_model"
+import { recruiter_drive_model } from "./recruiter_drive_model";
 import { query } from "../../../config/db";
 import { auto_fill, fun, dashboard } from "../../common";
 

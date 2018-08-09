@@ -38,7 +38,8 @@ base.post("/signup",
   auth.sign_up
 );
 
-base.get("/email-verify", auth.verify_email);
+// email-verify route is now deprecated.
+// base.get("/email-verify", auth.verify_email);
 
 base.get("/verify/:verificationtoken", auth.verify);
 
