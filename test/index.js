@@ -1,5 +1,0 @@
-export const app = require("../index")
-export const chai = require("chai")
-export const should = chai.should()
-export const request = require("supertest")
-export const dotenv = require("dotenv").config()

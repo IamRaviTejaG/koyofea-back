@@ -19,7 +19,7 @@ All the routes are classified into the following categories.
 |`/login`|`POST`|Signin to your existing user account.|-|`email`, `password`|-|
 |`/signup`|`POST`|Signup for a new user account.|-|`first_name`, `last_name`, `email`, `password`, `user_type`|-|
 |`/verify/:verificationtoken`|`GET`|Verifies your email.|`verificationtoken`|-|-|
-|`/email-verify`|`GET`|Verifies your email.|`email_token`|- **TO BE DEPRECATED SOON** -|-|
+|`/email-verify`|`GET`|Verifies your email.|`email_token`|-|**DEPRECATED**|
 |`/dashboard`|`GET`|Gets the dashboard data of the logged in user.|-|-|-|
 |`/user`|`GET`|Gets the user data of the logged in user.|-|-|-|
 |`/drives`|`GET`|Gets all the drives of a recruiter.|-|-|-|

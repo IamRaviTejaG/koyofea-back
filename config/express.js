@@ -18,7 +18,9 @@ import { query } from "./db";
 let app = express();
 app.use(express.static("/home/ubuntu/koyofea-backend/landing_page"));
 app.use(cors());
-app.use(morgan("dev"));
+if (process.env.NODE_ENV !== "test") {
+  app.use(morgan("dev"));
+}
 app.use(auth.initialize());
 app.use(bodyparser.json()); //for parsing application/json()
 app.use(bodyparser.urlencoded({extended: true}));
