@@ -9,7 +9,7 @@ import * as jwt from "jwt-simple"
 import { db, query } from "./db"
 import { Strategy, ExtractJwt } from "passport-jwt"
 
-function getStrategy(){
+function getStrategy() {
   let options = {
     secretOrKey: process.env.JWT_SECRET,
     jwtFromRequest: ExtractJwt.fromHeader("x-api-key"),
@@ -31,12 +31,12 @@ function getStrategy(){
 }
 
 export let auth = {
-  initialize : () => {
+  initialize: () => {
     passport.use("jwt", getStrategy())
     return passport.initialize()
   },
 
-  authenticate : callback => passport.authenticate("jwt",
+  authenticate: callback => passport.authenticate("jwt",
     {sesson: false, failWithError: true},
     callback
   ),

@@ -3,13 +3,13 @@ const dotenv = require("dotenv").config();
 const mysql = require("promise-mysql");
 const request = require('request');
 
-// Testing constants, do not alter.
-const serverBaseUrl = "http://localhost:" + process.env.TEST_PORT + "/api";
-
-// Chai related imports
+// Chai and related imports
 const chai = require("chai");
 const should = chai.should();
 const expect = chai.expect;
+
+// Testing constants, do not alter.
+const serverBaseUrl = "http://localhost:" + process.env.TEST_PORT + "/api";
 
 describe("1. Testing Connections", () => {
   describe("1.1. Server Alive Test", () => {

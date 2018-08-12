@@ -8,7 +8,7 @@ let dbname
 
 switch (process.env.NODE_ENV) {
   case "test":
-    dbname = "koyofea_testing"
+    dbname = "koyofea_test"
     break
   case "development":
     dbname = "koyofea_development"
