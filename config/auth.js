@@ -9,13 +9,14 @@ import * as jwt from "jwt-simple"
 import { db, query } from "./db"
 import { Strategy, ExtractJwt } from "passport-jwt"
 
+// This function below generates and returns a new strategy object to be
+// further used with passport.
 function getStrategy() {
   let options = {
     secretOrKey: process.env.JWT_SECRET,
     jwtFromRequest: ExtractJwt.fromHeader("x-api-key"),
     passReqToCallback: true
   }
-
   return new Strategy(options, (req, payload, done) => {
     db.query("SHOW * FROM users WHERE email=" + payload.email, (row, err) => {
       if (err) {
@@ -30,17 +31,22 @@ function getStrategy() {
   })
 }
 
+// auth is an object of functions that handle authentication.
 export let auth = {
+  // Initializes the passport session for the user.
   initialize: () => {
     passport.use("jwt", getStrategy())
     return passport.initialize()
   },
 
+  // This function is meant for future use. Safely ignore this for now.
   authenticate: callback => passport.authenticate("jwt",
     {sesson: false, failWithError: true},
     callback
   ),
 
+  // Takes the user data and creates a JSON Web Token (JWT) for the
+  // user and returns it.
   genToken: user => {
     let expires = moment().utc().add({ days: 7 }).unix();
     let token = jwt.encode({
@@ -54,8 +60,10 @@ export let auth = {
     }
   },
 
+  // Takes in the token as input and returns the decrypted data.
   decode_token: token => jwt.decode(token, process.env.JWT_SECRET),
 
+  // Handles login requests.
   login: (req, res) => {
     let email = req.body.email
     let user_password = req.body.password
@@ -85,6 +93,7 @@ export let auth = {
     })
   },
 
+  // Handles signup requests.
   sign_up: (req, res) => {
     let email = req.body.email
     let unhashed_password = req.body.password
@@ -119,7 +128,8 @@ export let auth = {
     })
   },
 
-  verify: (req, res) => {
+  // Helps to verify the user email and updates the database accordingly.
+  verify_email: (req, res) => {
     let token = req.params.verificationtoken
     let sql1 = `UPDATE users u SET u.email_verified = 1
               WHERE u.verification_token='${token}'`
@@ -138,25 +148,24 @@ export let auth = {
     }).catch(err => {
       res.status(400).json({error: err})
     })
-  },
-
-  verify_email: (req, res) => {
-    let verify_token = req.query.email_token
-    let sql = `SELECT * FROM users WHERE email_token="${verify_token}"`
-    query(sql).then(row => {
-      if(!row){
-        throw "Wrong Verification URL"
-      }
-      let sql = `UPDATE users SET email_verified = true
-                WHERE email_token="${verify_token}"`
-      return query(sql)
-    }).then((result) => {
-      res.status(200).json({
-        message: "Email verification successful!",
-        error: null
-      })
-    }).catch(err => {
-      res.status(400).json({message: "Email verification failed!", error: err})
-    })
   }
+  // verify_email: (req, res) => {
+  //   let verify_token = req.query.email_token
+  //   let sql = `SELECT * FROM users WHERE email_token="${verify_token}"`
+  //   query(sql).then(row => {
+  //     if(!row){
+  //       throw "Wrong Verification URL"
+  //     }
+  //     let sql = `UPDATE users SET email_verified = true
+  //               WHERE email_token="${verify_token}"`
+  //     return query(sql)
+  //   }).then((result) => {
+  //     res.status(200).json({
+  //       message: "Email verification successful!",
+  //       error: null
+  //     })
+  //   }).catch(err => {
+  //     res.status(400).json({message: "Email verification failed!", error: err})
+  //   })
+  // }
 }
