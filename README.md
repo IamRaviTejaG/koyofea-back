@@ -13,12 +13,12 @@ All the routes are classified into the following categories.
 ### Base Routes
 **These routes are directly available at base URL `/`**
 
-|URL|Request Type|Action|URL Parameters|Data Parameters|Status|
-|:---:|:---:|:---:|:---:|:---:|:---:|
-|`/`|`GET`|Check to test if the API is up and running.|-|-|-|
-|`/login`|`POST`|Signin to your existing user account.|-|`email`, `password`|-|
-|`/signup`|`POST`|Signup for a new user account.|-|`first_name`, `last_name`, `email`, `password`, `user_type`|-|
-|`/verify/:verificationtoken`|`GET`|Verifies your email.|`verificationtoken`|-|-|
+|URL|Request Type|Action|URL Parameters|Data Parameters|Status|Response|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|`/`|`GET`|Check to test if the API is up and running.|-|-|-|`message`|
+|`/login`|`POST`|Sign in to your existing user account.|-|`email`, `password`|-|`message`, `token`|
+|`/signup`|`POST`|Sign up for a new user account.|-|`first_name`, `last_name`, `email`, `password`, `user_type`|-|`message`, `token`/`error`|
+|`/verify/:verificationtoken`|`GET`|Verifies your email.|`verificationtoken`|-|-|`message`/`error`|
 |`/email-verify`|`GET`|Verifies your email.|`email_token`|-|**DEPRECATED**|
 |`/dashboard`|`GET`|Gets the dashboard data of the logged in user.|-|-|-|
 |`/user`|`GET`|Gets the user data of the logged in user.|-|-|-|
