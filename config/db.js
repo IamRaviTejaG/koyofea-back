@@ -14,7 +14,7 @@ switch (process.env.NODE_ENV) {
     dbname = "koyofea_development"
     break
   case "production":
-    dbname = "koyofea_production"
+    dbname = "koyofea_development"
     break
   default:
     dbname = "koyofeav_development"
@@ -42,7 +42,9 @@ export function getConnection() {
 
 export let query = (sql, value) => {
   let sqlquery = SqlString.format(sql, value)
-  console.log(sqlquery.green)
+  if (process.env.NODE_ENV !== 'test') {
+    console.log(sqlquery.green)
+  }
   return new Bluebird ((resolve, reject) => {
     Bluebird.using(getConnection(), (connection) => {
       return connection.query(sqlquery).then((rows) => {

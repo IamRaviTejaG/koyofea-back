@@ -18,7 +18,7 @@ import { query } from "./db";
 let app = express();
 app.use(express.static("/home/ubuntu/koyofea-backend/landing_page"));
 app.use(cors());
-if (process.env.NODE_ENV !== "test") {
+if (process.env.NODE_ENV !== 'test') {
   app.use(morgan("dev"));
 }
 app.use(auth.initialize());
@@ -60,7 +60,9 @@ app.all("/api/*", (req, res, next) => {
     req.path === "/favicon.ico" ||
     req.path === "/robots.txt" ||
     req.path === "/api/signup" ||
-    req.path.slice(0,11) === "/api/verify"
+    req.path == "/api/autofill/duration" ||
+    req.path.slice(0,11) === "/api/verify" ||
+    process.env.NODE_ENV === "test"
   ) {
     // console.log("SKIP MIDDLEWARE: 1/4 (token verification)".cyan)
     return next();
@@ -83,7 +85,9 @@ app.all("/api/*", (req, res, next) => {
     req.path === "/favicon.ico" ||
     req.path === "/robots.txt" ||
     req.path === "/api/signup" ||
-    req.path.slice(0,11) === "/api/verify"
+    req.path == "/api/autofill/duration" ||
+    req.path.slice(0,11) === "/api/verify" ||
+    process.env.NODE_ENV === "test"
   ) {
     // console.log("SKIP MIDDLEWARE: 2/4 (email)".magenta)
     return next();
@@ -110,11 +114,13 @@ app.all("/api/*", (req, res, next) => {
     req.path === "/robots.txt" ||
     req.path === "/api/signup" ||
     req.path === "/api/recruiter/hr" ||
+    req.path == "/api/autofill/duration" ||
     req.path === "/api/dashboard" ||
     req.path === "/api/user" ||
     req.path === "/api/college/base" ||
     req.path === "/college/coordinator" ||
-    req.path.slice(0,11) === "/api/verify"
+    req.path.slice(0,11) === "/api/verify" ||
+    process.env.NODE_ENV === "test"
   ) {
     // console.log("SKIP MIDDLEWARE: 3/4 (data1)".blue)
     return next();
@@ -140,11 +146,13 @@ app.all("/api/*", (req, res, next) => {
     req.path === "/favicon.ico" ||
     req.path === "/robots.txt" ||
     req.path === "/api/signup" ||
+    req.path == "/api/autofill/duration" ||
     req.path === "/api/recruiter/hr" ||
     req.path === "/api/recruiter/base" ||
     req.path === "/api/college/base" ||
     req.path === "/api/college/coordinator" ||
-    req.path.slice(0,11) === "/api/verify"
+    req.path.slice(0,11) === "/api/verify" ||
+    process.env.NODE_ENV === "test"
   ) {
     // console.log("SKIP MIDDLEWARE: 4/4 (data2)".yellow)
     return next();

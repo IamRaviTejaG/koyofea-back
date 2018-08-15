@@ -36,7 +36,7 @@ All the routes are classified into the following categories.
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |`/duration`|`GET`|Gets recruitment drive duration autofill data.|-|-|-|
 |`/eligibility`|`GET`|Gets eligibility type autofill data.|-|-|-|
-|`/emploment`|`GET`|Gets employment type autofill data.|-|-|-|
+|`/employment`|`GET`|Gets employment type autofill data.|-|-|-|
 |`/gender`|`GET`|Gets gender autofill data.|-|-|-|
 |`/gradescale`|`GET`|Gets gradescale autofill data.|-|-|-|
 |`/industry`|`GET`|Gets industry type autofill data.|-|-|-|

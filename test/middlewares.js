@@ -13,7 +13,7 @@ const expect = chai.expect;
 // Testing constants, do not alter.
 const serverBaseUrl = "http://localhost:" + process.env.TEST_PORT + "/api";
 
-describe("2. Testing Middlewares", () => {
+describe("2. MIDDLEWARES", () => {
   describe("2.1. Middleware 1/4: Token Test (without token)", () => {
     it("Should return status 500, because x-api-key header is missing",
       done => {
@@ -26,7 +26,7 @@ describe("2. Testing Middlewares", () => {
   })
 })
 
-describe("3. Testing Authentication Module", () => {
+describe("3. AUTHENTICATION MODULE", () => {
   describe("3.1. Generating & Decoding JWT", () => {
     it("Checks the generate & decode token methods", done => {
       let generated_token_data = auth.genToken("Auth Test");

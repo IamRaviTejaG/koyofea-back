@@ -11,7 +11,7 @@ const expect = chai.expect;
 // Testing constants, do not alter.
 const serverBaseUrl = "http://localhost:" + process.env.TEST_PORT + "/api";
 
-describe("1. Testing Connections", () => {
+describe("1. CONNECTIONS", () => {
   describe("1.1. Server Alive Test", () => {
     it("Checks if the server is alive", done => {
       request.get(serverBaseUrl, (err, res, body) => {
