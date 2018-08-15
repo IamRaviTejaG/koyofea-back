@@ -1,5 +1,4 @@
 const dotenv = require("dotenv").config();
-const mysql = require("promise-mysql");
 const rp = require('request-promise');
 
 // Chai and related imports
@@ -10,8 +9,9 @@ const expect = chai.expect;
 // Testing constants, do not alter.
 const serverBaseUrl = "http://localhost:" + process.env.TEST_PORT + "/api";
 const autofillRouteUrl = serverBaseUrl + "/autofill";
+const autofillCollectionUrl = serverBaseUrl + "/autofill-collections";
 
-describe("4. AUTOFILL ROUTES", () => {
+describe("4. TESTING AUTOFILL ROUTES", () => {
   describe("4.1. /duration", () => {
     it("Should return duration autofill", done => {
       let options = {
@@ -279,10 +279,38 @@ describe("4. AUTOFILL ROUTES", () => {
   })
 })
 
-// describe("5. Testing Authentication Module", () => {
-//   describe("5.1. Generating & Decoding JWT", () => {
-//     it("Checks the generate & decode token methods", done => {
-//       done();
-//     })
-//   })
-// })
+describe("5. TESTING AUTOFILL COLLECTIONS ROUTES", () => {
+  describe("5.1. /education", () => {
+    it("Should return education autofill collection", done => {
+      let options = {
+        method: "GET",
+        url: autofillCollectionUrl + "/education",
+        json: true
+      }
+      rp(options).then(body => {
+        expect(body).to.be.an('object');
+        expect(200);
+        done();
+      }).catch(err => {
+        done(err);
+      })
+    })
+  })
+
+  describe("5.2. /experience", () => {
+    it("Should return experience autofill collection", done => {
+      let options = {
+        method: "GET",
+        url: autofillCollectionUrl + "/experience",
+        json: true
+      }
+      rp(options).then(body => {
+        expect(body).to.be.an('object');
+        expect(200);
+        done();
+      }).catch(err => {
+        done(err);
+      })
+    })
+  })
+})
