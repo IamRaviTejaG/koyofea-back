@@ -1,5 +1,4 @@
 const app = require('../index')
-const dotenv = require('dotenv').config()
 const mysql = require('promise-mysql')
 const rp = require('request-promise')
 
@@ -7,6 +6,8 @@ const rp = require('request-promise')
 const chai = require('chai')
 const should = chai.should()
 const expect = chai.expect
+
+require('dotenv').config()
 
 // Testing constants, do not alter.
 const serverBaseUrl = 'http://localhost:' + process.env.TEST_PORT + '/api'

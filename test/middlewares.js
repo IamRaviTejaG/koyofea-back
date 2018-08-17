@@ -1,13 +1,12 @@
-const app = require('../index')
-const dotenv = require('dotenv').config()
-const rp = require('request-promise')
-
 import { auth } from '../config/auth'
+const rp = require('request-promise')
 
 // Chai and related imports
 const chai = require('chai')
 const should = chai.should()
 const expect = chai.expect
+
+require('dotenv').config()
 
 // Testing constants, do not alter.
 const serverBaseUrl = 'http://localhost:' + process.env.TEST_PORT + '/api'
