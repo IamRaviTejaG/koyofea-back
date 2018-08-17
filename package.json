@@ -4,7 +4,7 @@
   "description": "node api backend for koyofea",
   "main": "index.js",
   "scripts": {
-    "pretest": "standard",
+    "retest": "standard",
     "test": "export NODE_ENV=test|| set NODE_ENV=test&& mocha --compilers js:babel-core/register --no-deprecation",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "start": "npm run build && node dist/index.js --no-deprecation"

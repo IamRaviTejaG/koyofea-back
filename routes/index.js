@@ -1,15 +1,15 @@
-export const base = require('express').Router()
-const { check } = require('express-validator/check')
 import { query } from '../config/db'
 import { auth } from '../config/auth'
 import { dashboard } from '../modules/common'
 import autofill from './autofill'
-import autofill_collections from './autofill_collections'
+import autofillCollections from './autofill_collections'
 import college from './college'
 import recruiter from './recruiter'
 import student from './student'
+export const base = require('express').Router()
+const { check } = require('express-validator/check')
 autofill()
-autofill_collections()
+autofillCollections()
 college()
 recruiter()
 student()
@@ -48,8 +48,8 @@ base.get('/dashboard', (req, res) => {
 })
 
 base.get('/user', (req, res) => {
-  let token_email = auth.decode_token(req.get('x-api-key')).user.email
-  query(`SELECT * FROM users WHERE users.email=?`, token_email)
+  let tokenEmail = auth.decode_token(req.get('x-api-key')).user.email
+  query(`SELECT * FROM users WHERE users.email=?`, tokenEmail)
     .then(data => {
       res.status(200).json(data)
     })

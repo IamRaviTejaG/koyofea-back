@@ -1,6 +1,6 @@
 import { query } from '../../../config/db'
 
-export let student_project_model = {
+export let studentProjectModel = {
   get_all: id => {
     let sql = `SELECT
     sp.* FROM student_project sp

@@ -1,181 +1,170 @@
-import { autofill_model } from './autofill_model'
+import { autofillModel } from './autofill_model'
 import { fun } from '../index'
 
-export let autofill_controller = {
-  get_duration: (req, res) => {
-    autofill_model.get_duration().then(result => {
-      result = fun.single_object_to_array(result)
+export let autofillController = {
+  getDuration: (req, res) => {
+    autofillModel.getDuration().then(result => {
+      result = fun.singleObjectToArray(result)
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'Server Error!',
+        message: 'server error!',
         error: err
       })
     })
   },
 
-  get_employment_type: (req, res) => {
-    autofill_model.get_employment_type().then(result => {
-      result = fun.single_object_to_array(result)
+  getEmploymentType: (req, res) => {
+    autofillModel.getEmploymentType().then(result => {
+      result = fun.singleObjectToArray(result)
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'Server Error!',
+        message: 'server error!',
         error: err
       })
     })
   },
 
-  get_industry_type_list: (req, res) => {
-    autofill_model.get_industry_type_list().then(result => {
-      result = fun.single_object_to_array(result)
+  getIndustryTypeList: (req, res) => {
+    autofillModel.getIndustryTypeList().then(result => {
+      result = fun.singleObjectToArray(result)
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'Server Error!',
+        message: 'server error!',
         error: err
       })
     })
   },
 
-  get_job_type: (req, res) => {
-    autofill_model.get_job_type().then(result => {
-      result = fun.single_object_to_array(result)
-
+  getJobType: (req, res) => {
+    autofillModel.getJobType().then(result => {
+      result = fun.singleObjectToArray(result)
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'Server Error!',
+        message: 'server error!',
         error: err
       })
     })
   },
 
-  get_positions: (req, res) => {
-    autofill_model.get_positions().then(result => {
-      result = fun.single_object_to_array(result)
-
+  getPositions: (req, res) => {
+    autofillModel.getPositions().then(result => {
+      result = fun.singleObjectToArray(result)
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'Server Error!',
+        message: 'server error!',
         error: err
       })
     })
   },
 
-  get_eligibility_types: (req, res) => {
-    autofill_model.get_eligibility_types().then(result => {
-      result = fun.single_object_to_array(result)
-
+  getEligibilityTypes: (req, res) => {
+    autofillModel.getEligibilityTypes().then(result => {
+      result = fun.singleObjectToArray(result)
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'Server Error!',
+        message: 'server error!',
         error: err
       })
     })
   },
 
-  get_grade_scales: (req, res) => {
-    autofill_model.get_grade_scales().then(result => {
-      result = fun.single_object_to_array(result)
-
+  getGradeScales: (req, res) => {
+    autofillModel.getGradeScales().then(result => {
+      result = fun.singleObjectToArray(result)
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'Server Error!',
+        message: 'server error!',
         error: err
       })
     })
   },
 
-  get_gender: (req, res) => {
-    autofill_model.get_gender().then(result => {
-      result = fun.single_object_to_array(result)
-
+  getGender: (req, res) => {
+    autofillModel.getGender().then(result => {
+      result = fun.singleObjectToArray(result)
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'Server Error!',
+        message: 'server error!',
         error: err
       })
     })
   },
 
-  get_major: (req, res) => {
-    autofill_model.get_major().then(result => {
-      result = fun.single_object_to_array(result)
-
+  getMajor: (req, res) => {
+    autofillModel.getMajor().then(result => {
+      result = fun.singleObjectToArray(result)
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'Server Error!',
+        message: 'server error!',
         error: err
       })
     })
   },
 
-  get_schools: (req, res) => {
-    autofill_model.get_schools().then(result => {
-      result = fun.single_object_to_array(result)
-
+  getSchools: (req, res) => {
+    autofillModel.getSchools().then(result => {
+      result = fun.singleObjectToArray(result)
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'Server Error!',
+        message: 'server error!',
         error: err
       })
     })
   },
 
-  get_colleges: (req, res) => {
-    autofill_model.get_colleges().then(result => {
-      result = fun.single_object_to_array(result)
-
+  getColleges: (req, res) => {
+    autofillModel.getColleges().then(result => {
+      result = fun.singleObjectToArray(result)
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'Server Error!',
+        message: 'server error!',
         error: err
       })
     })
   },
 
-  get_programs: (req, res) => {
-    autofill_model.get_programs().then(result => {
-      result = fun.single_object_to_array(result)
-
+  getPrograms: (req, res) => {
+    autofillModel.getPrograms().then(result => {
+      result = fun.singleObjectToArray(result)
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'Server Error!',
+        message: 'server error!',
         error: err
       })
     })
   },
 
-  get_designations: (req, res) => {
-    autofill_model.get_designations().then(result => {
-      result = fun.single_object_to_array(result)
-
+  getDesignations: (req, res) => {
+    autofillModel.getDesignations().then(result => {
+      result = fun.singleObjectToArray(result)
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'Server Error!',
+        message: 'server error!',
         error: err
       })
     })
   },
 
-  get_organizations: (req, res) => {
-    autofill_model.get_organizations().then(result => {
-      result = fun.single_object_to_array(result)
-
+  getOrganizations: (req, res) => {
+    autofillModel.getOrganizations().then(result => {
+      result = fun.singleObjectToArray(result)
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'Server Error!',
+        message: 'server error!',
         error: err
       })
     })

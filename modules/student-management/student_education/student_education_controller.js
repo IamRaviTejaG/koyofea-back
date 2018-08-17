@@ -1,10 +1,8 @@
-import { student_education_model } from './student_education_model'
-import { query } from '../../../config/db'
-import { auto_fill, fun } from '../../common'
+import { studentEducationModel } from './student_education_model'
 
-export let student_education_controller = {
+export let studentEducationController = {
   // get_all: (req, res) => {
-  //   student_education_model.get_all().then(data => {
+  //   studentEducationModel.get_all().then(data => {
   //     res.status(200).json(data)
   //   }).catch(err => {
   //     res.status(400).json({message: "Bad Request!", error: err})
@@ -12,7 +10,7 @@ export let student_education_controller = {
   // },
 
   // auto_fill_data: (req, res) => {
-  //   let student_name = student_education_model.get_all_name()
+  //   let student_name = studentEducationModel.get_all_name()
   //   let industry_type = auto_fill.industry_type_list()
   //
   //   Promise.all([student_name, industry_type]).then(([student_name_list, industry_type_list]) => {
@@ -27,7 +25,7 @@ export let student_education_controller = {
 
   get: (req, res) => {
     // Get data by id
-    student_education_model.get(req.params.studentid).then(users => {
+    studentEducationModel.get(req.params.studentid).then(users => {
       res.status(200).json(users)
     }).catch(err => {
       res.status(400).json({message: 'Bad Request!', error: err})
@@ -35,7 +33,7 @@ export let student_education_controller = {
   },
 
   add_new: (req, res) => {
-    student_education_model.add_new(req.body).then(data => {
+    studentEducationModel.add_new(req.body).then(data => {
       res.status(200).json({message: 'Added successfully!'})
     }).catch(err => {
       res.status(400).json({message: 'Bad Request!', error: err})
@@ -43,7 +41,7 @@ export let student_education_controller = {
   },
 
   update: (req, res) => {
-    student_education_model.update(req.params.studentid, req.body)
+    studentEducationModel.update(req.params.studentid, req.body)
       .then(data => {
         res.status(200).json({
           message: 'Updated education details!',

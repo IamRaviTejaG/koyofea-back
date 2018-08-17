@@ -1,46 +1,46 @@
+import { autofillController } from '../modules/common'
 export const autofill = require('express').Router()
-import { autofill_controller } from '../modules/common'
 
 export default () => {
   autofill.route('/duration')
-    .get(autofill_controller.get_duration)
+    .get(autofillController.getDuration)
 
   autofill.route('/eligibility')
-    .get(autofill_controller.get_eligibility_types)
+    .get(autofillController.getEligibilityTypes)
 
   autofill.route('/employment')
-    .get(autofill_controller.get_employment_type)
+    .get(autofillController.getEmploymentType)
 
   autofill.route('/gender')
-    .get(autofill_controller.get_gender)
+    .get(autofillController.getGender)
 
   autofill.route('/grade-scale')
-    .get(autofill_controller.get_grade_scales)
+    .get(autofillController.getGradeScales)
 
   autofill.route('/industry')
-    .get(autofill_controller.get_industry_type_list)
+    .get(autofillController.getIndustryTypeList)
 
   autofill.route('/job')
-    .get(autofill_controller.get_job_type)
+    .get(autofillController.getJobType)
 
   autofill.route('/major')
-    .get(autofill_controller.get_major)
+    .get(autofillController.getMajor)
 
   autofill.route('/positions')
-    .get(autofill_controller.get_positions)
+    .get(autofillController.getPositions)
 
   autofill.route('/schools')
-    .get(autofill_controller.get_schools)
+    .get(autofillController.getSchools)
 
   autofill.route('/colleges')
-    .get(autofill_controller.get_colleges)
+    .get(autofillController.getColleges)
 
   autofill.route('/programs')
-    .get(autofill_controller.get_programs)
+    .get(autofillController.getPrograms)
 
   autofill.route('/designations')
-    .get(autofill_controller.get_designations)
+    .get(autofillController.getDesignations)
 
   autofill.route('/organizations')
-    .get(autofill_controller.get_organizations)
+    .get(autofillController.getOrganizations)
 }

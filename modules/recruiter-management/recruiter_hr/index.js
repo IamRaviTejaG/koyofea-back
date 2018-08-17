@@ -1,4 +1,4 @@
-import { recruiter_hr_controller } from './recruiter_hr_controller'
-import { recruiter_hr_model } from './recruiter_hr_model'
+import { recruiterHrController } from './recruiter_hr_controller'
+import { recruiterHrModel } from './recruiter_hr_model'
 
-export { recruiter_hr_controller, recruiter_hr_model }
+export { recruiterHrController, recruiterHrModel }

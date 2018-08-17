@@ -1,29 +1,28 @@
-export const student = require('express').Router()
-const jsonparser = require('body-parser').json()
 import {
-  student_controller,
-  student_education_controller,
-  student_experience_controller,
-  student_project_controller
+  studentController,
+  studentEducationController,
+  studentExperienceController,
+  studentProjectController
 } from '../modules/student-management'
-// import { student_controller } from "../modules/student-management/student"
-// import { student_education_controller } from "../modules/student-management/student_education"
-// import { student_experience_controller } from "../modules/student-management/student_experience"
-// import { student_project_controller } from "../modules/student-management/student_project"
+export const student = require('express').Router()
+// import { studentController } from "../modules/student-management/student"
+// import { studentEducationController } from "../modules/student-management/student_education"
+// import { studentExperienceController } from "../modules/student-management/student_experience"
+// import { studentProjectController } from "../modules/student-management/student_project"
 
 export default () => {
   // STUDENT INDEX
   // POST: Adds student's personal info.
   // GET: Gets all the student's data.
-  student.route('/').post(student_controller.add_new)
+  student.route('/').post(studentController.add_new)
 
   // STUDENT with ID
   // GET: Gets a specific student's info given the student id.
   // DELETE: Deletes a specific student's info given the student id.
   student
     .route('/:studentid')
-    .get(student_controller.get_by_id)
-    .put(student_controller.update)
+    .get(studentController.get_by_id)
+    .put(studentController.update)
 
   // EDUCATION with ID
   // POST: Adds student education info with a specific student id.
@@ -31,9 +30,9 @@ export default () => {
   // PUT: Updates the student's education info given the student id.
   student
     .route('/:studentid/education')
-    .get(student_education_controller.get)
-    .post(student_education_controller.add_new)
-    .put(student_education_controller.update)
+    .get(studentEducationController.get)
+    .post(studentEducationController.add_new)
+    .put(studentEducationController.update)
 
   // EXPERIENCE with ID
   // POST: Adds student experience info with a specific student id.
@@ -41,9 +40,9 @@ export default () => {
   // PUT: Updates the student's experience info given the student id.
   student
     .route('/:studentid/experience')
-    .get(student_experience_controller.get_all)
-    .post(student_experience_controller.add_new)
-    .put(student_experience_controller.update)
+    .get(studentExperienceController.get_all)
+    .post(studentExperienceController.add_new)
+    .put(studentExperienceController.update)
 
   // PROJECTS with ID
   // POST: Adds student project info with a specific student id.
@@ -51,7 +50,7 @@ export default () => {
   // PUT: Updates the student's project info given the student id.
   student
     .route('/:studentid/projects')
-    .get(student_project_controller.get_all)
-    .post(student_project_controller.add_new)
-  // .put(student_project_controller.update)
+    .get(studentProjectController.get_all)
+    .post(studentProjectController.add_new)
+  // .put(studentProjectController.update)
 }

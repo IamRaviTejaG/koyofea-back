@@ -1,10 +1,10 @@
-export const autofill_collections = require('express').Router()
-import { autofill_collections_controller } from '../modules/common'
+import { autofillCollectionsController } from '../modules/common'
+export const autofillCollections = require('express').Router()
 
 export default () => {
-  autofill_collections.route('/education')
-    .get(autofill_collections_controller.get_education)
+  autofillCollections.route('/education')
+    .get(autofillCollectionsController.getEducation)
 
-  autofill_collections.route('/experience')
-    .get(autofill_collections_controller.get_experience)
+  autofillCollections.route('/experience')
+    .get(autofillCollectionsController.getExperience)
 }

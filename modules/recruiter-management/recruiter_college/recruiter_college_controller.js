@@ -1,9 +1,8 @@
-import { query } from '../../../config/db'
-import { recruiter_college_model } from './recruiter_college_model'
+import { recruiterCollegeModel } from './recruiter_college_model'
 
-export let recruiter_college_controller = {
+export let recruiterCollegeController = {
   get_all: (req, res) => {
-    recruiter_college_model
+    recruiterCollegeModel
       .get_all(req.params.recruiterid)
       .then(data => {
         // make this object an array

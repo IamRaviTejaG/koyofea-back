@@ -1,7 +1,7 @@
 import { query } from '../../../config/db'
 
-export let recruiter_college_model = {
-  get_all: recruiter_id => {
+export let recruiterCollegeModel = {
+  get_all: recruiterId => {
     // TODO: change sql query
     let sql = `SELECT
               DISTINCT c.*, cc.first_name As coordinator_first_name,
@@ -20,6 +20,6 @@ export let recruiter_college_model = {
               WHERE
               mdc.college_accept = true
               AND rd.recruiter_id = ?`
-    return query(sql, recruiter_id)
+    return query(sql, recruiterId)
   }
 }

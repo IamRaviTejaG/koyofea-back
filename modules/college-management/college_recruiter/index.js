@@ -1,4 +1,4 @@
-import { college_recruiter_controller } from './college_recruiter_controller'
-import { college_recruiter_model } from './college_recruiter_model'
+import { collegeRecruiterController } from './college_recruiter_controller'
+import { collegeRecruiterModel } from './college_recruiter_model'
 
-export { college_recruiter_controller, college_recruiter_model }
+export { collegeRecruiterController, collegeRecruiterModel }

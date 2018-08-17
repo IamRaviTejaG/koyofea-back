@@ -1,24 +1,24 @@
-export const recruiter = require('express').Router()
-const jsonparser = require('body-parser').json()
 import { validate } from '../config/validator'
 import {
-  recruiter_controller,
-  recruiter_college_controller,
-  recruiter_drive_controller,
-  recruiter_drive_eligibility_controller,
-  recruiter_drive_round_controller,
-  recruiter_hr_controller,
-  recruiter_hr_extra_controller,
-  recruiter_staff_controller
+  recruiterController,
+  recruiterCollegeController,
+  recruiterDriveController,
+  recruiterDriveEligibilityController,
+  recruiterDriveRoundController,
+  recruiterHrController,
+  recruiterHrExtraController,
+  recruiterStaffController
 } from '../modules/recruiter-management'
-// import { recruiter_controller } from "../modules/recruiter-management/recruiter";
-// import { recruiter_hr_controller } from "../modules/recruiter-management/recruiter_hr";
-// import { recruiter_hr_extra_controller } from "../modules/recruiter-management/recruiter_hr_extra";
-// import { recruiter_drive_controller } from "../modules/recruiter-management/recruiter_drive";
-// import { recruiter_drive_round_controller } from "../modules/recruiter-management/recruiter_drive_round";
-// import { recruiter_drive_eligibility_controller } from "../modules/recruiter-management/recruiter_drive_eligibility/recruiter_drive_eligibility_controller";
-// import { recruiter_staff_controller } from "../modules/recruiter-management/recruiter_staff/recruiter_staff_controller";
-// import { recruiter_college_controller } from "../modules/recruiter-management/recruiter_college/recruiter_college_controller";
+export const recruiter = require('express').Router()
+const jsonparser = require('body-parser').json()
+// import { recruiterController } from "../modules/recruiter-management/recruiter";
+// import { recruiterHrController } from "../modules/recruiter-management/recruiter_hr";
+// import { recruiterHrExtraController } from "../modules/recruiter-management/recruiter_hr_extra";
+// import { recruiterDriveController } from "../modules/recruiter-management/recruiter_drive";
+// import { recruiterDriveRoundController } from "../modules/recruiter-management/recruiter_drive_round";
+// import { recruiterDriveEligibilityController } from "../modules/recruiter-management/recruiter_drive_eligibility/recruiterDriveEligibilityController";
+// import { recruiterStaffController } from "../modules/recruiter-management/recruiter_staff/recruiterStaffController";
+// import { recruiterCollegeController } from "../modules/recruiter-management/recruiter_college/recruiterCollegeController";
 
 export default () => {
   // HR
@@ -26,11 +26,11 @@ export default () => {
   // POST: Posts a specific company's HR personal info.
   recruiter
     .route('/hr', jsonparser)
-    .get(recruiter_hr_controller.get_all)
+    .get(recruiterHrController.get_all)
     .post(
       validate.recruiter_hr_add,
       validate.error_handling,
-      recruiter_hr_controller.add
+      recruiterHrController.add
     )
 
   // HR with ID
@@ -38,21 +38,21 @@ export default () => {
   // DELETE: Deletes a specific HR's personal info.
   recruiter
     .route('/hr/:id')
-    .get(recruiter_hr_controller.get_by_id)
-    .put(validate.recruiter_hr_update, recruiter_hr_controller.update)
+    .get(recruiterHrController.get_by_id)
+    .put(validate.recruiter_hr_update, recruiterHrController.update)
 
   // HR EXTRA
   // GET: Gets a specific HR's extra info.
   recruiter
     .route('/hr/:id/extra')
-    .get(recruiter_hr_extra_controller.get_by_id)
-    .post(recruiter_hr_extra_controller.add)
-    .put(recruiter_hr_extra_controller.update)
+    .get(recruiterHrExtraController.get_by_id)
+    .post(recruiterHrExtraController.add)
+    .put(recruiterHrExtraController.update)
 
   // RECRUITER INDEX
   // GET: Gets all the companies' (recruiters') info.
   // POST: Adds a company (recruiter) data.
-  recruiter.route('/', jsonparser).get(recruiter_controller.get_all)
+  recruiter.route('/', jsonparser).get(recruiterController.get_all)
 
   /* UPDATE DATE: 04 August 2018
   NOTE: DEPRECATED ROUTES
@@ -62,7 +62,7 @@ export default () => {
   //   .post(
   //     validate.recruiter_add_old,
   //     validate.error_handling,
-  //     recruiter_controller.add_old
+  //     recruiterController.add_old
   //   );
   //
   // recruiter
@@ -70,10 +70,10 @@ export default () => {
   //   .post(
   //     validate.recruiter_add_new,
   //     validate.error_handling,
-  //     recruiter_controller.add_new
+  //     recruiterController.add_new
   //   );
   //
-  // recruiter.route("/json", jsonparser).get(recruiter_controller.auto_fill_data);
+  // recruiter.route("/json", jsonparser).get(recruiterController.auto_fill_data);
   //
   // // RECRUITER with ID
   // // GET: Gets a company's (recruiter's) info.
@@ -84,16 +84,16 @@ export default () => {
   //
   // recruiter
   //   .route("/json/drive", jsonparser)
-  //   .get(recruiter_drive_controller.auto_fill_data);
+  //   .get(recruiterDriveController.auto_fill_data);
 
   // ELIGIBILITY
   // recruiter
   //   .route("/json/eligibility", jsonparser)
-  //   .get(recruiter_drive_eligibility_controller.auto_fill_data);
+  //   .get(recruiterDriveEligibilityController.auto_fill_data);
 
   // recruiter
   //   .route("/json/round")
-  //   .get(recruiter_drive_round_controller.auto_fill_data);
+  //   .get(recruiterDriveRoundController.auto_fill_data);
 
   */
 
@@ -102,14 +102,14 @@ export default () => {
   // DELETE: Deletes a company's drive info.
   recruiter
     .route('/:rid/drives/requested', jsonparser)
-    .get(recruiter_drive_controller.get_drives_requested)
+    .get(recruiterDriveController.get_drives_requested)
 
   recruiter
     .route('/:rid/drives/:driveid')
-    .get(recruiter_drive_controller.get_by_id)
-    .put(recruiter_drive_controller.update)
+    .get(recruiterDriveController.get_by_id)
+    .put(recruiterDriveController.update)
 
-  recruiter.route('/:rid/staff').get(recruiter_staff_controller.get_all)
+  recruiter.route('/:rid/staff').get(recruiterStaffController.get_all)
 
   // NOTE: (For routes /:rid/staff/*)
   // THESE ROUTES BELOW NEED A CHECK AS THEY UPDATE DB SOLELY BASED ON THE
@@ -117,21 +117,21 @@ export default () => {
   // recruiter_id CHECK CAN FURTHER BE ADDED TO AVOID UNNECESSARY DISCREPANCIES.
   recruiter
     .route('/:rid/staff/:staffid/role')
-    .put(recruiter_staff_controller.update_role)
+    .put(recruiterStaffController.update_role)
 
   recruiter
     .route('/:rid/staff/:staffid/status')
-    .put(recruiter_staff_controller.update_status)
+    .put(recruiterStaffController.update_status)
 
   recruiter
     .route('/drives/:driveid/eligibility', jsonparser)
-    .get(recruiter_drive_eligibility_controller.get_all)
-    .post(recruiter_drive_eligibility_controller.add)
+    .get(recruiterDriveEligibilityController.get_all)
+    .post(recruiterDriveEligibilityController.add)
 
   recruiter
     .route('/drives/:driveid/eligibility/:eid', jsonparser)
-    .get(recruiter_drive_eligibility_controller.get_by_id)
-    .put(recruiter_drive_eligibility_controller.update)
+    .get(recruiterDriveEligibilityController.get_by_id)
+    .put(recruiterDriveEligibilityController.update)
 
   // DRIVE & ROUND with IDs
   // GET: Gets a specific company's drive's round info.
@@ -140,29 +140,29 @@ export default () => {
 
   recruiter
     .route('/drives/:driveid/rounds', jsonparser)
-    .get(recruiter_drive_round_controller.get_all)
-    .post(recruiter_drive_round_controller.add)
+    .get(recruiterDriveRoundController.get_all)
+    .post(recruiterDriveRoundController.add)
 
   recruiter
     .route('/drives/:driveid/rounds/:roundid', jsonparser)
-    .get(recruiter_drive_round_controller.get_by_id)
-    .put(recruiter_drive_round_controller.update)
+    .get(recruiterDriveRoundController.get_by_id)
+    .put(recruiterDriveRoundController.update)
 
   recruiter
     .route('/:id')
-    .get(recruiter_controller.get_by_id)
+    .get(recruiterController.get_by_id)
     .put(
       validate.recruiter_update,
       validate.error_handling,
-      recruiter_controller.update
+      recruiterController.update
     )
 
   recruiter
     .route('/:recruiterid/colleges')
-    .get(recruiter_college_controller.get_all)
+    .get(recruiterCollegeController.get_all)
 
   recruiter
     .route('/:rid/drives', jsonparser)
-    .get(recruiter_drive_controller.get_all)
-    .post(recruiter_drive_controller.add)
+    .get(recruiterDriveController.get_all)
+    .post(recruiterDriveController.add)
 }

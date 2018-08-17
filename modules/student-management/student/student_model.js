@@ -1,6 +1,6 @@
 import { query } from '../../../config/db'
 
-export let student_model = {
+export let studentModel = {
   // GET_ALL & GET_ALL_NAME (Disabled for privacy)
   // get_all: () => {
   //   let sql = `SELECT s.id, s.first_name, s.last_name, s.email, s.dob,

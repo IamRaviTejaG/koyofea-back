@@ -1,17 +1,17 @@
 import { query } from '../../../config/db'
 
-export let recruiter_drive_round_model = {
+export let recruiterDriveRoundModel = {
   // get_all unavailable because getting all drives isn't allowed, given the
   // privacy concerns.
 
-  get_all: (drive_id) => {
+  get_all: (driveId) => {
     let sql = `SELECT * FROM recruiter_drive_round WHERE drive_id = ?`
-    return query(sql, drive_id)
+    return query(sql, driveId)
   },
 
-  get_by_id: (drive_id, round_id) => {
+  get_by_id: (driveId, roundId) => {
     let sql = `SELECT * FROM recruiter_drive_round WHERE drive_id = ? AND round_id = ?`
-    return query(sql, [drive_id, round_id])
+    return query(sql, [driveId, roundId])
   },
 
   get_round_types: () => {

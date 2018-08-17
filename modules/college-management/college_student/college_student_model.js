@@ -1,7 +1,7 @@
 import { query } from '../../../config/db'
 
-export let college_student_model = {
-  get_all: (college_id) => {
+export let collegeStudentModel = {
+  get_all: (collegeId) => {
     let sql = `SELECT s.id as student_id, s.first_name, s.last_name,
           s.email, s.dob, s.mobile, s.linkedin_id, g.name as gender,
           m.name as major_name, cp.name as program_name
@@ -16,7 +16,7 @@ export let college_student_model = {
           JOIN gender g
           ON s.gender_id = g.id
           WHERE s.college_id = ?`
-    return query(sql, college_id)
+    return query(sql, collegeId)
   },
 
   update_status: (req) => {

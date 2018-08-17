@@ -1,31 +1,30 @@
-import { recruiter_drive_model } from './recruiter_drive_model'
+import { recruiterDriveModel } from './recruiter_drive_model'
 import { query } from '../../../config/db'
-import { auto_fill, fun, dashboard } from '../../common'
+import { autoFillOld, fun, dashboard } from '../../common'
 
-export let recruiter_drive_controller = {
+export let recruiterDriveController = {
   get_all: async (req, res) => {
     // TODO: with admin panel
-    let user_data = await dashboard.user_data(req)
-    if (user_data.recruiter_id != req.params.rid) {
+    let userData = await dashboard.user_data(req)
+    if (userData.recruiter_id !== req.params.rid) {
       return res.status(400).send({message: 'Not allowed', error: 'PERMISSION DENIED'})
     }
-    recruiter_drive_model.get_all(user_data.recruiter_id).then((data) => {
+    recruiterDriveModel.get_all(userData.recruiter_id).then(data => {
       // TODO remove placeholder data
-      let add_placeholder_data = (object) => {
+      let addPlaceholderData = (object) => {
         object.college_applicants_no = 1
         object.student_applicants_no = 5
         return object
       }
-      data.map(add_placeholder_data)
-
+      data.map(addPlaceholderData)
       res.status(200).json(data)
-    }).catch((err) => {
+    }).catch(err => {
       res.status(400).json({ message: 'Bad Request', error: err })
     })
   },
 
   get_drives_requested: (req, res) => {
-    recruiter_drive_model.get_drives_requested(req.params.rid).then(drives => {
+    recruiterDriveModel.get_drives_requested(req.params.rid).then(drives => {
       res.status(200).send(drives)
     }).catch(err => {
       res.status(400).send({message: 'Bad request', error: err})
@@ -33,17 +32,17 @@ export let recruiter_drive_controller = {
   },
 
   auto_fill_data: (req, res) => {
-    let duration_list = auto_fill.get_duration()
-    let employment_type_list = auto_fill.get_employment_type()
-    let job_type_list = auto_fill.get_job_type()
-    let position_list = auto_fill.get_positions()
-    Promise.all([duration_list, employment_type_list, job_type_list, position_list])
-      .then(([duration_list, employment_type_list, job_type_list, position_list]) => {
+    let durationList = autoFillOld.get_duration()
+    let employmentTypeList = autoFillOld.get_employment_type()
+    let jobTypeList = autoFillOld.get_job_type()
+    let positionList = autoFillOld.get_positions()
+    Promise.all([durationList, employmentTypeList, jobTypeList, positionList])
+      .then(([durationList, employmentTypeList, jobTypeList, positionList]) => {
         let json = {}
-        json.duration_list = fun.single_object_to_array(duration_list)
-        json.employment_type_list = fun.single_object_to_array(employment_type_list)
-        json.job_type_list = fun.single_object_to_array(job_type_list)
-        json.position_list = fun.single_object_to_array(position_list)
+        json.duration_list = fun.singleObjectToArray(durationList)
+        json.employment_type_list = fun.singleObjectToArray(employmentTypeList)
+        json.job_type_list = fun.singleObjectToArray(jobTypeList)
+        json.position_list = fun.singleObjectToArray(positionList)
         res.status(200).send(json)
       }).catch(err => {
         res.status(400).send({message: 'Bad request', error: err})
@@ -51,37 +50,37 @@ export let recruiter_drive_controller = {
   },
 
   add: async (req, res) => {
-    let user_data = await dashboard.user_data(req)
-    req.body.recruiter_id = user_data.recruiter_id
-    req.body.recruiter_hr_id = user_data.hr_id
-    recruiter_drive_model.add(req)
-      .then((data) => {
+    let userData = await dashboard.user_data(req)
+    req.body.recruiter_id = userData.recruiter_id
+    req.body.recruiter_hr_id = userData.hr_id
+    recruiterDriveModel.add(req)
+      .then(data => {
         return query(`SELECt id FROM recruiter_drive WHERE name = ? order by id DESC LIMIT 1`, [req.body.name])
       }).then(data => {
         res.status(200).json(data)
       })
-      .catch((err) => {
+      .catch(err => {
         res.status(400).json({ message: 'Bad Request', error: err })
       })
   },
 
   get_by_id: (req, res) => {
     // Get data by id
-    recruiter_drive_model.get_by_id(req.params.id).then(drives => {
+    recruiterDriveModel.get_by_id(req.params.id).then(drives => {
       // If request id and users id doesn't match throw
       res.status(200).json(drives)
-    }).catch((err) => {
+    }).catch(err => {
       res.status(400).json({ message: 'Bad Request', error: err })
     })
   },
 
   update: (req, res) => {
     // Get data by id
-    recruiter_drive_model.update(req.params.id, req.body).then(user => {
+    recruiterDriveModel.update(req.params.id, req.body).then(user => {
       // If request id and users id doesn't match throw
 
       res.status(200).json({message: 'Updated Successfully', err: {}})
-    }).catch((err) => {
+    }).catch(err => {
       res.status(400).json({ message: 'Bad Request', error: err })
     })
   }

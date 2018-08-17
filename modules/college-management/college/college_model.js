@@ -1,6 +1,6 @@
 import { query } from '../../../config/db'
 
-export let college_model = {
+export let collegeModel = {
   get_all: () => {
     let sql = `SELECT * FROM college`
     return query(sql, [])
@@ -19,7 +19,7 @@ export let college_model = {
   get_by_id: (id) => {
     let sql = `SELECT c.* , ct.name As college_type
               FROM college c
-              INNER 
+              INNER
               JOIN college_type ct
               ON  c.college_type_id = ct.id
               WHERE c.id = ?`

@@ -1,6 +1,6 @@
 import { query } from '../../config/db'
 
-export let auto_fill = {
+export let autoFillOld = {
   industry_type_list: () => {
     let sql = `SELECT id, name FROM industry`
     return query(sql, [])

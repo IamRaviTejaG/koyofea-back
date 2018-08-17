@@ -1,7 +1,7 @@
 import { query } from '../../../config/db'
 
-export let college_staff_model = {
-  get_all: (college_id) => {
+export let collegeStaffModel = {
+  get_all: (collegeId) => {
     let sql = `SELECT cc.id as coordinator_id, cc.first_name, cc.last_name,
           cc.email, cc.college_role_id as coordinator_role,
           cr.role_name, cc.verified_status
@@ -13,7 +13,7 @@ export let college_staff_model = {
           JOIN college_role cr
           ON cr.id = cc.college_role_id
           WHERE mcc.college_id = ?`
-    return query(sql, college_id)
+    return query(sql, collegeId)
   },
 
   update_role: (req) => {

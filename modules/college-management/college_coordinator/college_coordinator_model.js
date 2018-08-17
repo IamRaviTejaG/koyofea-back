@@ -1,6 +1,6 @@
 import { query } from '../../../config/db'
 
-export let college_coordinator_model = {
+export let collegeCoordinatorModel = {
 
   get_all: () => {
     let sql = `SELECT * FROM college_coordinator`

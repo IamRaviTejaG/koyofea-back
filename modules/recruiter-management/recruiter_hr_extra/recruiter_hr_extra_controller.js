@@ -1,31 +1,31 @@
-import { recruiter_hr_extra_model } from './recruiter_hr_extra_model'
+import { recruiterHrExtraModel } from './recruiter_hr_extra_model'
 import { query } from '../../../config/db'
 
-export let recruiter_hr_extra_controller = {
+export let recruiterHrExtraController = {
   get_all: (req, res) => {
     // TODO: with admin panel
-    return recruiter_hr_extra_model.get_all()
+    return recruiterHrExtraModel.get_all()
   },
 
   add: (req, res) => {
-    let basic_data = req.basic_data
-    console.log(basic_data)
+    let basicData = req.basic_data
+    console.log(basicData)
     // Check if email is verified before entering data
-    let token_email = req.token_data.user.email
-    req.body.recruiter_hr_id = basic_data.hr_id
-    query(`SELECT email, data1, data2 from users WHERE email=?`, token_email).then(users => {
+    let tokenEmail = req.token_data.user.email
+    req.body.recruiter_hr_id = basicData.hr_id
+    query(`SELECT email, data1, data2 from users WHERE email=?`, tokenEmail).then(users => {
       if (!users.email) {
         // if not verified throw error
-        throw 'Email not verified'
+        throw new Error('Email not verified!')
       }
       if (!(users.data1 || users.data2)) {
-        throw 'Profile not Complete'
+        throw new Error('Profile not complete!')
       }
       // Add recruiter_hr
-      return recruiter_hr_extra_model.add(req.body)
+      return recruiterHrExtraModel.add(req.body)
     }).then(result => {
       res.status(200).json(req.body)
-    }).catch((err) => {
+    }).catch(err => {
       res.status(400).json({ message: 'Bad Request', error: err })
     })
   },
@@ -34,26 +34,26 @@ export let recruiter_hr_extra_controller = {
     // Get email from token
 
     // Get data by id
-    recruiter_hr_extra_model.get_by_id(req.params.id).then(users => {
+    recruiterHrExtraModel.get_by_id(req.params.id).then(users => {
       // If request id and users id doesn't match throw
       // if(users ? !(users.email == token_email) : true) {
       //   throw "Not permited to perform this action"
       // }
       res.status(200).json(users)
-    }).catch((err) => {
+    }).catch(err => {
       res.status(400).json({ message: 'Bad Request', error: err })
     })
   },
 
   update: (req, res) => {
     // Get data by id
-    recruiter_hr_extra_model.update(req.params.id, req.body).then(user => {
+    recruiterHrExtraModel.update(req.params.id, req.body).then(user => {
       // If request id and users id doesn't match throw
       // if(!(user.email == token_email)) {
       //   throw "Not permited to perform this action"
       // }
       res.status(200).json(req.body)
-    }).catch((err) => {
+    }).catch(err => {
       res.status(400).json({ message: 'Bad Request', error: err })
     })
   }

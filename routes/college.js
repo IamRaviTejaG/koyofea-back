@@ -1,77 +1,77 @@
+import {
+  collegeController,
+  collegeCoordinatorController,
+  collegeDrivesController,
+  collegeRecruiterController,
+  collegeRoleController,
+  collegeStaffController,
+  collegeStudentController
+} from '../modules/college-management'
 export const college = require('express').Router()
 const jsonparser = require('body-parser').json()
-import {
-  college_controller,
-  college_coordinator_controller,
-  college_drives_controller,
-  college_recruiter_controller,
-  college_role_controller,
-  college_staff_controller,
-  college_student_controller
-} from '../modules/college-management'
-// import { college_controller } from "../modules/college-management/college"
-// import { college_coordinator_controller } from "../modules/college-management/college_coordinator"
-// import { college_drives_controller } from "../modules/college-management/college_drives"
-// import { college_role_controller } from "../modules/college-management/college_role"
-// import { college_staff_controller } from "../modules/college-management/college_staff"
-// import { college_student_controller } from "../modules/college-management/college_student"
-// import { college_recruiter_controller } from "../modules/college-management/college_recruiter/college_recruiter_controller";
+// import { collegeController } from "../modules/college-management/college"
+// import { college_coordinatorController } from "../modules/college-management/college_coordinator"
+// import { college_drivesController } from "../modules/college-management/college_drives"
+// import { college_roleController } from "../modules/college-management/college_role"
+// import { college_staffController } from "../modules/college-management/college_staff"
+// import { college_studentController } from "../modules/college-management/college_student"
+// import { college_recruiterController } from "../modules/college-management/college_recruiter/college_recruiterController";
 
 export default () => {
   // COLLEGE INDEX
   // GET: Gets all the colleges' info.
   // POST: Adds a college's info.
   college.route('/', jsonparser)
-    .get(college_controller.get_all)
+    .get(collegeController.get_all)
 
   /* UPDATE DATE: 04 August 2018
   NOTE: DEPRECATED ROUTES
   // college.route('/new', jsonparser)
-  //   .post(college_controller.add_new)
+  //   .post(collegeController.add_new)
   //
   // college.route('/old', jsonparser)
-  //   .post(college_controller.add_old)
+  //   .post(collegeController.add_old)
   //
   // college.route('/json', jsonparser)
-  //   .get(college_controller.auto_fill_data)
+  //   .get(collegeController.auto_fill_data)
   */
 
   college.route('/role')
-    .get(college_role_controller.get_all)
+    .get(collegeRoleController.get_all)
 
   college.route('/coordinator', jsonparser)
-    .get(college_coordinator_controller.get_all)
-    .post(college_coordinator_controller.add)
+    .get(collegeCoordinatorController.get_all)
+    .post(collegeCoordinatorController.add)
 
   // COORDINATOR with ID
   // GET: Gets a college coordinator's info given the coordinator ID.
   // POST: Adds a college coordinator's info given the coordinator ID.
   // DELETE: Deletes a college coordinator's info given the coordinator ID.
   college.route('/coordinator/:coordinatorid', jsonparser)
-    .get(college_coordinator_controller.get_by_id)
-    .put(college_coordinator_controller.update)
+    .get(collegeCoordinatorController.get_by_id)
+    .put(collegeCoordinatorController.update)
 
   college.route('/:collegeid/drives')
-    .get(college_drives_controller.get_all)
+    .get(collegeDrivesController.get_all)
 
   college.route('/:collegeid/recruiters')
-    .get(college_recruiter_controller.get_all)
+    .get(collegeRecruiterController.get_all)
 
   college.route('/:collegeid/students')
-    .get(college_student_controller.get_all)
+    .get(collegeStudentController.get_all)
 
   college.route('/:collegeid/students/:studentid/status')
-    .put(college_student_controller.update_status)
+    .put(collegeStudentController.update_status)
 
   // COLLEGE with ID
   // GET: Gets a college's info given the college ID.
   // DELETE: Deletes a college's info given the college ID.
   college.route('/:collegeid')
-    .get(college_controller.get_by_id)
-    .put(college_controller.update)
+    .get(collegeController.get_by_id)
+    .put(collegeController.update)
 
   college.route('/:collegeid/staff')
-    .get(college_staff_controller.get_all)
+    .get(collegeStaffController.get_all)
 
   // NOTE: (For routes /:collegeid/staff/*)
   // THESE ROUTES BELOW NEED A CHECK AS THEY UPDATE DB SOLELY BASED ON THE
@@ -79,8 +79,8 @@ export default () => {
   // college_id CHECK CAN FURTHER BE ADDED TO AVOID UNNECESSARY DISCREPANCIES.
 
   college.route('/:collegeid/staff/:staffid/role')
-    .put(college_staff_controller.update_role)
+    .put(collegeStaffController.update_role)
 
   college.route('/:collegeid/staff/:staffid/status')
-    .put(college_staff_controller.update_status)
+    .put(collegeStaffController.update_status)
 }

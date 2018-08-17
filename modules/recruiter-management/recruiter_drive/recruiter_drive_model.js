@@ -1,10 +1,10 @@
 import { query } from '../../../config/db'
 import { dashboard } from '../../common'
 
-export let recruiter_drive_model = {
+export let recruiterDriveModel = {
 
   // Get all drives of recruiter
-  get_all: (recruiter_id) => {
+  get_all: (recruiterId) => {
     // let token_data = req.token_data
     // let email = token_data.user.email
     // let user_data = await dashboard.user_data(req)
@@ -27,7 +27,7 @@ export let recruiter_drive_model = {
                JOIN recruiter r
                ON r.id = rd.recruiter_id
                WHERE rd.recruiter_id = ?`
-    return query(sql, recruiter_id)
+    return query(sql, recruiterId)
   },
 
   get_by_id: (id) => {
@@ -38,7 +38,7 @@ export let recruiter_drive_model = {
   get_drives_requested: (rid) => {
     let sql = `SELECT rd.*
               FROM recruiter_drive rd
-              INNER 
+              INNER
               JOIN mapping_drive_college mdc
               ON rd.id = mdc.drive_id
               WHERE mdc.recruiter_accept = false

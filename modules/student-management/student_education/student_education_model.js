@@ -1,6 +1,6 @@
 import { query } from '../../../config/db'
 
-export let student_education_model = {
+export let studentEducationModel = {
   get: id => {
     let sql = `SELECT s.id, s.first_name, s.last_name, sed.*
               FROM student s

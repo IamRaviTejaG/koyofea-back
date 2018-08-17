@@ -1,7 +1,7 @@
 import { query } from '../../../config/db'
 
-export let recruiter_staff_model = {
-  get_all: (recruiter_id) => {
+export let recruiterStaffModel = {
+  get_all: (recruiterId) => {
     let sql = `SELECT rhr.id as recruiter_hr_id, r.name, rhr.first_name,
           rhr.last_name, rhr.email
           FROM recruiter_hr rhr
@@ -12,7 +12,7 @@ export let recruiter_staff_model = {
           JOIN recruiter r
           ON r.id = mrhr.recruiter_id
           WHERE r.id = ?`
-    return query(sql, recruiter_id)
+    return query(sql, recruiterId)
   },
 
   update_role: (req) => {

@@ -1,25 +1,25 @@
 import { query } from '../../../config/db'
 
-export let college_recruiter_model = {
-  get_all: (college_id) => {
-    let sql = `SELECT 
+export let collegeRecruiterModel = {
+  get_all: (collegeId) => {
+    let sql = `SELECT
               DISTINCT r.* , rh.email As hr_email , rh.first_name As hr_first_name, rh.last_name As hr_last_name
               FROM recruiter r
-              INNER 
+              INNER
               JOIN recruiter_hr rh
               ON rh.id = r.recruiter_hr_id
-              INNER 
+              INNER
               JOIN recruiter_drive rd
               ON rd.recruiter_id = r.id
-              INNER 
+              INNER
               JOIN mapping_drive_college mdc
               ON mdc.drive_id = rd.id
-              WHERE 
-              mdc.college_accept = true 
+              WHERE
+              mdc.college_accept = true
 
-              AND 
+              AND
               mdc.college_id = ?`
-    return query(sql, college_id)
+    return query(sql, collegeId)
   }
 
 }
