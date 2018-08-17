@@ -1,315 +1,315 @@
-const dotenv = require("dotenv").config();
-const rp = require('request-promise');
+const dotenv = require('dotenv').config()
+const rp = require('request-promise')
 
 // Chai and related imports
-const chai = require("chai");
-const should = chai.should();
-const expect = chai.expect;
+const chai = require('chai')
+const should = chai.should()
+const expect = chai.expect
 
 // Testing constants, do not alter.
-const serverBaseUrl = "http://localhost:" + process.env.TEST_PORT + "/api";
-const autofillRouteUrl = serverBaseUrl + "/autofill";
-const autofillCollectionUrl = serverBaseUrl + "/autofill-collections";
+const serverBaseUrl = 'http://localhost:' + process.env.TEST_PORT + '/api'
+const autofillRouteUrl = serverBaseUrl + '/autofill'
+const autofillCollectionUrl = serverBaseUrl + '/autofill-collections'
 
-describe("4. TESTING AUTOFILL ROUTES", () => {
-  describe("4.1. /duration", () => {
-    it("Should return duration autofill", done => {
+describe('4. TESTING AUTOFILL ROUTES', () => {
+  describe('4.1. /duration', () => {
+    it('Should return duration autofill', done => {
       let options = {
-        method: "GET",
-        url: autofillRouteUrl + "/duration",
+        method: 'GET',
+        url: autofillRouteUrl + '/duration',
         json: true
       }
       rp(options).then(body => {
-        expect(body).to.be.an('object');
-        expect(body.data).to.be.an('array');
-        expect(body.data).to.have.lengthOf.above(0);
-        expect(200);
-        done();
+        expect(body).to.be.an('object')
+        expect(body.data).to.be.an('array')
+        expect(body.data).to.have.lengthOf.above(0)
+        expect(200)
+        done()
       }).catch(err => {
-        done(err);
+        done(err)
       })
     })
   })
 
-  describe("4.2. /eligibility", () => {
-    it("Should return eligibility autofill", done => {
+  describe('4.2. /eligibility', () => {
+    it('Should return eligibility autofill', done => {
       let options = {
-        method: "GET",
-        url: autofillRouteUrl + "/eligibility",
+        method: 'GET',
+        url: autofillRouteUrl + '/eligibility',
         json: true
       }
       rp(options).then(body => {
-        expect(body).to.be.an('object');
-        expect(body.data).to.be.an('array');
-        expect(body.data).to.have.lengthOf.above(0);
-        expect(200);
-        done();
+        expect(body).to.be.an('object')
+        expect(body.data).to.be.an('array')
+        expect(body.data).to.have.lengthOf.above(0)
+        expect(200)
+        done()
       }).catch(err => {
-        done(err);
+        done(err)
       })
     })
   })
 
-  describe("4.3. /employment", () => {
-    it("Should return employment autofill", done => {
+  describe('4.3. /employment', () => {
+    it('Should return employment autofill', done => {
       let options = {
-        method: "GET",
-        url: autofillRouteUrl + "/employment",
+        method: 'GET',
+        url: autofillRouteUrl + '/employment',
         json: true
       }
       rp(options).then(body => {
-        expect(body).to.be.an('object');
-        expect(body.data).to.be.an('array');
-        expect(body.data).to.have.lengthOf.above(0);
-        expect(200);
-        done();
+        expect(body).to.be.an('object')
+        expect(body.data).to.be.an('array')
+        expect(body.data).to.have.lengthOf.above(0)
+        expect(200)
+        done()
       }).catch(err => {
-        done(err);
+        done(err)
       })
     })
   })
 
-  describe("4.4. /gender", () => {
-    it("Should return gender autofill", done => {
+  describe('4.4. /gender', () => {
+    it('Should return gender autofill', done => {
       let options = {
-        method: "GET",
-        url: autofillRouteUrl + "/industry",
+        method: 'GET',
+        url: autofillRouteUrl + '/industry',
         json: true
       }
       rp(options).then(body => {
-        expect(body).to.be.an('object');
-        expect(body.data).to.be.an('array');
-        expect(body.data).to.have.lengthOf.above(0);
-        expect(200);
-        done();
+        expect(body).to.be.an('object')
+        expect(body.data).to.be.an('array')
+        expect(body.data).to.have.lengthOf.above(0)
+        expect(200)
+        done()
       }).catch(err => {
-        done(err);
+        done(err)
       })
     })
   })
 
-  describe("4.5. /grade-scale", () => {
-    it("Should return grade scale autofill", done => {
+  describe('4.5. /grade-scale', () => {
+    it('Should return grade scale autofill', done => {
       let options = {
-        method: "GET",
-        url: autofillRouteUrl + "/grade-scale",
+        method: 'GET',
+        url: autofillRouteUrl + '/grade-scale',
         json: true
       }
       rp(options).then(body => {
-        expect(body).to.be.an('object');
-        expect(body.data).to.be.an('array');
-        expect(body.data).to.have.lengthOf.above(0);
-        expect(200);
-        done();
+        expect(body).to.be.an('object')
+        expect(body.data).to.be.an('array')
+        expect(body.data).to.have.lengthOf.above(0)
+        expect(200)
+        done()
       }).catch(err => {
-        done(err);
+        done(err)
       })
     })
   })
 
-  describe("4.6. /industry", () => {
-    it("Should return industry autofill", done => {
+  describe('4.6. /industry', () => {
+    it('Should return industry autofill', done => {
       let options = {
-        method: "GET",
-        url: autofillRouteUrl + "/industry",
+        method: 'GET',
+        url: autofillRouteUrl + '/industry',
         json: true
       }
       rp(options).then(body => {
-        expect(body).to.be.an('object');
-        expect(body.data).to.be.an('array');
-        expect(body.data).to.have.lengthOf.above(0);
-        expect(200);
-        done();
+        expect(body).to.be.an('object')
+        expect(body.data).to.be.an('array')
+        expect(body.data).to.have.lengthOf.above(0)
+        expect(200)
+        done()
       }).catch(err => {
-        done(err);
+        done(err)
       })
     })
   })
 
-  describe("4.7. /job", () => {
-    it("Should return job autofill", done => {
+  describe('4.7. /job', () => {
+    it('Should return job autofill', done => {
       let options = {
-        method: "GET",
-        url: autofillRouteUrl + "/job",
+        method: 'GET',
+        url: autofillRouteUrl + '/job',
         json: true
       }
       rp(options).then(body => {
-        expect(body).to.be.an('object');
-        expect(body.data).to.be.an('array');
-        expect(body.data).to.have.lengthOf.above(0);
-        expect(200);
-        done();
+        expect(body).to.be.an('object')
+        expect(body.data).to.be.an('array')
+        expect(body.data).to.have.lengthOf.above(0)
+        expect(200)
+        done()
       }).catch(err => {
-        done(err);
+        done(err)
       })
     })
   })
 
-  describe("4.8. /major", () => {
-    it("Should return major autofill", done => {
+  describe('4.8. /major', () => {
+    it('Should return major autofill', done => {
       let options = {
-        method: "GET",
-        url: autofillRouteUrl + "/major",
+        method: 'GET',
+        url: autofillRouteUrl + '/major',
         json: true
       }
       rp(options).then(body => {
-        expect(body).to.be.an('object');
-        expect(body.data).to.be.an('array');
-        expect(body.data).to.have.lengthOf.above(0);
-        expect(200);
-        done();
+        expect(body).to.be.an('object')
+        expect(body.data).to.be.an('array')
+        expect(body.data).to.have.lengthOf.above(0)
+        expect(200)
+        done()
       }).catch(err => {
-        done(err);
+        done(err)
       })
     })
   })
 
-  describe("4.9. /positions", () => {
-    it("Should return positions autofill", done => {
+  describe('4.9. /positions', () => {
+    it('Should return positions autofill', done => {
       let options = {
-        method: "GET",
-        url: autofillRouteUrl + "/positions",
+        method: 'GET',
+        url: autofillRouteUrl + '/positions',
         json: true
       }
       rp(options).then(body => {
-        expect(body).to.be.an('object');
-        expect(body.data).to.be.an('array');
-        expect(body.data).to.have.lengthOf.above(0);
-        expect(200);
-        done();
+        expect(body).to.be.an('object')
+        expect(body.data).to.be.an('array')
+        expect(body.data).to.have.lengthOf.above(0)
+        expect(200)
+        done()
       }).catch(err => {
-        done(err);
+        done(err)
       })
     })
   })
 
-  describe("4.10. /schools", () => {
-    it("Should return schools autofill", done => {
+  describe('4.10. /schools', () => {
+    it('Should return schools autofill', done => {
       let options = {
-        method: "GET",
-        url: autofillRouteUrl + "/schools",
+        method: 'GET',
+        url: autofillRouteUrl + '/schools',
         json: true
       }
       rp(options).then(body => {
-        expect(body).to.be.an('object');
-        expect(body.data).to.be.an('array');
-        expect(body.data).to.have.lengthOf.above(0);
-        expect(200);
-        done();
+        expect(body).to.be.an('object')
+        expect(body.data).to.be.an('array')
+        expect(body.data).to.have.lengthOf.above(0)
+        expect(200)
+        done()
       }).catch(err => {
-        done(err);
+        done(err)
       })
     })
   })
 
-  describe("4.11. /colleges", () => {
-    it("Should return colleges autofill", done => {
+  describe('4.11. /colleges', () => {
+    it('Should return colleges autofill', done => {
       let options = {
-        method: "GET",
-        url: autofillRouteUrl + "/colleges",
+        method: 'GET',
+        url: autofillRouteUrl + '/colleges',
         json: true
       }
       rp(options).then(body => {
-        expect(body).to.be.an('object');
-        expect(body.data).to.be.an('array');
-        expect(body.data).to.have.lengthOf.above(0);
-        expect(200);
-        done();
+        expect(body).to.be.an('object')
+        expect(body.data).to.be.an('array')
+        expect(body.data).to.have.lengthOf.above(0)
+        expect(200)
+        done()
       }).catch(err => {
-        done(err);
+        done(err)
       })
     })
   })
 
-  describe("4.12. /programs", () => {
-    it("Should return programs autofill", done => {
+  describe('4.12. /programs', () => {
+    it('Should return programs autofill', done => {
       let options = {
-        method: "GET",
-        url: autofillRouteUrl + "/programs",
+        method: 'GET',
+        url: autofillRouteUrl + '/programs',
         json: true
       }
       rp(options).then(body => {
-        expect(body).to.be.an('object');
-        expect(body.data).to.be.an('array');
-        expect(body.data).to.have.lengthOf.above(0);
-        expect(200);
-        done();
+        expect(body).to.be.an('object')
+        expect(body.data).to.be.an('array')
+        expect(body.data).to.have.lengthOf.above(0)
+        expect(200)
+        done()
       }).catch(err => {
-        done(err);
+        done(err)
       })
     })
   })
 
-  describe("4.13. /designations", () => {
-    it("Should return designations autofill", done => {
+  describe('4.13. /designations', () => {
+    it('Should return designations autofill', done => {
       let options = {
-        method: "GET",
-        url: autofillRouteUrl + "/designations",
+        method: 'GET',
+        url: autofillRouteUrl + '/designations',
         json: true
       }
       rp(options).then(body => {
-        expect(body).to.be.an('object');
-        expect(body.data).to.be.an('array');
-        expect(body.data).to.have.lengthOf.above(0);
-        expect(200);
-        done();
+        expect(body).to.be.an('object')
+        expect(body.data).to.be.an('array')
+        expect(body.data).to.have.lengthOf.above(0)
+        expect(200)
+        done()
       }).catch(err => {
-        done(err);
+        done(err)
       })
     })
   })
 
-  describe("4.14. /organizations", () => {
-    it("Should return organizations autofill", done => {
+  describe('4.14. /organizations', () => {
+    it('Should return organizations autofill', done => {
       let options = {
-        method: "GET",
-        url: autofillRouteUrl + "/organizations",
+        method: 'GET',
+        url: autofillRouteUrl + '/organizations',
         json: true
       }
       rp(options).then(body => {
-        expect(body).to.be.an('object');
-        expect(body.data).to.be.an('array');
-        expect(body.data).to.have.lengthOf.above(0);
-        expect(200);
-        done();
+        expect(body).to.be.an('object')
+        expect(body.data).to.be.an('array')
+        expect(body.data).to.have.lengthOf.above(0)
+        expect(200)
+        done()
       }).catch(err => {
-        done(err);
+        done(err)
       })
     })
   })
 })
 
-describe("5. TESTING AUTOFILL COLLECTIONS ROUTES", () => {
-  describe("5.1. /education", () => {
-    it("Should return education autofill collection", done => {
+describe('5. TESTING AUTOFILL COLLECTIONS ROUTES', () => {
+  describe('5.1. /education', () => {
+    it('Should return education autofill collection', done => {
       let options = {
-        method: "GET",
-        url: autofillCollectionUrl + "/education",
+        method: 'GET',
+        url: autofillCollectionUrl + '/education',
         json: true
       }
       rp(options).then(body => {
-        expect(body).to.be.an('object');
-        expect(200);
-        done();
+        expect(body).to.be.an('object')
+        expect(200)
+        done()
       }).catch(err => {
-        done(err);
+        done(err)
       })
     })
   })
 
-  describe("5.2. /experience", () => {
-    it("Should return experience autofill collection", done => {
+  describe('5.2. /experience', () => {
+    it('Should return experience autofill collection', done => {
       let options = {
-        method: "GET",
-        url: autofillCollectionUrl + "/experience",
+        method: 'GET',
+        url: autofillCollectionUrl + '/experience',
         json: true
       }
       rp(options).then(body => {
-        expect(body).to.be.an('object');
-        expect(200);
-        done();
+        expect(body).to.be.an('object')
+        expect(200)
+        done()
       }).catch(err => {
-        done(err);
+        done(err)
       })
     })
   })

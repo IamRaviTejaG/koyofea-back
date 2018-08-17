@@ -1,6 +1,5 @@
-import { query } from "../../../config/db"
-import { dashboard } from "../../common"
-
+import { query } from '../../../config/db'
+import { dashboard } from '../../common'
 
 export let recruiter_drive_model = {
 
@@ -49,10 +48,10 @@ export let recruiter_drive_model = {
 
   // TODO: needs testing
   add: (req) => {
-    return dashboard.user_data(req).then(data=>{
+    return dashboard.user_data(req).then(data => {
       req.recruiter_hr_id = data.hr_id
       req.recruiter_id = data.recruiter_id
-      let sql =`INSERT INTO recruiter_drive SET ?`
+      let sql = `INSERT INTO recruiter_drive SET ?`
       return query(sql, req.body)
     })
   },
@@ -65,7 +64,7 @@ export let recruiter_drive_model = {
   // },
 
   update: (id, object) => {
-    let sql = "UPDATE recruiter_drive SET ? WHERE id = ?"
+    let sql = 'UPDATE recruiter_drive SET ? WHERE id = ?'
     return query(sql, [object, id])
   }
 }

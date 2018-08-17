@@ -1,5 +1,5 @@
-import { query } from "../../../config/db";
-import { recruiter_college_model } from "./recruiter_college_model";
+import { query } from '../../../config/db'
+import { recruiter_college_model } from './recruiter_college_model'
 
 export let recruiter_college_controller = {
   get_all: (req, res) => {
@@ -7,19 +7,19 @@ export let recruiter_college_controller = {
       .get_all(req.params.recruiterid)
       .then(data => {
         // make this object an array
-        let array = [];
+        let array = []
         if (Array.isArray(data)) {
-          res.status(200).json(data);
+          res.status(200).json(data)
         } else {
-          array.push(data);
-          res.status(200).json(array);
+          array.push(data)
+          res.status(200).json(array)
         }
       })
       .catch(err => {
         res.status(400).json({
-          message: "Bad Request",
+          message: 'Bad Request',
           error: err
-        });
-      });
+        })
+      })
   }
-};
+}

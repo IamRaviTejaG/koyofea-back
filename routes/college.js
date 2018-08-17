@@ -1,5 +1,5 @@
-export const college = require("express").Router()
-const jsonparser = require("body-parser").json()
+export const college = require('express').Router()
+const jsonparser = require('body-parser').json()
 import {
   college_controller,
   college_coordinator_controller,
@@ -8,7 +8,7 @@ import {
   college_role_controller,
   college_staff_controller,
   college_student_controller
-} from "../modules/college-management";
+} from '../modules/college-management'
 // import { college_controller } from "../modules/college-management/college"
 // import { college_coordinator_controller } from "../modules/college-management/college_coordinator"
 // import { college_drives_controller } from "../modules/college-management/college_drives"
@@ -16,7 +16,6 @@ import {
 // import { college_staff_controller } from "../modules/college-management/college_staff"
 // import { college_student_controller } from "../modules/college-management/college_student"
 // import { college_recruiter_controller } from "../modules/college-management/college_recruiter/college_recruiter_controller";
-
 
 export default () => {
   // COLLEGE INDEX

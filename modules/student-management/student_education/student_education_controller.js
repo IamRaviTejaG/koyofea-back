@@ -1,6 +1,6 @@
-import { student_education_model } from "./student_education_model";
-import { query } from "../../../config/db";
-import { auto_fill, fun } from "../../common";
+import { student_education_model } from './student_education_model'
+import { query } from '../../../config/db'
+import { auto_fill, fun } from '../../common'
 
 export let student_education_controller = {
   // get_all: (req, res) => {
@@ -28,29 +28,29 @@ export let student_education_controller = {
   get: (req, res) => {
     // Get data by id
     student_education_model.get(req.params.studentid).then(users => {
-        res.status(200).json(users)
-      }).catch(err => {
-        res.status(400).json({message: "Bad Request!", error: err})
-      })
+      res.status(200).json(users)
+    }).catch(err => {
+      res.status(400).json({message: 'Bad Request!', error: err})
+    })
   },
 
   add_new: (req, res) => {
     student_education_model.add_new(req.body).then(data => {
-      res.status(200).json({message: "Added successfully!"})
+      res.status(200).json({message: 'Added successfully!'})
     }).catch(err => {
-      res.status(400).json({message: "Bad Request!", error: err})
+      res.status(400).json({message: 'Bad Request!', error: err})
     })
   },
 
   update: (req, res) => {
     student_education_model.update(req.params.studentid, req.body)
-    .then(data => {
-      res.status(200).json({
-        message: "Updated education details!",
-        studentid: req.params.studentid
+      .then(data => {
+        res.status(200).json({
+          message: 'Updated education details!',
+          studentid: req.params.studentid
+        })
+      }).catch(err => {
+        res.status(400).json({message: 'Bad Request!', error: err})
       })
-    }).catch(err => {
-      res.status(400).json({message: "Bad Request!", error: err})
-    })
   }
 }

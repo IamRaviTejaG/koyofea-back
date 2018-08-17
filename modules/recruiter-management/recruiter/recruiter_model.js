@@ -1,4 +1,4 @@
-import { query } from "../../../config/db"
+import { query } from '../../../config/db'
 
 export let recruiter_model = {
   get_all: () => {
@@ -14,8 +14,6 @@ export let recruiter_model = {
     let sql = `SELECT id As value, name As label FROM recruiter`
     return query(sql, [])
   },
-
-  
 
   get_by_id: (id) => {
     let sql = `SELECT r.name, r.website_url, r.description, r.verified, r.phone, r.address_1, r.address_2, r.landmark, r.city, r.state, r.country, r.pin, r.size, i.name As industry 
@@ -40,7 +38,7 @@ export let recruiter_model = {
   // },
 
   update: (id, values) => {
-      let sql = `UPDATE recruiter SET ? WHERE id  = ?`
-      return query(sql, [values, id])
+    let sql = `UPDATE recruiter SET ? WHERE id  = ?`
+    return query(sql, [values, id])
   }
 }

@@ -1,4 +1,4 @@
-import { query } from "../../../config/db"
+import { query } from '../../../config/db'
 
 export let student_model = {
   // GET_ALL & GET_ALL_NAME (Disabled for privacy)

@@ -1,4 +1,4 @@
-import { query } from "../../../config/db"
+import { query } from '../../../config/db'
 
 export let student_education_model = {
   get: id => {

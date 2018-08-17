@@ -1,5 +1,5 @@
-export const autofill_collections = require("express").Router()
-import { autofill_collections_controller } from "../modules/common";
+export const autofill_collections = require('express').Router()
+import { autofill_collections_controller } from '../modules/common'
 
 export default () => {
   autofill_collections.route('/education')

@@ -1,4 +1,4 @@
-import { query } from "../../../config/db"
+import { query } from '../../../config/db'
 
 export let recruiter_staff_model = {
   get_all: (recruiter_id) => {

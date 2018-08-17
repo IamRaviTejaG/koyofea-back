@@ -4,6 +4,7 @@
   "description": "node api backend for koyofea",
   "main": "index.js",
   "scripts": {
+    "pretest": "standard",
     "test": "export NODE_ENV=test|| set NODE_ENV=test&& mocha --compilers js:babel-core/register --no-deprecation",
     "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
     "start": "npm run build && node dist/index.js --no-deprecation"
@@ -42,6 +43,12 @@
     "morgan": "^1.9.0",
     "request": "^2.88.0",
     "rimraf": "^2.6.2",
+    "standard": "^11.0.1",
     "supertest": "^3.1.0"
+  },
+  "standard": {
+    "ignore": [
+      "/test/*.js"
+    ]
   }
 }

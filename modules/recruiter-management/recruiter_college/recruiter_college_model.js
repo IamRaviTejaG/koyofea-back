@@ -1,4 +1,4 @@
-import { query } from "../../../config/db";
+import { query } from '../../../config/db'
 
 export let recruiter_college_model = {
   get_all: recruiter_id => {
@@ -19,7 +19,7 @@ export let recruiter_college_model = {
               ON rd.id = mdc.drive_id
               WHERE
               mdc.college_accept = true
-              AND rd.recruiter_id = ?`;
-    return query(sql, recruiter_id);
+              AND rd.recruiter_id = ?`
+    return query(sql, recruiter_id)
   }
-};
+}

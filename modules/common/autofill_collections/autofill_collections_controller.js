@@ -1,8 +1,8 @@
-import { autofill_model } from "../autofill/autofill_model";
-import { fun } from "../../common";
+import { autofill_model } from '../autofill/autofill_model'
+import { fun } from '../../common'
 
 export let autofill_collections_controller = {
-  get_education : (req, res) => {
+  get_education: (req, res) => {
     let schools_list = autofill_model.get_schools()
     let grade_scale_list = autofill_model.get_grade_scales()
     let colleges_list = autofill_model.get_colleges()
@@ -14,11 +14,11 @@ export let autofill_collections_controller = {
       colleges_list,
       majors_list,
       programs_list]).then(([
-        schools_list,
-        grade_scale_list,
-        colleges_list,
-        majors_list,
-        programs_list]) => {
+      schools_list,
+      grade_scale_list,
+      colleges_list,
+      majors_list,
+      programs_list]) => {
       let json = {}
       json.schools_list = fun.single_object_to_array(schools_list)
       json.grade_scale_list = fun.single_object_to_array(grade_scale_list)
@@ -28,7 +28,7 @@ export let autofill_collections_controller = {
       res.status(200).json(json)
     }).catch(err => {
       res.status(500).json({
-        message: "Server Error!",
+        message: 'Server Error!',
         error: err
       })
     })
@@ -45,7 +45,7 @@ export let autofill_collections_controller = {
       res.status(200).json(json)
     }).catch(err => {
       res.status(500).json({
-        message: "Server Error!",
+        message: 'Server Error!',
         error: err
       })
     })

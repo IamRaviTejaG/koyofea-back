@@ -1,9 +1,9 @@
-import { query } from "../../../config/db"
+import { query } from '../../../config/db'
 
 export let recruiter_hr_model = {
   get_all: () => {
-    let sql = `SELECT * FROM recruiter_hr`   
-    return query(sql,[])
+    let sql = `SELECT * FROM recruiter_hr`
+    return query(sql, [])
   },
 
   get_by_id: (id) => {

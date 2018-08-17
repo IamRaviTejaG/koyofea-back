@@ -1,5 +1,5 @@
-export const autofill = require("express").Router()
-import { autofill_controller } from "../modules/common";
+export const autofill = require('express').Router()
+import { autofill_controller } from '../modules/common'
 
 export default () => {
   autofill.route('/duration')

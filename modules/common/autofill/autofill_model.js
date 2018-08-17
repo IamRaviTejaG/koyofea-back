@@ -1,7 +1,7 @@
-import { query } from "../../../config/db";
+import { query } from '../../../config/db'
 
 export let autofill_model = {
-  get_industry_type_list : () => {
+  get_industry_type_list: () => {
     let sql = `SELECT id, name FROM industry`
     return query(sql)
   },
@@ -26,7 +26,7 @@ export let autofill_model = {
     return query(sql)
   },
 
-  get_eligibility_types:  () => {
+  get_eligibility_types: () => {
     let sql = `SELECT id, name FROM eligibility_type`
     return query(sql)
   },

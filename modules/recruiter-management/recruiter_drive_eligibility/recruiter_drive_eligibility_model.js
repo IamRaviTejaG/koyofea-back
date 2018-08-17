@@ -1,4 +1,4 @@
-import { query } from "../../../config/db"
+import { query } from '../../../config/db'
 
 export let recruiter_drive_eligibility_model = {
   // get_all unavailable because getting all drives isn't allowed, given the
@@ -11,7 +11,7 @@ export let recruiter_drive_eligibility_model = {
 
   get_by_id: (drive_id, round_id) => {
     let sql = `SELECT * FROM recruiter_drive_eligibility WHERE drive_id = ? AND id = ?`
-    return query(sql, [drive_id,round_id])
+    return query(sql, [drive_id, round_id])
   },
 
   add: (values) => {
@@ -33,6 +33,6 @@ export let recruiter_drive_eligibility_model = {
   update: (id, values) => {
     // TODO: add recrutier_drive_id
     let sql = `UPDATE recruiter_drive_eligibility SET ? Where id = ?`
-    return query(sql ,[values, id])
+    return query(sql, [values, id])
   }
 }

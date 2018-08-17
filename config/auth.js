@@ -1,24 +1,23 @@
-const bcrypt = require("bcrypt")
-const dotenv = require("dotenv").config()
-const moment = require("moment")
-const Promise = require("bluebird")
-const passport = require("passport")
-const uuid = require("uuid/v4")
+import * as jwt from 'jwt-simple'
+import { db, query } from './db'
+import { Strategy, ExtractJwt } from 'passport-jwt'
+const bcrypt = require('bcrypt')
+const moment = require('moment')
+const Promise = require('bluebird')
+const passport = require('passport')
+const uuid = require('uuid/v4')
 const { validationResult } = require('express-validator/check')
-import * as jwt from "jwt-simple"
-import { db, query } from "./db"
-import { Strategy, ExtractJwt } from "passport-jwt"
 
 // This function below generates and returns a new strategy object to be
 // further used with passport.
-function getStrategy() {
+function getStrategy () {
   let options = {
     secretOrKey: process.env.JWT_SECRET,
-    jwtFromRequest: ExtractJwt.fromHeader("x-api-key"),
+    jwtFromRequest: ExtractJwt.fromHeader('x-api-key'),
     passReqToCallback: true
   }
   return new Strategy(options, (req, payload, done) => {
-    db.query("SHOW * FROM users WHERE email=" + payload.email, (row, err) => {
+    db.query('SHOW * FROM users WHERE email=' + payload.email, (row, err) => {
       if (err) {
         return done(err, false)
       }
@@ -35,12 +34,12 @@ function getStrategy() {
 export let auth = {
   // Initializes the passport session for the user.
   initialize: () => {
-    passport.use("jwt", getStrategy())
+    passport.use('jwt', getStrategy())
     return passport.initialize()
   },
 
   // This function is meant for future use. Safely ignore this for now.
-  authenticate: callback => passport.authenticate("jwt",
+  authenticate: callback => passport.authenticate('jwt',
     {sesson: false, failWithError: true},
     callback
   ),
@@ -48,10 +47,10 @@ export let auth = {
   // Takes the user data and creates a JSON Web Token (JWT) for the
   // user and returns it.
   genToken: user => {
-    let expires = moment().utc().add({ days: 7 }).unix();
+    let expires = moment().utc().add({ days: 7 }).unix()
     let token = jwt.encode({
       exp: expires,
-      user:user
+      user: user
     }, process.env.JWT_SECRET)
     return {
       token: token,
@@ -66,37 +65,36 @@ export let auth = {
   // Handles login requests.
   login: (req, res) => {
     let email = req.body.email
-    let user_password = req.body.password
+    let userPassword = req.body.password
     let sql = `SELECT * FROM users WHERE email= ?`
     let a = query(sql, [email])
     let b = a.then(rows => {
       if (!rows) {
-        throw "Email not registered!"
+        throw new Error('Email not registered!')
       }
-      if (rows.email_verified == 0){
-        throw "Email not verified!"
+      if (rows.email_verified === 0) {
+        throw new Error('Email not verified!')
       }
-      console.log(rows.password)
-      return bcrypt.compare(user_password, rows.password)
+      return bcrypt.compare(userPassword, rows.password)
     })
-    Promise.all([a,b]).then(([rows, result]) => {
+    Promise.all([a, b]).then(([rows, result]) => {
       if (!result) {
-        throw "Incorrect credentials!"
+        throw new Error('Incorrect credentials!')
       }
       res.status(200).json({
-        message: "Login successful",
+        message: 'Login successful',
         token: auth.genToken(rows).token,
         user: rows
       })
-    }).catch((err) => {
-      res.status(401).json({message: "Login failed!", error: err})
+    }).catch(err => {
+      res.status(401).json({message: 'Login failed!', error: err.message})
     })
   },
 
   // Handles signup requests.
   sign_up: (req, res) => {
     let email = req.body.email
-    let unhashed_password = req.body.password
+    let unhashedPassword = req.body.password
     let object = {
       first_name: req.body.first_name,
       last_name: req.body.last_name,
@@ -106,25 +104,25 @@ export let auth = {
     }
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      return res.status(400).json({message: "Error!", error: errors.mapped()})
+      return res.status(400).json({message: 'Error!', error: errors.mapped()})
     }
     let sql = `SELECT * FROM users WHERE email= ?`
     query(sql, [email]).then(rows => {
       if (rows.length > 0) {
-        throw "Email already used!"
+        throw new Error('Email already used!')
       }
-      return bcrypt.hash(unhashed_password, parseInt(process.env.SALT_ROUNDS))
+      return bcrypt.hash(unhashedPassword, parseInt(process.env.SALT_ROUNDS))
     }).then(hash => {
       let sql = `INSERT INTO users SET ?`
-      object.password = hash;
+      object.password = hash
       return query(sql, object)
     }).then(row => {
       res.status(200).json({
-        message: "Signup successful!",
+        message: 'Signup successful!',
         verificationToken: object.verification_token
       })
     }).catch(err => {
-      res.status(400).json({message: "Signup failed!", error: err})
+      res.status(400).json({message: 'Signup failed!', error: err.message})
     })
   },
 
@@ -137,16 +135,16 @@ export let auth = {
                 WHERE u.verification_token='${token}'`
     query(sql2).then(row2 => {
       if (row2.email_verified === 1) {
-        res.status(400).json({message: "Already verified!"});
+        res.status(400).json({message: 'Already verified!'})
       } else if (row2.email_verified === undefined) {
-        throw "Invalid verification URL"
+        throw new Error('Invalid verification URL!')
       } else {
         query(sql1).then(row1 => {
-          res.status(200).json({message: "Email verified!"});
+          res.status(200).json({message: 'Email verified!'})
         })
       }
     }).catch(err => {
-      res.status(400).json({error: err})
+      res.status(400).json({error: err.message})
     })
   }
   // verify_email: (req, res) => {
@@ -154,7 +152,7 @@ export let auth = {
   //   let sql = `SELECT * FROM users WHERE email_token="${verify_token}"`
   //   query(sql).then(row => {
   //     if(!row){
-  //       throw "Wrong Verification URL"
+  //       throw new Error("Wrong Verification URL"
   //     }
   //     let sql = `UPDATE users SET email_verified = true
   //               WHERE email_token="${verify_token}"`

@@ -1,62 +1,62 @@
-export const base = require("express").Router();
-const { check } = require("express-validator/check");
-import { query } from "../config/db";
-import { auth } from "../config/auth";
-import { dashboard } from "../modules/common";
-import autofill from "./autofill";
-import autofill_collections from "./autofill_collections";
-import college from "./college";
-import recruiter from "./recruiter";
-import student from "./student";
-autofill();
-autofill_collections();
-college();
-recruiter();
-student();
+export const base = require('express').Router()
+const { check } = require('express-validator/check')
+import { query } from '../config/db'
+import { auth } from '../config/auth'
+import { dashboard } from '../modules/common'
+import autofill from './autofill'
+import autofill_collections from './autofill_collections'
+import college from './college'
+import recruiter from './recruiter'
+import student from './student'
+autofill()
+autofill_collections()
+college()
+recruiter()
+student()
 
-base.get("/", (req, res) => {
-  res.status(200).json({message: "API TEST: WORKING FINE"});
-});
+base.get('/', (req, res) => {
+  res.status(200).json({message: 'API TEST: WORKING FINE'})
+})
 
-base.post("/login", auth.login);
+base.post('/login', auth.login)
 
-base.post("/signup",
+base.post('/signup',
   [
-    check("first_name").exists(),
-    check("last_name").exists(),
-    check("email").isEmail(),
-    check("password").exists(),
-    check("user_type").toInt()
+    check('first_name').exists(),
+    check('last_name').exists(),
+    check('email').isEmail(),
+    check('password').exists(),
+    check('user_type').toInt()
   ],
   auth.sign_up
-);
+)
 
 // email-verify route is now deprecated.
 // base.get("/email-verify", auth.verify_email);
 
-base.get("/verify/:verificationtoken", auth.verify_email);
+base.get('/verify/:verificationtoken', auth.verify_email)
 
-base.get("/dashboard", (req, res) => {
+base.get('/dashboard', (req, res) => {
   dashboard
     .user_data(req)
     .then(data => {
-      res.status(200).json(data);
+      res.status(200).json(data)
     })
     .catch(err => {
-      res.status(400).json({message: "Bad Request!", error: err});
-    });
-});
+      res.status(400).json({message: 'Bad Request!', error: err})
+    })
+})
 
-base.get("/user", (req, res) => {
-  let token_email = auth.decode_token(req.get("x-api-key")).user.email;
+base.get('/user', (req, res) => {
+  let token_email = auth.decode_token(req.get('x-api-key')).user.email
   query(`SELECT * FROM users WHERE users.email=?`, token_email)
     .then(data => {
-      res.status(200).json(data);
+      res.status(200).json(data)
     })
     .catch(err => {
-      res.status(500).json({message: "Bad Request!", error: err});
-    });
-});
+      res.status(500).json({message: 'Bad Request!', error: err})
+    })
+})
 
 // // TODO move this to college controller and change api to /college/alldrives
 // base.get("/drives", (req, res) => {

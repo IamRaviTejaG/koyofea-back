@@ -1,4 +1,4 @@
-import { query } from "../../../config/db"
+import { query } from '../../../config/db'
 
 export let college_model = {
   get_all: () => {
@@ -10,7 +10,7 @@ export let college_model = {
     let sql = `SELECT name As label, id As value FROM college`
     return query(sql, [])
   },
-  
+
   get_college_type: () => {
     let sql = `SELECT id, name FROM college_type`
     return query(sql, [])

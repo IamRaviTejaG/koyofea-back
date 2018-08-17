@@ -1,4 +1,4 @@
-import { query } from "../../../config/db";
+import { query } from '../../../config/db'
 
 export let college_drives_model = {
   get_all: college_id => {
@@ -14,7 +14,7 @@ export let college_drives_model = {
                INNER
                JOIN mapping_drive_college mdc
                ON mdc.drive_id = rd.id
-               WHERE mdc.college_id = ?`;
-    return query(sql, college_id);
+               WHERE mdc.college_id = ?`
+    return query(sql, college_id)
   }
-};
+}
