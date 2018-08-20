@@ -4,7 +4,7 @@ import { collegeCoordinatorModel } from './college_coordinator_model'
 export let collegeCoordinatorController = {
   get_all: (req, res) => {
     // TODO: with admin panel
-    collegeCoordinatorModel.get_all().then((data) => {
+    collegeCoordinatorModel.get_all().then(data => {
       res.status(200).json(data)
     }).catch((err) => {
       res.status(400).json({ message: 'Bad Request', error: err })

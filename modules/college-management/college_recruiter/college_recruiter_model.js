@@ -15,9 +15,6 @@ export let collegeRecruiterModel = {
               JOIN mapping_drive_college mdc
               ON mdc.drive_id = rd.id
               WHERE
-              mdc.college_accept = true
-
-              AND
               mdc.college_id = ?`
     return query(sql, collegeId)
   }

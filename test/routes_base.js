@@ -17,8 +17,8 @@ describe('6. TESTING BASE ROUTES', () => {
         method: 'POST',
         url: serverBaseUrl + '/login',
         body: {
-          email: 'raviteja@gmail.com',
-          password: 'teja'
+          email: 'test@test.com',
+          password: 'test'
         },
         json: true
       }
