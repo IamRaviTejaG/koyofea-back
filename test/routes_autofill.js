@@ -11,8 +11,8 @@ const autofillRouteUrl = serverBaseUrl + '/autofill'
 const autofillCollectionUrl = serverBaseUrl + '/autofill-collections'
 
 describe('4. TESTING AUTOFILL ROUTES', () => {
-  describe('4.1. /duration', () => {
-    it('Should return duration autofill', done => {
+  describe('4.1. Should return different autofill data', () => {
+    it('/duration', done => {
       let options = {
         method: 'GET',
         url: autofillRouteUrl + '/duration',
@@ -27,11 +27,8 @@ describe('4. TESTING AUTOFILL ROUTES', () => {
       }).catch(err => {
         done(err)
       })
-    })
-  })
-
-  describe('4.2. /eligibility', () => {
-    it('Should return eligibility autofill', done => {
+    }),
+    it('/eligibility', done => {
       let options = {
         method: 'GET',
         url: autofillRouteUrl + '/eligibility',
@@ -46,11 +43,8 @@ describe('4. TESTING AUTOFILL ROUTES', () => {
       }).catch(err => {
         done(err)
       })
-    })
-  })
-
-  describe('4.3. /employment', () => {
-    it('Should return employment autofill', done => {
+    }),
+    it('/employment', done => {
       let options = {
         method: 'GET',
         url: autofillRouteUrl + '/employment',
@@ -65,14 +59,11 @@ describe('4. TESTING AUTOFILL ROUTES', () => {
       }).catch(err => {
         done(err)
       })
-    })
-  })
-
-  describe('4.4. /gender', () => {
-    it('Should return gender autofill', done => {
+    }),
+    it('/gender', done => {
       let options = {
         method: 'GET',
-        url: autofillRouteUrl + '/industry',
+        url: autofillRouteUrl + '/gender',
         json: true
       }
       rp(options).then(body => {
@@ -84,11 +75,8 @@ describe('4. TESTING AUTOFILL ROUTES', () => {
       }).catch(err => {
         done(err)
       })
-    })
-  })
-
-  describe('4.5. /grade-scale', () => {
-    it('Should return grade scale autofill', done => {
+    }),
+    it('/grade-scale', done => {
       let options = {
         method: 'GET',
         url: autofillRouteUrl + '/grade-scale',
@@ -103,11 +91,8 @@ describe('4. TESTING AUTOFILL ROUTES', () => {
       }).catch(err => {
         done(err)
       })
-    })
-  })
-
-  describe('4.6. /industry', () => {
-    it('Should return industry autofill', done => {
+    }),
+    it('/industry', done => {
       let options = {
         method: 'GET',
         url: autofillRouteUrl + '/industry',
@@ -122,11 +107,8 @@ describe('4. TESTING AUTOFILL ROUTES', () => {
       }).catch(err => {
         done(err)
       })
-    })
-  })
-
-  describe('4.7. /job', () => {
-    it('Should return job autofill', done => {
+    }),
+    it('/job', done => {
       let options = {
         method: 'GET',
         url: autofillRouteUrl + '/job',
@@ -141,11 +123,8 @@ describe('4. TESTING AUTOFILL ROUTES', () => {
       }).catch(err => {
         done(err)
       })
-    })
-  })
-
-  describe('4.8. /major', () => {
-    it('Should return major autofill', done => {
+    }),
+    it('/major', done => {
       let options = {
         method: 'GET',
         url: autofillRouteUrl + '/major',
@@ -160,11 +139,8 @@ describe('4. TESTING AUTOFILL ROUTES', () => {
       }).catch(err => {
         done(err)
       })
-    })
-  })
-
-  describe('4.9. /positions', () => {
-    it('Should return positions autofill', done => {
+    }),
+    it('/positions', done => {
       let options = {
         method: 'GET',
         url: autofillRouteUrl + '/positions',
@@ -179,11 +155,8 @@ describe('4. TESTING AUTOFILL ROUTES', () => {
       }).catch(err => {
         done(err)
       })
-    })
-  })
-
-  describe('4.10. /schools', () => {
-    it('Should return schools autofill', done => {
+    }),
+    it('/schools', done => {
       let options = {
         method: 'GET',
         url: autofillRouteUrl + '/schools',
@@ -198,11 +171,8 @@ describe('4. TESTING AUTOFILL ROUTES', () => {
       }).catch(err => {
         done(err)
       })
-    })
-  })
-
-  describe('4.11. /colleges', () => {
-    it('Should return colleges autofill', done => {
+    }),
+    it('/colleges', done => {
       let options = {
         method: 'GET',
         url: autofillRouteUrl + '/colleges',
@@ -217,11 +187,8 @@ describe('4. TESTING AUTOFILL ROUTES', () => {
       }).catch(err => {
         done(err)
       })
-    })
-  })
-
-  describe('4.12. /programs', () => {
-    it('Should return programs autofill', done => {
+    }),
+    it('/programs', done => {
       let options = {
         method: 'GET',
         url: autofillRouteUrl + '/programs',
@@ -236,11 +203,8 @@ describe('4. TESTING AUTOFILL ROUTES', () => {
       }).catch(err => {
         done(err)
       })
-    })
-  })
-
-  describe('4.13. /designations', () => {
-    it('Should return designations autofill', done => {
+    }),
+    it('/designations', done => {
       let options = {
         method: 'GET',
         url: autofillRouteUrl + '/designations',
@@ -255,11 +219,8 @@ describe('4. TESTING AUTOFILL ROUTES', () => {
       }).catch(err => {
         done(err)
       })
-    })
-  })
-
-  describe('4.14. /organizations', () => {
-    it('Should return organizations autofill', done => {
+    }),
+    it('/organizations', done => {
       let options = {
         method: 'GET',
         url: autofillRouteUrl + '/organizations',
@@ -276,11 +237,8 @@ describe('4. TESTING AUTOFILL ROUTES', () => {
       })
     })
   })
-})
-
-describe('5. TESTING AUTOFILL COLLECTIONS ROUTES', () => {
-  describe('5.1. /education', () => {
-    it('Should return education autofill collection', done => {
+  describe('4.2. Should return autofill collections data', () => {
+    it('/education', done => {
       let options = {
         method: 'GET',
         url: autofillCollectionUrl + '/education',
@@ -293,11 +251,8 @@ describe('5. TESTING AUTOFILL COLLECTIONS ROUTES', () => {
       }).catch(err => {
         done(err)
       })
-    })
-  })
-
-  describe('5.2. /experience', () => {
-    it('Should return experience autofill collection', done => {
+    }),
+    it('/experience', done => {
       let options = {
         method: 'GET',
         url: autofillCollectionUrl + '/experience',

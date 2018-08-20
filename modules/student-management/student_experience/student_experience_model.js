@@ -1,11 +1,10 @@
 import { query } from '../../../config/db'
 
 export let studentExperienceModel = {
-  get_all: id => {
+  get_by_id: id => {
     let sql = `SELECT sexp.*
               FROM student_experience sexp
-              WHERE sexp.student_id = ?
-              ORDER BY sp.end_date DESC`
+              WHERE sexp.student_id = ?`
     return query(sql, id)
   },
 
