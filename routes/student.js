@@ -5,10 +5,6 @@ import {
   studentProjectController
 } from '../modules/student-management'
 export const student = require('express').Router()
-// import { studentController } from "../modules/student-management/student"
-// import { studentEducationController } from "../modules/student-management/student_education"
-// import { studentExperienceController } from "../modules/student-management/student_experience"
-// import { studentProjectController } from "../modules/student-management/student_project"
 
 export default () => {
   // STUDENT INDEX

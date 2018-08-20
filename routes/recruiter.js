@@ -11,14 +11,6 @@ import {
 } from '../modules/recruiter-management'
 export const recruiter = require('express').Router()
 const jsonparser = require('body-parser').json()
-// import { recruiterController } from "../modules/recruiter-management/recruiter";
-// import { recruiterHrController } from "../modules/recruiter-management/recruiter_hr";
-// import { recruiterHrExtraController } from "../modules/recruiter-management/recruiter_hr_extra";
-// import { recruiterDriveController } from "../modules/recruiter-management/recruiter_drive";
-// import { recruiterDriveRoundController } from "../modules/recruiter-management/recruiter_drive_round";
-// import { recruiterDriveEligibilityController } from "../modules/recruiter-management/recruiter_drive_eligibility/recruiterDriveEligibilityController";
-// import { recruiterStaffController } from "../modules/recruiter-management/recruiter_staff/recruiterStaffController";
-// import { recruiterCollegeController } from "../modules/recruiter-management/recruiter_college/recruiterCollegeController";
 
 export default () => {
   // HR

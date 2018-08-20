@@ -4,7 +4,6 @@ const rp = require('request-promise')
 
 // Chai and related imports
 const chai = require('chai')
-const should = chai.should()
 const expect = chai.expect
 
 require('dotenv').config()

@@ -3,7 +3,6 @@ const rp = require('request-promise')
 
 // Chai and related imports
 const chai = require('chai')
-const should = chai.should()
 const expect = chai.expect
 
 require('dotenv').config()
@@ -16,7 +15,7 @@ describe('2. TESTING MIDDLEWARES', () => {
     it('Should return status 500, without the x-api-key header', done => {
       let options = {
         method: 'GET',
-        url: serverBaseUrl + '/student'
+        url: serverBaseUrl + '/student/3'
       }
       rp(options).then(body => {
         expect(500)

@@ -9,13 +9,6 @@ import {
 } from '../modules/college-management'
 export const college = require('express').Router()
 const jsonparser = require('body-parser').json()
-// import { collegeController } from "../modules/college-management/college"
-// import { college_coordinatorController } from "../modules/college-management/college_coordinator"
-// import { college_drivesController } from "../modules/college-management/college_drives"
-// import { college_roleController } from "../modules/college-management/college_role"
-// import { college_staffController } from "../modules/college-management/college_staff"
-// import { college_studentController } from "../modules/college-management/college_student"
-// import { college_recruiterController } from "../modules/college-management/college_recruiter/college_recruiterController";
 
 export default () => {
   // COLLEGE INDEX
