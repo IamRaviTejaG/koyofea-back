@@ -1,4 +1,4 @@
-import { validate } from '../config/validator'
+import { renderReqBody, validate } from '../config/validator'
 import {
   recruiterController,
   recruiterCollegeController,
@@ -20,6 +20,7 @@ export default () => {
     .route('/hr', jsonparser)
     .get(recruiterHrController.get_all)
     .post(
+      renderReqBody.recruiter_hr_add,
       validate.recruiter_hr_add,
       validate.error_handling,
       recruiterHrController.add

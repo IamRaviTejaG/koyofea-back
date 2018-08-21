@@ -1,5 +1,15 @@
 import { check, validationResult } from 'express-validator/check'
 
+export const renderReqBody = {
+  recruiter_hr_add: (req, res, next) => {
+    req.body.first_name = req.token_data.user.first_name
+    req.body.last_name = req.token_data.user.last_name
+    req.body.email = req.token_data.user.email
+    req.body.verified_status = 0
+    next()
+  }
+}
+
 export const validate = {
   error_handling: (req, res, next) => {
     const errors = validationResult(req)
