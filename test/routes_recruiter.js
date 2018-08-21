@@ -63,8 +63,122 @@ describe('7. TESTING RECRUITER ROUTES', () => {
     })
   })
 
-  describe('7.2. /:rid/<drives, staff, colleges>/<driveid>', () => {
-    it ('/<rid>/<drives')
+  describe('7.2. /:rid/<drives, staff, colleges>', () => {
+    it ('Checks all the recruiter ID routes', done  => {
+      let options = {
+        method: 'GET',
+        url: recruiterBaseUrl,
+        json: true
+      }
+      rp(options).then(body => {
+        expect(typeof body).to.be.oneOf(['array', 'object'])
+        expect(200)
+        let options = {
+          method: 'GET',
+          url: recruiterBaseUrl + '/' + body[0].id + 'drives',
+          json: true
+        }
+        return rp(options)
+      }).then(body => {
+        expect(typeof body).to.be.oneOf(['array', 'object'])
+        expect(200)
+        let options = {
+          method: 'GET',
+          url: recruiterBaseUrl + '/' + body[0].id + 'staff',
+          json: true
+        }
+        return rp(options)
+      }).then(body => {
+        expect(typeof body).to.be.oneOf(['array', 'object'])
+        expect(200)
+        let options = {
+          method: 'GET',
+          url: recruiterBaseUrl + '/' + body[0].id + 'college',
+          json: true
+        }
+        return rp(options)
+      }).then(body => {
+        expect(typeof body).to.be.oneOf(['array', 'object'])
+        expect(200)
+        done()
+      }).catch(err => {
+        done(err)
+      })
+    })
+  })
 
+  describe('7.3. /:rid/drives/requested', () => {
+    it ('Checks the requested drive route', done  => {
+      let options = {
+        method: 'GET',
+        url: recruiterBaseUrl,
+        json: true
+      }
+      rp(options).then(body => {
+        expect(typeof body).to.be.oneOf(['array', 'object'])
+        expect(200)
+        let options = {
+          method: 'GET',
+          url: recruiterBaseUrl + '/' + body[0].id + 'requested',
+          json: true
+        }
+        return rp(options)
+      }).then(body => {
+        expect(typeof body).to.be.oneOf(['array', 'object'])
+        expect(200)
+        done()
+      }).catch(err => {
+        done(err)
+      })
+    })
+  })
+
+  describe('7.4. /drives/:driveid/<rounds, eligibility>', () => {
+    it ('Checks a drive\'s rounds route', done  => {
+      let options = {
+        method: 'GET',
+        url: recruiterBaseUrl + '/drives',
+        json: true
+      }
+      rp(options).then(body => {
+        expect(typeof body).to.be.oneOf(['array', 'object'])
+        expect(200)
+        let options = {
+          method: 'GET',
+          url: recruiterBaseUrl + '/drives' + body[0].id + '/rounds',
+          json: true
+        }
+        return rp(options)
+      }).then(body => {
+        expect(typeof body).to.be.oneOf(['array', 'object'])
+        expect(200)
+        done()
+      }).catch(err => {
+        done(err)
+      })
+    }),
+    it ('Checks a drive\'s eligibility route', done  => {
+      let options = {
+        method: 'GET',
+        url: recruiterBaseUrl + '/drives',
+        json: true
+      }
+      rp(options).then(body => {
+        expect(typeof body).to.be.oneOf(['array', 'object'])
+        expect(200)
+        let options = {
+          method: 'GET',
+          url: recruiterBaseUrl + '/drives' + body[0].id + '/eligibility',
+          json: true
+        }
+        return rp(options)
+      }).then(body => {
+        expect(typeof body).to.be.oneOf(['array', 'object'])
+        expect(200)
+        done()
+      }).catch(err => {
+        done(err)
+      })
+    })
   })
 })
