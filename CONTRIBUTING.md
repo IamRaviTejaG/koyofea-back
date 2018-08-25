@@ -1,13 +1,35 @@
 # Contributing to Koyofea
 
-### Git Practices
-Please make sure that the commit messages are clear and concise before pushing into the repository. The commit messages might preferably be of the format: `<filename.ext>: Updated/Fixed/Changed the following`
+Please follow the guidelines below to make sure that your contribution makes its way into our master branch.
 
-### How to contribute to Koyofea
-- Fork the repository.
-- Clone your fork of your repository.
-- Make changes to the local repository and commit the changes with a commit message as described above.
-  - Make sure that you pull/rebase the latest code.
-  - If you ever make more than one commits, make sure you squash your commits into one with an appropriate commit message.
-- Push the changes to your own fork and open a Pull Request.
-- Wait for contributors to review and merge your PR.
+### Code Contributions
+- **Always** stick to the **StandardJS** style guide while contributing to Koyofea.
+- **Always** follow the `50/72` rule for Git commit messages. Refer [this](http://api.coala.io/en/latest/Developers/Writing_Good_Commits.html) guide for further reading on this.
+- **Always** create a new branch using `git checkout -b <branch-name>` while working on an issue. Ensure that you keep your master branch clean.
+- **Always** run `npm test` and make sure all the tests pass before opening a pull request.
+
+### Pull Requests
+- **Always** target your pull request to the `master` branch.
+- **Always** keep the relevant discussion on the pull request page and not on the issue. In short, never abandon your pull request.
+- **Never** leave your pull request description empty.
+- **Do** [reference associated issues](https://github.com/blog/1506-closing-issues-via-pull-requests) in your pull request description. This helps in keeping track of things easily.
+
+### Issues
+When filing an issue, please use this template:
+
+```
+# Steps to Reproduce
+1.
+2.
+3.
+
+# Actual Results
+
+# Expected Results
+
+# OS/Additional Information:
+
+# Logs/Screenshots (if required):
+```
+
+If you face any issues or need further help, feel free to connect with the development team via [Slack](https://koyofea.slack.com/). Create an issue with your email address to get an invitation.
