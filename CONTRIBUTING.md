@@ -3,7 +3,7 @@
 Please follow the guidelines below to make sure that your contribution makes its way into our master branch.
 
 ### Code Contributions
-- **Always** stick to the **StandardJS** style guide while contributing to Koyofea.
+- **Always** stick to the [StandardJS](https://standardjs.com/rules.html) style guide.
 - **Always** follow the `50/72` rule for Git commit messages. Refer [this](http://api.coala.io/en/latest/Developers/Writing_Good_Commits.html) guide for further reading on this.
 - **Always** create a new branch using `git checkout -b <branch-name>` while working on an issue. Ensure that you keep your master branch clean.
 - **Always** run `npm test` and make sure all the tests pass before opening a pull request.
