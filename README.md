@@ -1,56 +1,46 @@
 # Koyofea Backend
 
-Koyofea is a recruitment and hiring platform, implemented in NodeJS & SQL.
+###### *Koyofea is a recruitment and hiring platform.*
 
 ### Tech Stack
-#### Backend
-- NodeJS
-- MySQL
+Our tech stack includes:
+1. ***Express***, the NodeJS web application framework for the server.
+2. ***MySQL***, as the database.
+3. ***Mocha***, as the testing framework.
+4. ***Chai***, as the assertion library.
+5. ***StandardJS***, as the linting library & style guide.
 
-#### Frontend
-- ReactJS
-
-### Node Dependencies
-#### User Dependencies
-Please use `npm install` to install all the relevant dependencies.
-
-- Babel
-- bcrypt
-- bluebird
-- body-parser
-- cors
-- dotenv
-- express
-- express-validator
-- jwt-simple
-- moment
-- mysql
-- passport
-- passport-jwt
-- promise-mysql
-- request-promise
-- sqlstring
-- uuid
-
-#### Dev Dependencies
-Use `npm install --only=dev` to install the dev dependencies.
-
-- babel-cli
-- chai
-- colors
-- gulp
-- mocha
-- morgan
-- request
-- rimraf
-- standard
-- supertest
-
-###### **NOTE**: Ensure that both the steps above are completed for the server to run perfectly.
 
 ### Getting Started
-Follow the steps below to get started with Koyofea:
-- Ensure that the `NODE_ENV` variable is set to `development`.
-- Make sure that you set the `DB_PORT`, `DB_USER` & `DB_PASS` correctly in the `.env` file in the root.
-- Run `npm start` to start the server.
-- Run `npm test` to run tests after you make any changes to the code. This step verifies that the code doesn't break as a result of your changes.
+1. Clone this repository.
+
+  `git clone https://github.com/ankit16-19/koyofea-backend.git`
+
+2. Install the dependencies (including dev dependencies).
+
+  `npm install`
+
+  - Make sure you install the developer dependencies if you intend to tinker with the code.
+
+  `npm install --only=dev`
+
+3. *Optionally*, set the `NODE_ENV` environment variable equal to `development`.
+
+  *Windows:* `set NODE_ENV=development`
+
+  *Linux:* `export NODE_ENV=development`
+
+4. Start the server.
+
+  `npm start`
+
+If you successfully complete all the steps above, you'll see the following message in the console.
+
+```
+Express server listening on port 1619.
+Environment: development
+```
+
+### Further Reading
+- [API.md](docs/API.md): API instructions. Includes detailed info on routes and their use.
+- [CONTRIBUTING.md](CONTRIBUTING.md): Instructions on how to contribute to Koyofea.
