@@ -41,6 +41,10 @@ Express server listening on port 1619.
 Environment: development
 ```
 
+### To Do
+- [ ] Docker-ize Koyofea (add dockerfile, etc).
+- [ ] Add boilerplate code documentation.
+
 ### Further Reading
 - [API.md](docs/API.md): API instructions. Includes detailed info on routes and their use.
 - [CONTRIBUTING.md](CONTRIBUTING.md): Instructions on how to contribute to Koyofea.
