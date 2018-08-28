@@ -2,14 +2,10 @@
 
 ###### *Koyofea is a recruitment and hiring platform.*
 
-### Tech Stack
-Our tech stack includes:
-1. ***Express***, the NodeJS web application framework for the server.
-2. ***MySQL***, as the database.
-3. ***Mocha***, as the testing framework.
-4. ***Chai***, as the assertion library.
-5. ***StandardJS***, as the linting library & style guide.
-
+### To Do
+- [ ] Docker-ize Koyofea (add dockerfile, etc).
+- [ ] Add boilerplate code.
+- [ ] Add boilerplate code documentation.
 
 ### Getting Started
 1. Clone this repository.
@@ -41,9 +37,7 @@ Express server listening on port 1619.
 Environment: development
 ```
 
-### To Do
-- [ ] Docker-ize Koyofea (add dockerfile, etc).
-- [ ] Add boilerplate code documentation.
+
 
 ### Further Reading
 - [API.md](docs/API.md): API instructions. Includes detailed info on routes and their use.
