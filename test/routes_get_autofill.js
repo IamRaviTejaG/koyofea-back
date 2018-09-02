@@ -10,7 +10,7 @@ const serverBaseUrl = 'http://localhost:' + process.env.TEST_PORT + '/api'
 const autofillRouteUrl = serverBaseUrl + '/autofill'
 const autofillCollectionUrl = serverBaseUrl + '/autofill-collections'
 
-describe('4. TESTING AUTOFILL ROUTES', () => {
+describe('4. GET: AUTOFILL ROUTES', () => {
   describe('4.1. Should return different autofill data', () => {
     it('/duration', done => {
       let options = {

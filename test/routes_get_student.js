@@ -1,7 +1,5 @@
 import { auth } from '../config/auth'
 const rp = require('request-promise')
-require('colors')
-
 
 // Chai and related imports
 const chai = require('chai')
@@ -13,7 +11,7 @@ require('dotenv').config()
 const serverBaseUrl = 'http://localhost:' + process.env.TEST_PORT + '/api'
 const studentBaseUrl = serverBaseUrl + '/student'
 
-describe('8. TESTING STUDENT ROUTES', () => {
+describe('8. GET: STUDENT ROUTES', () => {
   describe('8.1. /:studentid/<education, experience, projects>', () => {
     it('Returns a student\'s education', done => {
       let options = {

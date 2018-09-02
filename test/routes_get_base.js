@@ -10,7 +10,7 @@ require('dotenv').config()
 // Testing constants, do not alter.
 const serverBaseUrl = 'http://localhost:' + process.env.TEST_PORT + '/api'
 
-describe('5. TESTING BASE ROUTES', () => {
+describe('5. GET: BASE ROUTES', () => {
   describe('5.1. /login', () => {
     it('Should return JSON containing the authentication token', done => {
       let options = {

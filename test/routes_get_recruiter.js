@@ -1,7 +1,5 @@
 import { auth } from '../config/auth'
 const rp = require('request-promise')
-require('colors')
-
 
 // Chai and related imports
 const chai = require('chai')
@@ -13,7 +11,7 @@ require('dotenv').config()
 const serverBaseUrl = 'http://localhost:' + process.env.TEST_PORT + '/api'
 const recruiterBaseUrl = serverBaseUrl + '/recruiter'
 
-describe('7. TESTING RECRUITER ROUTES', () => {
+describe('7. GET: RECRUITER ROUTES', () => {
   describe('7.1. /hr, /hr/<hrid>, /hr/<hrid>/extra', () => {
     it('Returns list of HRs, a HR\'s info', done => {
       let options = {
