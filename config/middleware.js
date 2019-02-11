@@ -21,13 +21,7 @@ export default (app) => {
   app.use(auth.initialize())
   app.use(bodyparser.json()) // for parsing application/json()
   app.use(bodyparser.urlencoded({extended: true}))
-  /*
-  app.use("/api", base)
-  app.use("/api/autofill", autofill)
-  app.use("/api/college", college)
-  app.use("/api/recruiter", recruiter)
-  app.use("/api/student", student)
-  */
+
   // Middleware for token
   app.all('/api/*', (req, res, next) => {
     if (
@@ -184,14 +178,4 @@ export default (app) => {
   app.use('/api/college', college)
   app.use('/api/recruiter', recruiter)
   app.use('/api/student', student)
-
-  // app.use(expressValidator());
-
-  // app.use(auth.initialize());
-
-  // app.use("/", base);
-  // app.use("/autofill", autofill);
-  // app.use("/college", college);
-  // app.use("/recruiter", recruiter);
-  // app.use("/student", student);
 }

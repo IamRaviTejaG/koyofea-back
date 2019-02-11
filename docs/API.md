@@ -65,7 +65,7 @@ All the routes are classified into the following categories.
 |URL|Request Type|Action|URL Parameters|Data Parameters|Status|
 |:---:|:---:|:---:|:---:|:---:|:---:|
 |`/`|`GET`|Gets the list of all colleges.|-|-|-|
-|`/new`|`POST`|Adds a new college information into the database.|-|`name`, `website_url`, `placement_url`, `verified`, `created_date`, `live`, `address_1`, `address_2`, `landmark`, `city`, `state`, `country`, `pin`, `college_type_id`, `phone`, `description`|**DEPRECATED**|
+|`/new`|`POST`|Adds a new college information into the database.|-|`name`, `website_url`, `placement_url`, `verified`, `created_date`, `live`, `address_1`, `address_2`, `landmark`, `city`, `state`, `country`, `pin`, `college_type_id`, `phone`, `description`|-|
 |`/old`|`POST`|- WAIT -|-|- WAIT -|**DEPRECATED**|
 |`/json`|`GET`|Gets the auto-fill data.|-|-|**DEPRECATED**|
 |`/role`|`GET`|Gets all the available college roles.|-|-|-|

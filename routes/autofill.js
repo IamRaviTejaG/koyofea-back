@@ -23,6 +23,9 @@ export default () => {
   autofill.route('/job')
     .get(autofillController.getJobType)
 
+  autofill.route('/job-locations')
+    .get(autofillController.getJobLocations)
+
   autofill.route('/major')
     .get(autofillController.getMajor)
 

@@ -12,26 +12,25 @@ const serverBaseUrl = 'http://localhost:' + process.env.TEST_PORT + '/api'
 const recruiterBaseUrl = serverBaseUrl + '/recruiter'
 
 describe('10. POST: RECRUITER ROUTES', () => {
-  describe('10.1. /hr, /hr/<hrid>, /hr/<hrid>/extra', () => {
-    it('Returns list of HRs, a HR\'s info', done => {
-      // let options = {
-      //   method: 'GET',
-      //   url: recruiterBaseUrl + '/hr',
-      //   json: true
-      // }
-      // rp(options).then(body => {
-      //   expect(typeof body).to.be.oneOf(['array', 'object'])
-      //   expect(200)
-      //   let options = {
-      //     method: 'GET',
-      //     url: recruiterBaseUrl + '/hr/' + body[0].id,
-      //     json: true
-      //   }
-      //   return rp(options)
-      // }).then(body => {
-      //   expect(body).to.be.an('object')
-      //   expect(200)
-      done()
+  describe('10.1. /hr/<hrid>/extra', () => {
+    it('Adds an HR\'s extra info to the DB', done => {
+      let options = {
+        method: 'POST',
+        url: recruiterBaseUrl + '/hr/51/extra',
+        body: {
+          recruiter_industry_id: 1,
+          recruiter_id: 51
+        },
+        json: true
+      }
+      rp(options).then(body => {
+        console.log(body)
+        // expect(body).to.be.an('object')
+        // expect(JSON.strigify(body)).to.equal(JSON.stringify(options.body))
+        done()
+      }).catch(err => {
+        done(err)
+      })
       // }).catch(err => {
       //   done(err)
       // })

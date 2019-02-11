@@ -8,7 +8,7 @@ export let autofillController = {
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'server error!',
+        message: 'Server Error!',
         error: err
       })
     })
@@ -20,7 +20,7 @@ export let autofillController = {
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'server error!',
+        message: 'Server Error!',
         error: err
       })
     })
@@ -32,7 +32,7 @@ export let autofillController = {
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'server error!',
+        message: 'Server Error!',
         error: err
       })
     })
@@ -44,7 +44,7 @@ export let autofillController = {
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'server error!',
+        message: 'Server Error!',
         error: err
       })
     })
@@ -56,7 +56,7 @@ export let autofillController = {
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'server error!',
+        message: 'Server Error!',
         error: err
       })
     })
@@ -68,7 +68,7 @@ export let autofillController = {
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'server error!',
+        message: 'Server Error!',
         error: err
       })
     })
@@ -80,7 +80,7 @@ export let autofillController = {
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'server error!',
+        message: 'Server Error!',
         error: err
       })
     })
@@ -92,7 +92,7 @@ export let autofillController = {
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'server error!',
+        message: 'Server Error!',
         error: err
       })
     })
@@ -104,7 +104,7 @@ export let autofillController = {
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'server error!',
+        message: 'Server Error!',
         error: err
       })
     })
@@ -116,7 +116,7 @@ export let autofillController = {
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'server error!',
+        message: 'Server Error!',
         error: err
       })
     })
@@ -128,7 +128,7 @@ export let autofillController = {
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'server error!',
+        message: 'Server Error!',
         error: err
       })
     })
@@ -140,7 +140,7 @@ export let autofillController = {
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'server error!',
+        message: 'Server Error!',
         error: err
       })
     })
@@ -152,7 +152,7 @@ export let autofillController = {
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'server error!',
+        message: 'Server Error!',
         error: err
       })
     })
@@ -164,7 +164,19 @@ export let autofillController = {
       res.status(200).json({data: result})
     }).catch(err => {
       res.status(500).json({
-        message: 'server error!',
+        message: 'Server Error!',
+        error: err
+      })
+    })
+  },
+
+  getJobLocations: (req, res) => {
+    autofillModel.getJobLocations().then(result => {
+      result = fun.singleObjectToArray(result)
+      res.status(200).json({data: result})
+    }).catch(err => {
+      res.status(500).json({
+        message: 'Server Error!',
         error: err
       })
     })

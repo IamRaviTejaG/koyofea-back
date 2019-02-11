@@ -56,7 +56,7 @@ export let collegeController = {
             ON cc.email=u.email
             WHERE cc.email=?`
 
-    // Check if email is verified and request is for a colleg before entering data
+    // Check if email is verified and request is for a college before entering data
     let q = query(sql, req.token_data.user.email)
     let addCollege = q.then(users => {
       console.log(users)

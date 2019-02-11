@@ -124,6 +124,22 @@ describe('4. GET: AUTOFILL ROUTES', () => {
         done(err)
       })
     }),
+    it('/job-locations', done => {
+      let options = {
+        method: 'GET',
+        url: autofillRouteUrl + '/job-locations',
+        json: true
+      }
+      rp(options).then(body => {
+        expect(body).to.be.an('object')
+        expect(body.data).to.be.an('array')
+        expect(body.data).to.have.lengthOf.above(0)
+        expect(200)
+        done()
+      }).catch(err => {
+        done(err)
+      })
+    }),
     it('/major', done => {
       let options = {
         method: 'GET',

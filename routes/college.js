@@ -17,10 +17,11 @@ export default () => {
   college.route('/', jsonparser)
     .get(collegeController.get_all)
 
+  college.route('/new', jsonparser)
+    .post(collegeController.add_new)
+
   /* UPDATE DATE: 04 August 2018
   NOTE: DEPRECATED ROUTES
-  // college.route('/new', jsonparser)
-  //   .post(collegeController.add_new)
   //
   // college.route('/old', jsonparser)
   //   .post(collegeController.add_old)

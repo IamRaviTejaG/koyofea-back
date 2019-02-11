@@ -19,7 +19,7 @@ switch (process.env.NODE_ENV) {
     dbname = 'koyofea_development'
     break
   default:
-    dbname = 'koyofeav_development'
+    dbname = 'koyofea_development'
 }
 
 const dbAddress = process.env.DB_HOST || '127.0.0.1'

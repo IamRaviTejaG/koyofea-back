@@ -70,5 +70,10 @@ export let autofillModel = {
     let sql = `select distinct sexp.organization_name
               from student_experience sexp`
     return query(sql)
+  },
+
+  getJobLocations: () => {
+    let sql = `select distinct location_name from job_locations`
+    return query(sql)
   }
 }

@@ -36,7 +36,8 @@ describe('1. TESTING CONNECTIONS', () => {
         port: process.env.DB_PORT,
         user: process.env.DB_USER,
         password: process.env.DB_PASS,
-        database: 'koyofea_test'
+        database: 'koyofea_test',
+        insecureAuth: true
       }).then(con => {
         con.end()
         done()
